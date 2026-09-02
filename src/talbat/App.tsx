@@ -468,8 +468,22 @@ export default function App() {
     return <AuthPortal />;
   }
 
+  if (dataLoading) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col items-center justify-center gap-4">
+        <div className="w-8 h-8 rounded-full border-2 border-line border-t-brass animate-spin" />
+        <p className="text-sm text-copy-muted">جارٍ تحميل دفترك من قاعدة البيانات…</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grain-overlay min-h-screen bg-paper text-charcoal flex flex-col antialiased">
+      {syncError && (
+        <div className="bg-late-soft text-late text-center text-xs font-semibold py-2 px-4">
+          {syncError}
+        </div>
+      )}
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
