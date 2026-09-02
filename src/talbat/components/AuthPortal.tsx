@@ -97,10 +97,10 @@ export const AuthPortal: React.FC = () => {
   };
 
   const field =
-    'w-full bg-white border border-[#DED8CC] rounded-xl py-3 pr-11 pl-4 text-[15px] text-[#24262B] placeholder:text-[#A9A498] outline-none focus:border-[#B08948] focus:ring-2 focus:ring-[#B08948]/15 transition';
+    'w-full bg-white border border-line rounded-xl py-3 pr-11 pl-4 text-[15px] text-charcoal placeholder:text-[#A9A498] outline-none focus:border-brass focus:ring-2 focus:ring-brass/15 transition';
 
   return (
-    <div className="min-h-screen bg-[#F6F4EF] text-[#24262B] flex flex-col lg:flex-row-reverse">
+    <div className="min-h-screen bg-paper text-charcoal flex flex-col lg:flex-row-reverse">
       {/* Image canvas */}
       <div className="relative lg:w-[46%] h-56 sm:h-72 lg:h-auto overflow-hidden">
         <img
@@ -110,9 +110,9 @@ export const AuthPortal: React.FC = () => {
           height={1600}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#24262B]/85 via-[#24262B]/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/25 to-transparent" />
         <div className="absolute bottom-0 right-0 p-8 lg:p-12 max-w-lg">
-          <span className="inline-block text-[11px] tracking-[0.22em] text-[#D3AE72] mb-4">
+          <span className="inline-block text-[11px] tracking-[0.22em] text-brass-light mb-4">
             دفتر ملابس
           </span>
           <h2 className="text-white text-2xl lg:text-[38px] leading-[1.25] font-semibold">
@@ -125,7 +125,7 @@ export const AuthPortal: React.FC = () => {
       <div className="flex-1 flex items-center justify-center px-6 py-12 lg:py-16">
         <div className="w-full max-w-md">
           <div className="mb-9">
-            <div className="w-11 h-11 rounded-xl bg-[#B08948] flex items-center justify-center mb-6">
+            <div className="w-11 h-11 rounded-xl bg-brass flex items-center justify-center mb-6">
               <Store className="w-5 h-5 text-white" />
             </div>
             <h1 className="text-[30px] leading-tight font-semibold tracking-tight">
@@ -133,7 +133,7 @@ export const AuthPortal: React.FC = () => {
               {mode === 'register' && 'ابدأ دفترك'}
               {mode === 'forgot' && 'استعادة كلمة السر'}
             </h1>
-            <p className="text-[#6C6A63] text-[15px] mt-2">
+            <p className="text-copy-muted text-[15px] mt-2">
               {mode === 'login' && 'سجّل الدخول لمتابعة طلبيات متجرك.'}
               {mode === 'register' && 'أنشئ حسابك في أقل من دقيقة.'}
               {mode === 'forgot' && 'هنبعتلك رابط لتعيين كلمة سر جديدة.'}
@@ -141,13 +141,13 @@ export const AuthPortal: React.FC = () => {
           </div>
 
           {error && (
-            <div className="mb-5 flex items-start gap-2 rounded-xl bg-[#F6E3E0] border border-[#E7C4BE] px-4 py-3 text-[#B4463A] text-sm">
+            <div className="mb-5 flex items-start gap-2 rounded-xl bg-late-soft border border-late-soft px-4 py-3 text-late text-sm">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
               <span>{error}</span>
             </div>
           )}
           {notice && (
-            <div className="mb-5 flex items-start gap-2 rounded-xl bg-[#E7F0EA] border border-[#C4DDCE] px-4 py-3 text-[#3F7A5D] text-sm">
+            <div className="mb-5 flex items-start gap-2 rounded-xl bg-done-soft border border-done-soft px-4 py-3 text-done text-sm">
               <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" />
               <span>{notice}</span>
             </div>
@@ -176,8 +176,8 @@ export const AuthPortal: React.FC = () => {
                       onClick={() => setRole(r.value)}
                       className={`rounded-xl border px-2 py-2.5 text-[13px] transition ${
                         role === r.value
-                          ? 'border-[#B08948] bg-[#B08948]/10 text-[#8A6A33] font-medium'
-                          : 'border-[#DED8CC] bg-white text-[#6C6A63] hover:border-[#C9C1B1]'
+                          ? 'border-brass bg-brass/10 text-pending font-medium'
+                          : 'border-line bg-white text-copy-muted hover:border-line'
                       }`}
                     >
                       {r.label}
@@ -215,7 +215,7 @@ export const AuthPortal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute top-1/2 -translate-y-1/2 left-4 text-[#A9A498] hover:text-[#6C6A63]"
+                  className="absolute top-1/2 -translate-y-1/2 left-4 text-[#A9A498] hover:text-copy-muted"
                   aria-label="إظهار كلمة السر"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -226,7 +226,7 @@ export const AuthPortal: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-[#24262B] text-white py-3.5 text-[15px] font-medium hover:bg-[#1B2E4A] transition disabled:opacity-60"
+              className="w-full rounded-xl bg-charcoal text-white py-3.5 text-[15px] font-medium hover:bg-ink transition disabled:opacity-60"
             >
               {loading
                 ? 'جارٍ التنفيذ…'
@@ -241,14 +241,14 @@ export const AuthPortal: React.FC = () => {
           {mode !== 'forgot' && (
             <>
               <div className="flex items-center gap-3 my-6">
-                <span className="h-px flex-1 bg-[#DED8CC]" />
+                <span className="h-px flex-1 bg-line" />
                 <span className="text-xs text-[#A9A498]">أو</span>
-                <span className="h-px flex-1 bg-[#DED8CC]" />
+                <span className="h-px flex-1 bg-line" />
               </div>
               <button
                 type="button"
                 onClick={googleSignIn}
-                className="w-full rounded-xl border border-[#DED8CC] bg-white py-3.5 text-[15px] font-medium hover:border-[#C9C1B1] transition flex items-center justify-center gap-2.5"
+                className="w-full rounded-xl border border-line bg-white py-3.5 text-[15px] font-medium hover:border-line transition flex items-center justify-center gap-2.5"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" aria-hidden="true">
                   <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.9z" />
@@ -261,23 +261,23 @@ export const AuthPortal: React.FC = () => {
             </>
           )}
 
-          <div className="mt-8 text-sm text-[#6C6A63] space-y-2">
+          <div className="mt-8 text-sm text-copy-muted space-y-2">
             {mode === 'login' && (
               <>
                 <p>
                   ليس لديك حساب؟{' '}
-                  <button className="text-[#B08948] font-medium hover:underline" onClick={() => { setMode('register'); setError(null); }}>
+                  <button className="text-brass font-medium hover:underline" onClick={() => { setMode('register'); setError(null); }}>
                     أنشئ حسابك
                   </button>
                 </p>
-                <button className="text-[#6C6A63] hover:text-[#24262B] hover:underline" onClick={() => { setMode('forgot'); setError(null); }}>
+                <button className="text-copy-muted hover:text-charcoal hover:underline" onClick={() => { setMode('forgot'); setError(null); }}>
                   نسيت كلمة السر؟
                 </button>
               </>
             )}
             {mode !== 'login' && (
               <button
-                className="inline-flex items-center gap-1.5 text-[#B08948] font-medium hover:underline"
+                className="inline-flex items-center gap-1.5 text-brass font-medium hover:underline"
                 onClick={() => { setMode('login'); setError(null); setNotice(null); }}
               >
                 <ArrowLeft className="w-4 h-4" />

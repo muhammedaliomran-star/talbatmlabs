@@ -104,12 +104,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Top Header */}
-      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-[#DED8CC] shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-[#1B2E4A]">
+          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-ink">
             سجل طلبات العملاء ({filteredOrders.length})
           </h1>
-          <p className="text-xs sm:text-sm text-[#6C6A63] mt-0.5">
+          <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
             متابعة الأصناف، الأسعار، ومواعيد السفر لكل مورد
           </p>
         </div>
@@ -117,47 +117,47 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => exportOrdersToCSV(filteredOrders)}
-            className="flex items-center gap-1.5 bg-[#F6F4EF] hover:bg-[#EFEBE2] text-[#1B2E4A] border border-[#DED8CC] px-3.5 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-2xs transition-all"
+            className="flex items-center gap-1.5 bg-paper hover:bg-paper-alt text-ink border border-line px-3.5 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-2xs transition-all"
             title="تصدير هذه الطلبيات إلى ملف Excel / CSV"
           >
-            <FileSpreadsheet className="w-4 h-4 text-[#3F7A5D]" />
+            <FileSpreadsheet className="w-4 h-4 text-done" />
             <span>تصدير Excel</span>
           </button>
 
           <button
             onClick={onOpenNewOrder}
-            className="flex items-center gap-1.5 bg-[#1B2E4A] hover:bg-[#2C4568] text-white px-4 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
+            className="flex items-center gap-1.5 bg-ink hover:bg-ink-light text-white px-4 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
           >
-            <Plus className="w-4 h-4 text-[#D3AE72]" />
+            <Plus className="w-4 h-4 text-brass-light" />
             <span>إضافة طلب جديد</span>
           </button>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-[14px] p-4 border border-[#DED8CC] shadow-xs space-y-3">
+      <div className="bg-white rounded-[14px] p-4 border border-line shadow-xs space-y-3">
         {/* Search input & View toggles */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-[#6C6A63]" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="ابحث بالاسم، هاتف العميل، المورد، أو تفاصيل الصنف..."
-              className="w-full pr-9 pl-4 py-2 text-xs sm:text-sm rounded-[9px] border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948]"
+              className="w-full pr-9 pl-4 py-2 text-xs sm:text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
             />
           </div>
 
           <div className="flex items-center gap-2 self-end sm:self-auto">
             {/* View Mode Toggle */}
-            <div className="flex items-center bg-[#F6F4EF] p-1 rounded-lg border border-[#DED8CC]">
+            <div className="flex items-center bg-paper p-1 rounded-lg border border-line">
               <button
                 onClick={() => setViewMode('table')}
                 className={`p-1.5 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
                   viewMode === 'table'
-                    ? 'bg-white text-[#1B2E4A] shadow-xs'
-                    : 'text-[#6C6A63] hover:text-[#1B2E4A]'
+                    ? 'bg-white text-ink shadow-xs'
+                    : 'text-copy-muted hover:text-ink'
                 }`}
                 title="عرض جدول"
               >
@@ -168,8 +168,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                 onClick={() => setViewMode('cards')}
                 className={`p-1.5 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
                   viewMode === 'cards'
-                    ? 'bg-white text-[#1B2E4A] shadow-xs'
-                    : 'text-[#6C6A63] hover:text-[#1B2E4A]'
+                    ? 'bg-white text-ink shadow-xs'
+                    : 'text-copy-muted hover:text-ink'
                 }`}
                 title="عرض بطاقات"
               >
@@ -181,15 +181,15 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         </div>
 
         {/* Status Filters & Dropdowns */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#EFEBE2]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-paper-alt">
           {/* Status Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs w-full sm:w-auto">
             <button
               onClick={() => setStatusFilter('all')}
               className={`px-3 py-1.5 rounded-lg font-bold shrink-0 transition-colors ${
                 statusFilter === 'all'
-                  ? 'bg-[#1B2E4A] text-white shadow-xs'
-                  : 'bg-[#F6F4EF] text-[#6C6A63] hover:bg-[#EFEBE2]'
+                  ? 'bg-ink text-white shadow-xs'
+                  : 'bg-paper text-copy-muted hover:bg-paper-alt'
               }`}
             >
               الكل ({orders.length})
@@ -198,8 +198,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               onClick={() => setStatusFilter('pending')}
               className={`px-3 py-1.5 rounded-lg font-bold shrink-0 transition-colors ${
                 statusFilter === 'pending'
-                  ? 'bg-[#B8792A] text-white shadow-xs'
-                  : 'bg-[#F6ECDC] text-[#B8792A] hover:bg-[#EED7BA]'
+                  ? 'bg-pending text-white shadow-xs'
+                  : 'bg-pending-soft text-pending hover:bg-pending-soft'
               }`}
             >
               معلّق ({pendingCount})
@@ -208,8 +208,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               onClick={() => setStatusFilter('late')}
               className={`px-3 py-1.5 rounded-lg font-bold shrink-0 transition-colors ${
                 statusFilter === 'late'
-                  ? 'bg-[#B4463A] text-white shadow-xs'
-                  : 'bg-[#F6E3E0] text-[#B4463A] hover:bg-[#F0CDC8]'
+                  ? 'bg-late text-white shadow-xs'
+                  : 'bg-late-soft text-late hover:bg-late-soft'
               }`}
             >
               متأخر ({lateCount})
@@ -218,8 +218,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               onClick={() => setStatusFilter('done')}
               className={`px-3 py-1.5 rounded-lg font-bold shrink-0 transition-colors ${
                 statusFilter === 'done'
-                  ? 'bg-[#3F7A5D] text-white shadow-xs'
-                  : 'bg-[#E7F0EA] text-[#3F7A5D] hover:bg-[#CDE3D5]'
+                  ? 'bg-done text-white shadow-xs'
+                  : 'bg-done-soft text-done hover:bg-done-soft'
               }`}
             >
               تم التنفيذ ({doneCount})
@@ -231,7 +231,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <select
               value={supplierFilter}
               onChange={(e) => setSupplierFilter(e.target.value)}
-              className="bg-[#F6F4EF] border border-[#DED8CC] rounded-lg px-2.5 py-2 font-medium text-[#1B2E4A] w-full"
+              className="bg-paper border border-line rounded-lg px-2.5 py-2 font-medium text-ink w-full"
             >
               <option value="all">كل الموردين</option>
               {suppliers.map((s) => (
@@ -244,7 +244,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-[#F6F4EF] border border-[#DED8CC] rounded-lg px-2.5 py-2 font-medium text-[#1B2E4A] w-full"
+              className="bg-paper border border-line rounded-lg px-2.5 py-2 font-medium text-ink w-full"
             >
               <option value="travelDate">ترتيب: ميعاد السفر</option>
               <option value="orderDate">ترتيب: تاريخ الإضافة</option>
@@ -257,14 +257,14 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
       {/* Content Rendering: Table or Cards */}
       {filteredOrders.length === 0 ? (
-        <div className="bg-white rounded-[14px] p-12 text-center border border-[#DED8CC]">
-          <div className="w-12 h-12 rounded-full bg-[#F6F4EF] text-[#6C6A63] mx-auto flex items-center justify-center mb-3">
+        <div className="bg-white rounded-[14px] p-12 text-center border border-line">
+          <div className="w-12 h-12 rounded-full bg-paper text-copy-muted mx-auto flex items-center justify-center mb-3">
             <Search className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold font-cairo text-[#1B2E4A]">
+          <h3 className="text-base font-bold font-cairo text-ink">
             لا توجد طلبات تطابق الفلترة المحددة
           </h3>
-          <p className="text-xs text-[#6C6A63] mt-1">
+          <p className="text-xs text-copy-muted mt-1">
             جرب تغيير كلمات البحث أو مسح خيارات الفلترة لعرض الطلبات
           </p>
         </div>
@@ -285,10 +285,10 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         </div>
       ) : (
         /* Table View */
-        <div className="bg-white rounded-[14px] border border-[#DED8CC] overflow-hidden shadow-xs">
+        <div className="bg-white rounded-[14px] border border-line overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-right text-xs">
-              <thead className="bg-[#1B2E4A] text-white">
+              <thead className="bg-ink text-white">
                 <tr>
                   <th className="p-3 font-cairo">#</th>
                   <th className="p-3 font-cairo">العميل</th>
@@ -300,7 +300,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   <th className="p-3 font-cairo text-left">إجراءات</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#EFEBE2]">
+              <tbody className="divide-y divide-paper-alt">
                 {filteredOrders.map((order, idx) => {
                   const late = isOrderLate(order);
                   const days = getDaysDifference(order.travelDate);
@@ -309,12 +309,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   return (
                     <tr
                       key={order.id}
-                      className={`hover:bg-[#FAF6EF] transition-colors ${
-                        late ? 'bg-[#FFF9F8]' : idx % 2 === 0 ? 'bg-white' : 'bg-[#FDFCF9]'
+                      className={`hover:bg-paper-warm transition-colors ${
+                        late ? 'bg-canvas-subtle' : idx % 2 === 0 ? 'bg-white' : 'bg-canvas-subtle'
                       }`}
                     >
                       {/* Order Number */}
-                      <td className="p-3 font-cairo font-bold text-[#1B2E4A]">
+                      <td className="p-3 font-cairo font-bold text-ink">
                         #{order.orderNumber}
                       </td>
 
@@ -322,12 +322,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                       <td className="p-3">
                         <button
                           onClick={() => onSelectCustomer(order.customerName)}
-                          className="font-bold font-cairo text-sm text-[#1B2E4A] hover:text-[#B08948] text-right block"
+                          className="font-bold font-cairo text-sm text-ink hover:text-brass text-right block"
                         >
                           {order.customerName}
                         </button>
                         {order.customerPhone && (
-                          <span className="text-[11px] text-[#6C6A63] font-cairo font-bold block">
+                          <span className="text-[11px] text-copy-muted font-cairo font-bold block">
                             {order.customerPhone}
                           </span>
                         )}
@@ -337,7 +337,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                       <td className="p-3">
                         <button
                           onClick={() => onSelectSupplier(order.supplierId)}
-                          className="font-semibold text-xs text-[#1B2E4A] hover:text-[#B08948] text-right"
+                          className="font-semibold text-xs text-ink hover:text-brass text-right"
                         >
                           {order.supplierName}
                         </button>
@@ -345,29 +345,29 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                       {/* Description & Specifications Chips */}
                       <td className="p-3 max-w-xs">
-                        <div className="font-semibold text-[#24262B] line-clamp-2 mb-1">
+                        <div className="font-semibold text-charcoal line-clamp-2 mb-1">
                           {order.description}
                         </div>
                         
                         {(order.size || order.color || order.alternativeColor || (order.quantity && order.quantity > 1)) && (
                           <div className="flex flex-wrap items-center gap-1 text-[10px] mb-1">
                             {order.size && (
-                              <span className="px-1.5 py-0.5 rounded bg-[#EBF0F7] text-[#1B2E4A] font-semibold">
+                              <span className="px-1.5 py-0.5 rounded bg-size-soft text-ink font-semibold">
                                 مقاس: {order.size}
                               </span>
                             )}
                             {order.color && (
-                              <span className="px-1.5 py-0.5 rounded bg-[#FBF2E3] text-[#B08948] font-semibold border border-[#EED7BA]/60">
+                              <span className="px-1.5 py-0.5 rounded bg-color-soft text-brass font-semibold border border-pending-soft/60">
                                 لون: {order.color}
                               </span>
                             )}
                             {order.alternativeColor && (
-                              <span className="px-1.5 py-0.5 rounded bg-[#F6F4EF] text-[#6C6A63] border border-[#DED8CC]">
+                              <span className="px-1.5 py-0.5 rounded bg-paper text-copy-muted border border-line">
                                 بديل: {order.alternativeColor}
                               </span>
                             )}
                             {order.quantity && order.quantity > 1 && (
-                              <span className="px-1.5 py-0.5 rounded bg-[#E7F0EA] text-[#3F7A5D] font-bold font-cairo">
+                              <span className="px-1.5 py-0.5 rounded bg-done-soft text-done font-bold font-cairo">
                                 {order.quantity} قطع
                               </span>
                             )}
@@ -375,7 +375,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         )}
 
                         {order.notes && (
-                          <div className="text-[10px] text-[#B8792A] italic mt-0.5">
+                          <div className="text-[10px] text-pending italic mt-0.5">
                             ملاحظة: {order.notes}
                           </div>
                         )}
@@ -383,17 +383,17 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                       {/* Travel Date */}
                       <td className="p-3 whitespace-nowrap">
-                        <div className="font-semibold text-[#1B2E4A]">
+                        <div className="font-semibold text-ink">
                           {formatArabicDate(order.travelDate)}
                         </div>
                         {order.status === 'pending' && (
                           <div
                             className={`text-[10px] font-bold ${
                               late
-                                ? 'text-[#B4463A]'
+                                ? 'text-late'
                                 : days <= 3
-                                ? 'text-[#B8792A]'
-                                : 'text-[#6C6A63]'
+                                ? 'text-pending'
+                                : 'text-copy-muted'
                             }`}
                           >
                             {late
@@ -409,11 +409,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                       {/* Price / Deposit */}
                       <td className="p-3 whitespace-nowrap">
-                        <div className="font-bold text-[#1B2E4A] font-cairo text-xs">
+                        <div className="font-bold text-ink font-cairo text-xs">
                           {formatCurrency(order.price)}
                         </div>
                         {order.deposit !== undefined && order.deposit > 0 && remaining > 0 && (
-                          <div className="text-[10px] text-[#B8792A]">
+                          <div className="text-[10px] text-pending">
                             باقي: {formatCurrency(remaining)}
                           </div>
                         )}
@@ -431,8 +431,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                             onClick={() => onToggleStatus(order.id)}
                             className={`p-1.5 rounded-[7px] text-xs font-semibold flex items-center gap-1 transition-colors ${
                               order.status === 'done'
-                                ? 'bg-[#F6ECDC] text-[#B8792A] hover:bg-[#EED7BA]'
-                                : 'bg-[#E7F0EA] text-[#3F7A5D] hover:bg-[#CDE3D5]'
+                                ? 'bg-pending-soft text-pending hover:bg-pending-soft'
+                                : 'bg-done-soft text-done hover:bg-done-soft'
                             }`}
                             title={order.status === 'done' ? 'إعادة كمعلق' : 'تحديد كـ تم التنفيذ'}
                           >
@@ -447,7 +447,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                             <button
                               type="button"
                               onClick={() => (onOpenWhatsApp ? onOpenWhatsApp(order) : undefined)}
-                              className="p-1.5 text-[#3F7A5D] hover:bg-[#E7F0EA] rounded-[7px] transition-colors"
+                              className="p-1.5 text-done hover:bg-done-soft rounded-[7px] transition-colors"
                               title="رسائل وقوالب واتساب"
                             >
                               <MessageCircle className="w-3.5 h-3.5" />
@@ -456,7 +456,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                           <button
                             onClick={() => onEditOrder(order)}
-                            className="p-1.5 text-[#6C6A63] hover:text-[#1B2E4A] hover:bg-[#F6F4EF] rounded-[7px] transition-colors"
+                            className="p-1.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[7px] transition-colors"
                             title="تعديل"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
@@ -464,7 +464,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                           <button
                             onClick={() => onDeleteOrder(order.id)}
-                            className="p-1.5 text-[#6C6A63] hover:text-[#B4463A] hover:bg-[#F6E3E0] rounded-[7px] transition-colors"
+                            className="p-1.5 text-copy-muted hover:text-late hover:bg-late-soft rounded-[7px] transition-colors"
                             title="حذف"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

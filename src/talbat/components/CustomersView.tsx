@@ -62,12 +62,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Top Header */}
-      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-[#DED8CC] shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-[#1B2E4A]">
+          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-ink">
             سجل العملاء والطلبات المجمعة
           </h1>
-          <p className="text-xs sm:text-sm text-[#6C6A63] mt-0.5">
+          <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
             عرض ملف كل عميل وكل طلباته المتفرقة من مختلف الموردين في مكان واحد
           </p>
         </div>
@@ -75,7 +75,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         {activeCustomer && (
           <button
             onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
-            className="flex items-center gap-1.5 bg-[#B08948] hover:bg-[#9E783B] text-white px-3.5 py-2 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
+            className="flex items-center gap-1.5 bg-brass hover:bg-brass text-white px-3.5 py-2 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>طلب جديد لـ {activeCustomer.name.split(' ')[0]}</span>
@@ -86,21 +86,21 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       {/* Main Grid: Left is Customer list, Right is Customer Dossier */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Customer Sidebar List (4 cols) */}
-        <div className={`lg:col-span-4 bg-white rounded-[14px] border border-[#DED8CC] p-4 shadow-xs space-y-3 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-4 bg-white rounded-[14px] border border-line p-4 shadow-xs space-y-3 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-[#6C6A63]" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="ابحث باسم العميل أو هاتفه..."
-              className="w-full pr-9 pl-3 py-2 text-xs rounded-[9px] border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948]"
+              className="w-full pr-9 pl-3 py-2 text-xs rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
             />
           </div>
 
           <div className="space-y-2 max-h-[600px] overflow-y-auto">
             {filteredCustomers.length === 0 ? (
-              <div className="text-center py-6 text-xs text-[#6C6A63]">
+              <div className="text-center py-6 text-xs text-copy-muted">
                 لا يوجد عملاء يطابقون البحث
               </div>
             ) : (
@@ -122,27 +122,27 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                     }}
                     className={`w-full text-right p-3 rounded-[10px] border transition-all flex items-center justify-between ${
                       isSelected
-                        ? 'bg-[#FAF6EF] border-[#B08948] ring-1 ring-[#B08948]'
-                        : 'bg-white border-[#EFEBE2] hover:bg-[#F6F4EF]'
+                        ? 'bg-paper-warm border-brass ring-1 ring-brass'
+                        : 'bg-white border-paper-alt hover:bg-paper'
                     }`}
                   >
                     <div>
-                      <div className="font-bold text-sm font-cairo text-[#1B2E4A]">
+                      <div className="font-bold text-sm font-cairo text-ink">
                         {c.name}
                       </div>
                       {c.phone && (
-                        <div className="text-[11px] text-[#6C6A63] font-cairo font-semibold mt-0.5">
+                        <div className="text-[11px] text-copy-muted font-cairo font-semibold mt-0.5">
                           {c.phone}
                         </div>
                       )}
                     </div>
 
                     <div className="text-left shrink-0">
-                      <span className="text-xs font-bold text-[#1B2E4A] font-cairo block">
+                      <span className="text-xs font-bold text-ink font-cairo block">
                         {cOrders.length} طلبات
                       </span>
                       {cPending > 0 && (
-                        <span className="text-[10px] font-bold text-[#B8792A] bg-[#F6ECDC] px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-pending bg-pending-soft px-1.5 py-0.5 rounded">
                           {cPending} معلّق
                         </span>
                       )}
@@ -155,12 +155,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
 
         {/* Customer Dossier / Profile (8 cols) */}
-        <div className={`lg:col-span-8 bg-white rounded-[14px] border border-[#DED8CC] p-4 sm:p-5 shadow-xs space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-8 bg-white rounded-[14px] border border-line p-4 sm:p-5 shadow-xs space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           {/* Mobile Back Button */}
-          <div className="lg:hidden pb-2 border-b border-[#EFEBE2] mb-1">
+          <div className="lg:hidden pb-2 border-b border-paper-alt mb-1">
             <button
               onClick={() => setMobileShowDetail(false)}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1B2E4A] hover:text-[#B08948] bg-[#F6F4EF] hover:bg-[#EAE5DA] px-3 py-1.5 rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-ink hover:text-brass bg-paper hover:bg-paper-alt px-3 py-1.5 rounded-lg transition-colors"
             >
               <span>← العودة لقائمة العملاء</span>
             </button>
@@ -169,18 +169,18 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
           {activeCustomer ? (
             <>
               {/* Header Info */}
-              <div className="border-b border-[#EFEBE2] pb-4 flex flex-wrap items-center justify-between gap-3">
+              <div className="border-b border-paper-alt pb-4 flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-extrabold font-cairo text-[#1B2E4A]">
+                    <h2 className="text-xl font-extrabold font-cairo text-ink">
                       {activeCustomer.name}
                     </h2>
-                    <span className="text-xs bg-[#F6F4EF] text-[#6C6A63] px-2 py-0.5 rounded font-cairo">
+                    <span className="text-xs bg-paper text-copy-muted px-2 py-0.5 rounded font-cairo">
                       عميل مسجل
                     </span>
                   </div>
                   {activeCustomer.notes && (
-                    <p className="text-xs text-[#6C6A63] mt-1 italic">
+                    <p className="text-xs text-copy-muted mt-1 italic">
                       ملاحظات: {activeCustomer.notes}
                     </p>
                   )}
@@ -194,14 +194,14 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                         href={createWhatsAppUrl(activeCustomer.phone)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 bg-[#E7F0EA] text-[#3F7A5D] hover:bg-[#CDE3D5] px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
+                        className="flex items-center gap-1.5 bg-done-soft text-done hover:bg-done-soft px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
                       >
                         <MessageCircle className="w-4 h-4" />
                         <span>مراسلة واتساب</span>
                       </a>
                       <a
                         href={`tel:${activeCustomer.phone}`}
-                        className="flex items-center gap-1.5 bg-[#F6F4EF] text-[#1B2E4A] hover:bg-[#EFEBE2] px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
+                        className="flex items-center gap-1.5 bg-paper text-ink hover:bg-paper-alt px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
                       >
                         <Phone className="w-4 h-4" />
                         <span dir="ltr">{activeCustomer.phone}</span>
@@ -213,30 +213,30 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
 
               {/* Financial & Status Overview for this customer */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="p-3 bg-[#F6F4EF] rounded-[10px] border border-[#EFEBE2]">
-                  <div className="text-xs text-[#6C6A63]">إجمالي المشتريات</div>
-                  <div className="text-base sm:text-lg font-bold font-cairo text-[#1B2E4A] mt-1">
+                <div className="p-3 bg-paper rounded-[10px] border border-paper-alt">
+                  <div className="text-xs text-copy-muted">إجمالي المشتريات</div>
+                  <div className="text-base sm:text-lg font-bold font-cairo text-ink mt-1">
                     {formatCurrency(totalSpent)}
                   </div>
                 </div>
 
-                <div className="p-3 bg-[#F6F4EF] rounded-[10px] border border-[#EFEBE2]">
-                  <div className="text-xs text-[#6C6A63]">العربين المدفوعة</div>
-                  <div className="text-base sm:text-lg font-bold font-cairo text-[#3F7A5D] mt-1">
+                <div className="p-3 bg-paper rounded-[10px] border border-paper-alt">
+                  <div className="text-xs text-copy-muted">العربين المدفوعة</div>
+                  <div className="text-base sm:text-lg font-bold font-cairo text-done mt-1">
                     {formatCurrency(totalDeposit)}
                   </div>
                 </div>
 
-                <div className="p-3 bg-[#FFFBF7] rounded-[10px] border border-[#EED7BA]">
-                  <div className="text-xs text-[#B8792A]">المتبقي للدفع</div>
-                  <div className="text-base sm:text-lg font-bold font-cairo text-[#B8792A] mt-1">
+                <div className="p-3 bg-paper-warm rounded-[10px] border border-pending-soft">
+                  <div className="text-xs text-pending">المتبقي للدفع</div>
+                  <div className="text-base sm:text-lg font-bold font-cairo text-pending mt-1">
                     {formatCurrency(remainingDebt)}
                   </div>
                 </div>
 
-                <div className="p-3 bg-[#F6F4EF] rounded-[10px] border border-[#EFEBE2]">
-                  <div className="text-xs text-[#6C6A63]">الطلبات المعلّقة</div>
-                  <div className="text-base sm:text-lg font-bold font-cairo text-[#1B2E4A] mt-1">
+                <div className="p-3 bg-paper rounded-[10px] border border-paper-alt">
+                  <div className="text-xs text-copy-muted">الطلبات المعلّقة</div>
+                  <div className="text-base sm:text-lg font-bold font-cairo text-ink mt-1">
                     {pendingOrders.length} من {customerOrders.length}
                   </div>
                 </div>
@@ -245,12 +245,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               {/* Orders from all suppliers */}
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-bold font-cairo text-sm text-[#1B2E4A]">
+                  <h3 className="font-bold font-cairo text-sm text-ink">
                     سجل طلبات العميل من كل الموردين ({customerOrders.length})
                   </h3>
                   <button
                     onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
-                    className="text-xs font-bold text-[#B08948] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-brass hover:underline flex items-center gap-1"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>إضافة طلب جديد</span>
@@ -258,7 +258,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                 </div>
 
                 {customerOrders.length === 0 ? (
-                  <div className="text-center py-8 bg-[#F6F4EF] rounded-[10px] text-xs text-[#6C6A63]">
+                  <div className="text-center py-8 bg-paper rounded-[10px] text-xs text-copy-muted">
                     لا توجد طلبات مسجلة لهذا العميل حتى الآن.
                   </div>
                 ) : (
@@ -272,18 +272,18 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                           key={order.id}
                           className={`p-4 rounded-[12px] border transition-all ${
                             late
-                              ? 'bg-[#FFF9F8] border-[#F4D1CD]'
-                              : 'bg-white border-[#EFEBE2] hover:border-[#DED8CC]'
+                              ? 'bg-canvas-subtle border-late-soft'
+                              : 'bg-white border-paper-alt hover:border-line'
                           }`}
                         >
                           <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="font-cairo text-xs font-bold text-[#1B2E4A]">
+                                <span className="font-cairo text-xs font-bold text-ink">
                                   #{order.orderNumber}
                                 </span>
-                                <span className="text-xs text-[#6C6A63]">من المورد:</span>
-                                <span className="font-bold text-xs text-[#B08948]">
+                                <span className="text-xs text-copy-muted">من المورد:</span>
+                                <span className="font-bold text-xs text-brass">
                                   {order.supplierName}
                                 </span>
                               </div>
@@ -291,30 +291,30 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                             <StatusBadge status={order.status} order={order} />
                           </div>
 
-                          <div className="text-xs sm:text-sm text-[#24262B] bg-[#F6F4EF] p-2.5 rounded-[8px] mb-2 leading-relaxed">
+                          <div className="text-xs sm:text-sm text-charcoal bg-paper p-2.5 rounded-[8px] mb-2 leading-relaxed">
                             {order.description}
                           </div>
 
-                          <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-2 border-t border-[#EFEBE2]">
-                            <div className="flex items-center gap-1.5 text-[#6C6A63]">
-                              <Calendar className="w-3.5 h-3.5 text-[#B08948]" />
+                          <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-2 border-t border-paper-alt">
+                            <div className="flex items-center gap-1.5 text-copy-muted">
+                              <Calendar className="w-3.5 h-3.5 text-brass" />
                               <span>ميعاد السفر: {formatArabicDate(order.travelDate)}</span>
                             </div>
 
                             <div className="flex items-center gap-3">
                               {order.price !== undefined && (
-                                <span className="font-bold text-[#1B2E4A] font-cairo">
+                                <span className="font-bold text-ink font-cairo">
                                   {formatCurrency(order.price)}
                                 </span>
                               )}
                               {remaining > 0 && (
-                                <span className="text-[#B8792A] text-[11px] font-semibold">
+                                <span className="text-pending text-[11px] font-semibold">
                                   باقي: {formatCurrency(remaining)}
                                 </span>
                               )}
                               <button
                                 onClick={() => onToggleOrderStatus(order.id)}
-                                className="text-xs font-bold text-[#3F7A5D] hover:underline"
+                                className="text-xs font-bold text-done hover:underline"
                               >
                                 {order.status === 'done' ? 'إعادة كمعلق' : '✓ تم التسليم'}
                               </button>
@@ -328,7 +328,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               </div>
             </>
           ) : (
-            <div className="text-center py-12 text-[#6C6A63]">
+            <div className="text-center py-12 text-copy-muted">
               اختر عميلاً من القائمة لعرض تفاصيل طلباته
             </div>
           )}

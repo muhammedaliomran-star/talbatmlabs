@@ -50,7 +50,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
     <div className="relative w-full">
       {/* Top Card Switcher Pills (Card 1: الحسابات والسيولة / Card 2: رحلة الشراء القادمة) */}
       <div className="flex items-center justify-between mb-2.5 px-1">
-        <div className="flex items-center gap-1.5 bg-[#EAE5DA] p-1 rounded-full text-xs">
+        <div className="flex items-center gap-1.5 bg-paper-alt p-1 rounded-full text-xs">
           <button
             onClick={() => setActiveCardIndex(0)}
             className={`px-3 py-1 rounded-full font-bold transition-all text-xs flex items-center gap-1.5 ${
@@ -96,7 +96,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
 
       {/* Main Luxury Wallet Card */}
       {activeCardIndex === 0 ? (
-        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-[#0F1C2E] via-[#1B2E4A] to-[#243B5C] text-on-ink p-5 sm:p-6 shadow-xl border border-brass-light/30 transition-all duration-300">
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink to-ink-light text-on-ink p-5 sm:p-6 shadow-xl border border-brass-light/30 transition-all duration-300">
           {/* Subtle Decorative Background Shapes & Gold Shimmer */}
           <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-brass/15 blur-2xl pointer-events-none" />
           <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-ink-light/40 blur-2xl pointer-events-none" />
@@ -114,7 +114,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
                 <span className="text-xs font-bold tracking-wide text-line-soft font-cairo block">
                   دفتر ملابس • الحسابات
                 </span>
-                <span className="text-[10px] text-[#A6B8CE]">
+                <span className="text-[10px] text-ink-muted">
                   المحفظة والسيولة النقدية
                 </span>
               </div>
@@ -127,11 +127,11 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
                 <path d="M12 19a8.5 8.5 0 0 1 0-14" strokeLinecap="round" />
                 <path d="M15.5 21.5a12 12 0 0 1 0-19" strokeLinecap="round" />
               </svg>
-              <div className="w-9 h-7 rounded-md bg-gradient-to-tr from-[#C99E54] via-[#F2D79E] to-brass shadow-inner border border-[#FFE7B8]/40 flex items-center justify-center">
-                <div className="w-6 h-4 border border-[#8C6422]/40 rounded-xs grid grid-cols-2 gap-0.5 opacity-60">
-                  <div className="border-b border-r border-[#8C6422]/40"></div>
-                  <div className="border-b border-[#8C6422]/40"></div>
-                  <div className="border-r border-[#8C6422]/40"></div>
+              <div className="w-9 h-7 rounded-md bg-gradient-to-tr from-brass-light via-brass-light to-brass shadow-inner border border-brass-light/40 flex items-center justify-center">
+                <div className="w-6 h-4 border border-pending/40 rounded-xs grid grid-cols-2 gap-0.5 opacity-60">
+                  <div className="border-b border-r border-pending/40"></div>
+                  <div className="border-b border-pending/40"></div>
+                  <div className="border-r border-pending/40"></div>
                   <div></div>
                 </div>
               </div>
@@ -163,7 +163,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
               )}
             </div>
 
-            <p className="text-[11px] text-[#A6B8CE] mt-0.5">
+            <p className="text-[11px] text-ink-muted mt-0.5">
               {activeOrders.length} طلبيات قيد التنفيذ والتوريد من الموردين
             </p>
           </div>
@@ -172,33 +172,33 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
           <div className="relative z-10 pt-3 mt-4 border-t border-on-ink/10 grid grid-cols-3 gap-2">
             {/* Deposits */}
             <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
-              <div className="flex items-center gap-1 text-[10px] text-[#A6B8CE] mb-0.5">
+              <div className="flex items-center gap-1 text-[10px] text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-done" />
                 <span>عربون محصّل</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold font-cairo text-[#62B889]">
+              <div className="text-xs sm:text-sm font-bold font-cairo text-done">
                 {showBalance ? formatCurrency(totalDeposits) : '••••'}
               </div>
             </div>
 
             {/* Remaining */}
             <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
-              <div className="flex items-center gap-1 text-[10px] text-[#A6B8CE] mb-0.5">
+              <div className="flex items-center gap-1 text-[10px] text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brass-light" />
                 <span>متبقي عند الاستلام</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold font-cairo text-[#F2D79E]">
+              <div className="text-xs sm:text-sm font-bold font-cairo text-brass-light">
                 {showBalance ? formatCurrency(activeRemaining) : '••••'}
               </div>
             </div>
 
             {/* Pending Returns */}
             <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
-              <div className="flex items-center gap-1 text-[10px] text-[#A6B8CE] mb-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#E07A6E]" />
+              <div className="flex items-center gap-1 text-[10px] text-ink-muted mb-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-late" />
                 <span>مرتجع معلق</span>
               </div>
-              <div className="text-xs sm:text-sm font-bold font-cairo text-[#F4A89F]">
+              <div className="text-xs sm:text-sm font-bold font-cairo text-late">
                 {showBalance ? formatCurrency(pendingReturnsValue) : '••••'}
               </div>
             </div>
@@ -206,7 +206,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
         </div>
       ) : (
         /* Upcoming Shopping Trip Card */
-        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-[#1E293B] via-[#2A374E] to-[#1B2E4A] text-on-ink p-5 sm:p-6 shadow-xl border border-brass/40 transition-all duration-300">
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink-light to-ink text-on-ink p-5 sm:p-6 shadow-xl border border-brass/40 transition-all duration-300">
           <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full bg-brass/20 blur-2xl pointer-events-none" />
 
           {/* Top Row: Trip Badge */}
@@ -229,7 +229,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
               <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
                 tripDiff <= 1
                   ? 'bg-amber-500 text-black animate-pulse'
-                  : 'bg-brass/40 text-[#F2D79E] border border-brass-light/30'
+                  : 'bg-brass/40 text-brass-light border border-brass-light/30'
               }`}>
                 {tripDiff === 0 ? 'اليوم بالسوق!' : tripDiff === 1 ? 'غداً' : `بعد ${tripDiff} أيام`}
               </span>
@@ -242,7 +242,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
                 <h3 className="text-xl sm:text-2xl font-extrabold font-cairo text-on-ink">
                   {upcomingTrip.title}
                 </h3>
-                <span className="text-xs text-[#A6B8CE]">
+                <span className="text-xs text-ink-muted">
                   {formatArabicDate(upcomingTrip.date)}
                 </span>
               </div>
@@ -265,7 +265,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
 
               {/* Action */}
               <div className="mt-4 pt-3 border-t border-on-ink/10 flex items-center justify-between">
-                <span className="text-xs text-[#A6B8CE]">
+                <span className="text-xs text-ink-muted">
                   {tripTotalItems - tripBoughtItems} قطع متبقية للشراء
                 </span>
                 <button

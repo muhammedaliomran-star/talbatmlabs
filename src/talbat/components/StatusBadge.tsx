@@ -14,7 +14,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, order, classNa
   if (late) {
     return (
       <span
-        className={`hang-tag bg-[#F6E3E0] text-[#B4463A] border border-[#F0CDC8] ${className}`}
+        className={`hang-tag bg-late-soft text-late border border-late-soft ${className}`}
         title="تجاوز ميعاد السفر المحدد وما زال معلقاً"
       >
         متأخر
@@ -25,7 +25,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, order, classNa
   if (status === 'done') {
     return (
       <span
-        className={`hang-tag bg-[#E7F0EA] text-[#3F7A5D] border border-[#CDE3D5] ${className}`}
+        className={`hang-tag bg-done-soft text-done border border-done-soft ${className}`}
       >
         تم التنفيذ
       </span>
@@ -34,7 +34,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, order, classNa
 
   return (
     <span
-      className={`hang-tag bg-[#F6ECDC] text-[#B8792A] border border-[#EED7BA] ${className}`}
+      className={`hang-tag bg-pending-soft text-pending border border-pending-soft ${className}`}
     >
       قيد الانتظار
     </span>
