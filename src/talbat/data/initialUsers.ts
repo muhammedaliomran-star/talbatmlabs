@@ -1,0 +1,40 @@
+import { User } from '../types';
+
+export const INITIAL_USERS: User[] = [
+  {
+    id: 'user-owner',
+    name: 'مازن أحمد',
+    email: 'owner@daftar.app',
+    role: 'owner',
+    storeName: 'بوتيك الأناقة للملابس',
+    pinCode: '1234',
+    password: 'password123',
+    avatarColor: 'bg-[#B08948]',
+    phone: '01001234567',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'user-buyer',
+    name: 'كريم — مسؤول المشتريات',
+    email: 'buyer@daftar.app',
+    role: 'buyer',
+    storeName: 'بوتيك الأناقة للملابس',
+    pinCode: '5678',
+    password: 'password123',
+    avatarColor: 'bg-[#3F7A5D]',
+    phone: '01123456789',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'user-assistant',
+    name: 'سارة — مسؤولة المبيعات',
+    email: 'assistant@daftar.app',
+    role: 'assistant',
+    storeName: 'بوتيك الأناقة للملابس',
+    pinCode: '9012',
+    password: 'password123',
+    avatarColor: 'bg-[#2C4568]',
+    phone: '01234567890',
+    createdAt: new Date().toISOString(),
+  },
+];

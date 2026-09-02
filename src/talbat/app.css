@@ -1,0 +1,85 @@
+
+@layer base {
+  :root {
+    --ink: #1B2E4A;
+    --ink-light: #2C4568;
+    --brass: #B08948;
+    --brass-light: #D3AE72;
+    --paper: #F6F4EF;
+    --paper-alt: #EFEBE2;
+    --charcoal: #24262B;
+    --muted: #6C6A63;
+    --line: #DED8CC;
+    --done: #3F7A5D;
+    --done-bg: #E7F0EA;
+    --pending: #B8792A;
+    --pending-bg: #F6ECDC;
+    --late: #B4463A;
+    --late-bg: #F6E3E0;
+  }
+
+  body {
+    font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--paper);
+    color: var(--charcoal);
+    font-feature-settings: "locl" 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Ensure English numerals across all elements and form controls */
+  *, *::before, *::after {
+    font-feature-settings: "locl" 0;
+  }
+
+  input, select, textarea, button {
+    font-family: inherit;
+    font-feature-settings: "locl" 0;
+  }
+
+  /* Force any font-mono or numbers to use Cairo font with English digits */
+  .font-mono, code, kbd, samp, pre {
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-feature-settings: "locl" 0;
+  }
+}
+
+.font-cairo {
+  font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-feature-settings: "locl" 0;
+}
+
+.font-tajawal {
+  font-family: 'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom garment hang-tag style from the Design System */
+.hang-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: 4px 10px 10px 4px;
+}
+.hang-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
