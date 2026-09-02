@@ -2,7 +2,6 @@ import React from 'react';
 import {
   LayoutDashboard,
   ShoppingBag,
-  Luggage,
   Truck,
   RotateCcw,
 } from 'lucide-react';
@@ -14,7 +13,6 @@ interface MobileNavigationProps {
   pendingCount: number;
   lateCount: number;
   returnsCount: number;
-  tripsCount?: number;
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
@@ -23,7 +21,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   pendingCount,
   lateCount,
   returnsCount,
-  tripsCount,
 }) => {
   const tabs = [
     {
@@ -37,12 +34,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       icon: ShoppingBag,
       badge: pendingCount,
       badgeDanger: lateCount > 0,
-    },
-    {
-      id: 'trips' as ActiveTab,
-      label: 'الرحلات',
-      icon: Luggage,
-      badge: tripsCount,
     },
     {
       id: 'suppliers' as ActiveTab,

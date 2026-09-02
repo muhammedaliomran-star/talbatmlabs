@@ -137,7 +137,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             {formatCurrency(pendingValue)}
           </div>
           <div className="text-[11px] text-copy-muted mt-1">
-            مطلوب خصمها في رحلات الشراء القادمة
+            مطلوب تسويتها مع الموردين
           </div>
         </div>
 

@@ -116,7 +116,7 @@ export const AuthPortal: React.FC = () => {
             دفتر ملابس
           </span>
           <h2 className="text-white text-2xl lg:text-[38px] leading-[1.25] font-semibold">
-            كل طلبية، كل مورد، كل رحلة شراء — في دفتر واحد.
+            كل طلبية، كل عميل، وكل مورد — في دفتر واحد.
           </h2>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Luggage, Lock } from 'lucide-react';
+import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Lock } from 'lucide-react';
 import { ActiveTab, User } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,6 @@ interface NavbarProps {
   onOpenBackup: () => void;
   pendingCount: number;
   lateCount: number;
-  tripsCount?: number;
   currentUser?: User | null;
   onOpenProfile?: () => void;
   onLockScreen?: () => void;
@@ -28,7 +27,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenBackup,
   pendingCount,
   lateCount,
-  tripsCount,
   currentUser,
   onOpenProfile,
   onLockScreen,
@@ -37,7 +35,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const tabs = [
     { id: 'dashboard' as ActiveTab, label: 'الرئيسية', icon: LayoutDashboard },
     { id: 'orders' as ActiveTab, label: 'الطلبات', icon: ShoppingBag, badge: pendingCount },
-    { id: 'trips' as ActiveTab, label: 'رحلات الشراء', icon: Luggage, badge: tripsCount },
     { id: 'suppliers' as ActiveTab, label: 'الموردين', icon: Truck },
     { id: 'returns' as ActiveTab, label: 'المرتجعات', icon: RotateCcw },
   ];
@@ -69,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
               </div>
               <p className="text-[11px] text-ink-muted hidden sm:block">
-                إدارة طلبات العملاء، الموردين ومواعيد السفر
+                إدارة طلبات العملاء والموردين والمرتجعات
               </p>
             </div>
           </div>
