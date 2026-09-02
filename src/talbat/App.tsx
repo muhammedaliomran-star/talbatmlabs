@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'sonner';
+
 import { Navbar } from './components/Navbar';
 import { MobileNavigation } from './components/MobileNavigation';
 import { DashboardView } from './components/DashboardView';
