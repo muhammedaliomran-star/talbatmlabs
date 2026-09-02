@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus, Store, MapPin, Phone, Edit2, Trash2, ShoppingBag, RotateCcw, Search } from 'lucide-react';
 import { Order, ReturnItem, Supplier } from '../types';
-import { formatCurrency } from '../utils/helpers';
+import { formatArabicDate, formatCurrency } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
 
 interface SuppliersViewProps {
