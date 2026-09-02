@@ -1,8 +1,9 @@
 import React from 'react';
-import { Check, Clock, Edit2, MessageCircle, MoreVertical, Trash2, Calendar, Phone, Store } from 'lucide-react';
+import { Check, Clock, Edit2, MessageCircle, Trash2, Calendar, Phone, Store } from 'lucide-react';
 import { Order } from '../types';
-import { formatArabicDate, formatCurrency, createWhatsAppUrl, isOrderLate, getDaysDifference } from '../utils/helpers';
+import { formatArabicDate, formatCurrency, isOrderLate, getDaysDifference } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
+import { Button } from '@/components/ui/button';
 
 interface OrderCardProps {
   order: Order;
@@ -59,21 +60,18 @@ export const OrderCard: React.FC<OrderCardProps> = ({
   };
 
   return (
-    <div
-      className={`relative bg-canvas rounded-[14px] border p-4 sm:p-5 transition-all duration-200 shadow-xs hover:shadow-md ${
-        late ? 'border-[#F4D1CD] bg-[#FFFBFA]' : 'border-line'
-      }`}
-    >
+    <div className={`rounded-[1.6rem] p-1.5 ring-1 ${late ? 'bg-late-soft/70 ring-late/20' : 'bg-paper-alt/70 ring-line'}`}>
+    <article className="relative rounded-[calc(1.6rem-0.375rem)] bg-canvas p-4 shadow-[inset_0_1px_0_var(--canvas)] transition-transform duration-500 motion-spring hover:-translate-y-1 sm:p-5">
       {/* Top row: Customer & Supplier & Status */}
       <div className="flex items-start justify-between gap-3 mb-2.5">
         <div>
           <div className="flex items-center gap-2">
-            <button
+            <Button
               onClick={() => onSelectCustomer?.(order.customerName)}
-              className="text-base sm:text-lg font-bold font-cairo text-ink hover:text-brass transition-colors text-right"
+              variant="ghost" className="h-auto justify-start p-0 text-right font-cairo text-base font-bold text-ink hover:bg-transparent hover:text-brass sm:text-lg"
             >
               {order.customerName}
-            </button>
+            </Button>
             <span className="text-[11px] font-cairo font-bold text-copy-muted bg-paper px-1.5 py-0.5 rounded">
               #{order.orderNumber}
             </span>
@@ -82,12 +80,12 @@ export const OrderCard: React.FC<OrderCardProps> = ({
           <div className="flex items-center gap-1.5 text-xs text-copy-muted mt-1">
             <Store className="w-3.5 h-3.5 text-brass shrink-0" />
             <span>من:</span>
-            <button
+            <Button
               onClick={() => onSelectSupplier?.(order.supplierId)}
-              className="hover:text-ink hover:underline text-right font-medium"
+              variant="ghost" className="h-auto p-0 text-right text-xs font-medium text-copy-muted hover:bg-transparent hover:text-ink hover:underline"
             >
               {order.supplierName}
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -111,8 +109,8 @@ export const OrderCard: React.FC<OrderCardProps> = ({
             </span>
           )}
           {order.color && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-color-soft text-brass font-semibold border border-[#EED7BA]/60">
-              <span className="text-[#87652E]">اللون:</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-color-soft text-brass font-semibold ring-1 ring-pending/20">
+              <span className="text-pending">اللون:</span>
               <span>{order.color}</span>
             </span>
           )}
@@ -162,12 +160,12 @@ export const OrderCard: React.FC<OrderCardProps> = ({
 
       {/* Actions footer */}
       <div className="mt-3 pt-2.5 border-t border-paper-alt flex items-center justify-between">
-        <button
+        <Button
           onClick={() => onToggleStatus(order.id)}
-          className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-[8px] transition-colors ${
+          variant="ghost" size="sm" className={`group h-9 gap-2 px-2 pr-3 text-xs font-semibold ${
             order.status === 'done'
-              ? 'bg-pending-soft text-pending hover:bg-[#EED7BA]'
-              : 'bg-done-soft text-done hover:bg-[#CDE3D5]'
+              ? 'bg-pending-soft text-pending hover:bg-pending-soft/70'
+              : 'bg-done-soft text-done hover:bg-done-soft/70'
           }`}
         >
           {order.status === 'done' ? (
@@ -181,17 +179,17 @@ export const OrderCard: React.FC<OrderCardProps> = ({
               <span>تم التنفيذ</span>
             </>
           )}
-        </button>
+        </Button>
 
         <div className="flex items-center gap-1">
           {order.customerPhone && (
-            <button
+            <Button
               onClick={handleWhatsAppClick}
-              className="p-1.5 text-done hover:bg-done-soft rounded-[8px] transition-colors flex items-center gap-1"
+              variant="ghost" size="icon" className="size-8 text-done hover:bg-done-soft"
               title="رسائل وقوالب واتساب"
             >
               <MessageCircle className="w-4 h-4" />
-            </button>
+            </Button>
           )}
           {order.customerPhone && (
             <a
@@ -202,22 +200,22 @@ export const OrderCard: React.FC<OrderCardProps> = ({
               <Phone className="w-4 h-4" />
             </a>
           )}
-          <button
+          <Button
             onClick={() => onEdit(order)}
-            className="p-1.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[8px] transition-colors"
+            variant="ghost" size="icon" className="size-8 text-copy-muted hover:bg-paper hover:text-ink"
             title="تعديل الطلب"
           >
             <Edit2 className="w-4 h-4" />
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => onDelete(order.id)}
-            className="p-1.5 text-copy-muted hover:text-late hover:bg-late-soft rounded-[8px] transition-colors"
+            variant="ghost" size="icon" className="size-8 text-copy-muted hover:bg-late-soft hover:text-late"
             title="حذف الطلب"
           >
             <Trash2 className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </div>
-    </div>
+    </article></div>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Plus, Luggage, RotateCcw, FileSpreadsheet, Sparkles, MessageSquare, Download } from 'lucide-react';
+import { Plus, Luggage, RotateCcw, FileSpreadsheet } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface WalletQuickActionsProps {
   onOpenNewOrder: () => void;
@@ -38,7 +39,7 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
       icon: Luggage,
       color: 'bg-brass hover:bg-brass/85 text-on-ink',
       iconColor: 'text-on-ink',
-      border: 'border-[#9E783B]/50',
+      border: 'ring-brass/25',
       badge: null,
       onClick: onOpenNewTrip,
       highlight: false,
@@ -48,9 +49,9 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
       title: 'تسجيل مرتجع',
       subtitle: 'استبدال/استرداد',
       icon: RotateCcw,
-      color: 'bg-[#FFF5F4] hover:bg-[#FEECEB] text-late',
+      color: 'bg-late-soft hover:bg-late-soft/70 text-late',
       iconColor: 'text-late',
-      border: 'border-[#F4D1CD]',
+      border: 'ring-late/20',
       badge: null,
       onClick: onOpenNewReturn,
       highlight: false,
@@ -60,9 +61,9 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
       title: 'كشف السفر',
       subtitle: 'طباعة/PDF',
       icon: FileSpreadsheet,
-      color: 'bg-[#F2F8F4] hover:bg-[#E3F2E7] text-done',
+      color: 'bg-done-soft hover:bg-done-soft/70 text-done',
       iconColor: 'text-done',
-      border: 'border-[#CDE3D5]',
+      border: 'ring-done/20',
       badge: null,
       onClick: onOpenTripPrint,
       highlight: false,
@@ -71,17 +72,18 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-4 gap-2 sm:gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
         {actions.map((act) => {
           const Icon = act.icon;
           return (
-            <button
+            <Button
+              variant="ghost"
               key={act.id}
               onClick={act.onClick}
-              className={`group flex flex-col items-center justify-center p-2.5 sm:p-3.5 rounded-[18px] sm:rounded-[22px] transition-all duration-200 border active:scale-95 shadow-xs hover:shadow-md ${act.color} ${act.border}`}
+              className={`group h-32 flex-col rounded-[1.4rem] p-3 ring-1 duration-700 motion-spring hover:-translate-y-1 sm:h-36 ${act.color} ${act.border}`}
             >
               <div className="relative mb-1 sm:mb-1.5">
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform group-hover:scale-105 ${
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105 ${
                   act.highlight ? 'bg-canvas/10' : 'bg-current/10'
                 }`}>
                   <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${act.iconColor}`} />
@@ -95,7 +97,7 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
               }`}>
                 {act.subtitle}
               </span>
-            </button>
+            </Button>
           );
         })}
       </div>

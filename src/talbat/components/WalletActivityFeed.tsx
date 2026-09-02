@@ -17,6 +17,7 @@ import {
 import { Order } from '../types';
 import { formatArabicDate, formatCurrency, isOrderLate, getDaysDifference } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
+import { Button } from '@/components/ui/button';
 
 interface WalletActivityFeedProps {
   orders: Order[];
@@ -95,7 +96,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
   };
 
   return (
-    <div className="bg-canvas rounded-[22px] sm:rounded-[26px] border border-line p-4 sm:p-5 shadow-xs">
+    <div className="h-full rounded-[1.75rem] bg-paper-alt/70 p-1.5 ring-1 ring-line"><div className="h-full rounded-[calc(1.75rem-0.375rem)] bg-canvas p-4 shadow-[inset_0_1px_0_var(--canvas)] sm:p-5">
       {/* Header with Title & Filter Pills */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
@@ -103,7 +104,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
             <Layers className="w-4 h-4" />
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold font-cairo text-ink">
+            <span className="mb-1 block text-[10px] font-bold uppercase text-brass">آخر العمليات</span><h2 className="text-base sm:text-lg font-bold font-cairo text-ink">
               النشاط المالي وسجل العمليات
             </h2>
             <p className="text-[11px] text-copy-muted">
@@ -139,7 +140,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'pending'
               ? 'bg-pending text-on-ink shadow-xs'
-              : 'bg-pending-soft text-pending hover:bg-[#EED7BA]'
+               : 'bg-pending-soft text-pending hover:bg-pending-soft/70'
           }`}
         >
           معلّق ({pendingOrders.length})
@@ -151,7 +152,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
             className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
               filter === 'late'
                 ? 'bg-late text-on-ink shadow-xs animate-pulse'
-                : 'bg-late-soft text-late hover:bg-[#F0CDC8]'
+                 : 'bg-late-soft text-late hover:bg-late-soft/70'
             }`}
           >
             متأخر ({lateOrders.length})
@@ -163,7 +164,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'done'
               ? 'bg-done text-on-ink shadow-xs'
-              : 'bg-done-soft text-done hover:bg-[#CDE3D5]'
+               : 'bg-done-soft text-done hover:bg-done-soft/70'
           }`}
         >
           مكتمل ({doneOrders.length})
@@ -192,9 +193,9 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                   <div
                     className={`w-11 h-11 rounded-2xl shrink-0 flex items-center justify-center font-cairo font-bold transition-transform group-hover:scale-105 ${
                       order.status === 'done'
-                        ? 'bg-done-soft text-done border border-[#CDE3D5]'
+                        ? 'bg-done-soft text-done ring-1 ring-done/20'
                         : isLate
-                        ? 'bg-late-soft text-late border border-[#F4D1CD]'
+                        ? 'bg-late-soft text-late ring-1 ring-late/20'
                         : 'bg-paper-warm text-brass border border-line-soft'
                     }`}
                   >
@@ -284,6 +285,6 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           })
         )}
       </div>
-    </div>
+    </div></div>
   );
 };
