@@ -64,7 +64,6 @@ export type Database = {
           status: string
           supplier_id: string | null
           supplier_name: string
-          travel_date: string | null
           updated_at: string
           user_id: string
         }
@@ -87,7 +86,6 @@ export type Database = {
           status?: string
           supplier_id?: string | null
           supplier_name?: string
-          travel_date?: string | null
           updated_at?: string
           user_id: string
         }
@@ -110,7 +108,6 @@ export type Database = {
           status?: string
           supplier_id?: string | null
           supplier_name?: string
-          travel_date?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -228,45 +225,6 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string | null
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      trips: {
-        Row: {
-          created_at: string
-          date: string
-          destination: string | null
-          id: string
-          items: Json
-          notes: string | null
-          status: string
-          title: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          date?: string
-          destination?: string | null
-          id?: string
-          items?: Json
-          notes?: string | null
-          status?: string
-          title?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          destination?: string | null
-          id?: string
-          items?: Json
-          notes?: string | null
-          status?: string
-          title?: string
           updated_at?: string
           user_id?: string
         }

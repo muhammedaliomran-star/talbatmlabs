@@ -4,28 +4,6 @@ export const getTodayDateString = (): string => {
   return new Date().toISOString().split('T')[0];
 };
 
-export const isOrderLate = (order: Order): boolean => {
-  if (order.status === 'done') return false;
-  const today = getTodayDateString();
-  return order.travelDate < today;
-};
-
-export const isOrderUpcoming = (order: Order, daysRange = 7): boolean => {
-  if (order.status === 'done') return false;
-  const today = new Date(getTodayDateString());
-  const travel = new Date(order.travelDate);
-  const diffTime = travel.getTime() - today.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays >= 0 && diffDays <= daysRange;
-};
-
-export const getDaysDifference = (dateStr: string): number => {
-  const today = new Date(getTodayDateString());
-  const target = new Date(dateStr);
-  const diffTime = target.getTime() - today.getTime();
-  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-};
-
 export const formatArabicDate = (dateStr: string): string => {
   if (!dateStr) return '';
   try {

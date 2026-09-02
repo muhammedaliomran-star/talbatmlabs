@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Luggage, Lock } from 'lucide-react';
+import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Lock } from 'lucide-react';
 import { ActiveTab, User } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
 import { Button } from '@/components/ui/button';
@@ -12,8 +12,6 @@ interface NavbarProps {
   onOpenNewReturn: () => void;
   onOpenBackup: () => void;
   pendingCount: number;
-  lateCount: number;
-  tripsCount?: number;
   currentUser?: User | null;
   onOpenProfile?: () => void;
   onLockScreen?: () => void;
@@ -27,8 +25,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenNewReturn,
   onOpenBackup,
   pendingCount,
-  lateCount,
-  tripsCount,
   currentUser,
   onOpenProfile,
   onLockScreen,
@@ -37,7 +33,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const tabs = [
     { id: 'dashboard' as ActiveTab, label: 'الرئيسية', icon: LayoutDashboard },
     { id: 'orders' as ActiveTab, label: 'الطلبات', icon: ShoppingBag, badge: pendingCount },
-    { id: 'trips' as ActiveTab, label: 'رحلات الشراء', icon: Luggage, badge: tripsCount },
     { id: 'suppliers' as ActiveTab, label: 'الموردين', icon: Truck },
     { id: 'returns' as ActiveTab, label: 'المرتجعات', icon: RotateCcw },
   ];
@@ -69,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
               </div>
               <p className="text-[11px] text-ink-muted hidden sm:block">
-                إدارة طلبات العملاء، الموردين ومواعيد السفر
+                إدارة طلبات العملاء والموردين والمرتجعات
               </p>
             </div>
           </div>
@@ -95,9 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {tab.badge !== undefined && tab.badge > 0 && (
                     <span
                       className={`text-[11px] font-cairo font-bold px-1.5 py-0.2 rounded-full ${
-                        lateCount > 0 && tab.id === 'orders'
-                          ? 'bg-late text-on-ink font-bold'
-                          : 'bg-ink-light text-on-ink'
+                        'bg-ink-light text-on-ink'
                       }`}
                     >
                       {tab.badge}

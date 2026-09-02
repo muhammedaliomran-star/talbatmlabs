@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { X, Download, Upload, RotateCcw, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { X, Download, Upload } from 'lucide-react';
 import { AppData } from '../types';
 import { exportDataAsJson } from '../utils/helpers';
 
@@ -8,7 +8,6 @@ interface BackupModalProps {
   onClose: () => void;
   appData: AppData;
   onRestoreData: (data: AppData) => void;
-  onResetDemoData: () => void;
 }
 
 export const BackupModal: React.FC<BackupModalProps> = ({
@@ -16,7 +15,6 @@ export const BackupModal: React.FC<BackupModalProps> = ({
   onClose,
   appData,
   onRestoreData,
-  onResetDemoData,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -122,21 +120,6 @@ export const BackupModal: React.FC<BackupModalProps> = ({
             </button>
           </div>
 
-          {/* Reset Demo Data */}
-          <div className="pt-2 border-t border-line">
-            <button
-              onClick={() => {
-                if (confirm('هل أنت متأكد من إعادة ضبط البيانات التجريبية لمحل الملابس؟')) {
-                  onResetDemoData();
-                  onClose();
-                }
-              }}
-              className="w-full py-2 text-xs font-semibold text-copy-muted hover:text-ink hover:bg-paper rounded-[8px] transition-colors flex items-center justify-center gap-1"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>إعادة ضبط البيانات التجريبية الأولية</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>

@@ -3,10 +3,8 @@ import {
   ShoppingBag,
   Check,
   Clock,
-  AlertTriangle,
   MessageCircle,
   Phone,
-  Calendar,
   Store,
   ChevronRight,
   Filter,
@@ -15,7 +13,7 @@ import {
   Shirt,
 } from 'lucide-react';
 import { Order } from '../types';
-import { formatArabicDate, formatCurrency, isOrderLate, getDaysDifference } from '../utils/helpers';
+import { formatCurrency } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
 import { Button } from '@/components/ui/button';
 
@@ -40,15 +38,13 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
   onOpenWhatsApp,
   onViewAllOrders,
 }) => {
-  const [filter, setFilter] = useState<'all' | 'pending' | 'late' | 'done'>('all');
+  const [filter, setFilter] = useState<'all' | 'pending' | 'done'>('all');
 
   const pendingOrders = orders.filter((o) => o.status === 'pending');
-  const lateOrders = orders.filter((o) => isOrderLate(o));
   const doneOrders = orders.filter((o) => o.status === 'done');
 
   const filteredOrders = orders.filter((o) => {
     if (filter === 'pending') return o.status === 'pending';
-    if (filter === 'late') return isOrderLate(o);
     if (filter === 'done') return o.status === 'done';
     return true;
   });
@@ -58,7 +54,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
     .sort((a, b) => b.orderDate.localeCompare(a.orderDate))
     .slice(0, 8);
 
-  const getTravelBadge = (order: Order) => {
+  const getStatusBadge = (order: Order) => {
     if (order.status === 'done') {
       return (
         <span className="text-[10px] font-bold text-done bg-done-soft px-2 py-0.5 rounded-full">
@@ -66,31 +62,9 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
         </span>
       );
     }
-    const daysDiff = getDaysDifference(order.travelDate);
-    if (isOrderLate(order)) {
-      return (
-        <span className="text-[10px] font-bold text-on-ink bg-late px-2 py-0.5 rounded-full animate-pulse">
-          متأخر {Math.abs(daysDiff)} يوم!
-        </span>
-      );
-    }
-    if (daysDiff === 0) {
-      return (
-        <span className="text-[10px] font-bold text-pending bg-pending-soft px-2 py-0.5 rounded-full">
-          السفر اليوم!
-        </span>
-      );
-    }
-    if (daysDiff === 1) {
-      return (
-        <span className="text-[10px] font-bold text-pending bg-pending-soft px-2 py-0.5 rounded-full">
-          السفر غداً
-        </span>
-      );
-    }
     return (
       <span className="text-[10px] text-copy-muted bg-paper px-2 py-0.5 rounded-full">
-        بعد {daysDiff} أيام
+        قيد الانتظار
       </span>
     );
   };
@@ -146,19 +120,6 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           معلّق ({pendingOrders.length})
         </button>
 
-        {lateOrders.length > 0 && (
-          <button
-            onClick={() => setFilter('late')}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
-              filter === 'late'
-                ? 'bg-late text-on-ink shadow-xs animate-pulse'
-                 : 'bg-late-soft text-late hover:bg-late-soft/70'
-            }`}
-          >
-            متأخر ({lateOrders.length})
-          </button>
-        )}
-
         <button
           onClick={() => setFilter('done')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
@@ -180,7 +141,6 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
         ) : (
           feedOrders.map((order) => {
             const remaining = (order.price || 0) - (order.deposit || 0);
-            const isLate = isOrderLate(order);
 
             return (
               <div
@@ -194,8 +154,6 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                     className={`w-11 h-11 rounded-2xl shrink-0 flex items-center justify-center font-cairo font-bold transition-transform group-hover:scale-105 ${
                       order.status === 'done'
                         ? 'bg-done-soft text-done ring-1 ring-done/20'
-                        : isLate
-                        ? 'bg-late-soft text-late ring-1 ring-late/20'
                         : 'bg-paper-warm text-brass border border-line-soft'
                     }`}
                   >
@@ -231,7 +189,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                           {order.color}
                         </span>
                       )}
-                      {getTravelBadge(order)}
+                       {getStatusBadge(order)}
                     </div>
                   </div>
                 </div>

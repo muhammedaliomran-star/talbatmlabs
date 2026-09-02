@@ -5,14 +5,11 @@ import { DashboardView } from './components/DashboardView';
 import { OrdersView } from './components/OrdersView';
 import { SuppliersView } from './components/SuppliersView';
 import { ReturnsView } from './components/ReturnsView';
-import { TripsView } from './components/TripsView';
 import { OrderModal } from './components/OrderModal';
 import { SupplierModal } from './components/SupplierModal';
 import { ReturnModal } from './components/ReturnModal';
-import { TripModal } from './components/TripModal';
 import { WhatsAppModal } from './components/WhatsAppModal';
 import { BackupModal } from './components/BackupModal';
-import { TripPrintModal } from './components/TripPrintModal';
 import { AuthPortal } from './components/AuthPortal';
 import { useAuthUser } from './hooks/useAuthUser';
 import { useCloudData } from './hooks/useCloudData';
@@ -25,20 +22,8 @@ import {
   ReturnItem,
   ReturnStatus,
   Supplier,
-  ShoppingTrip,
-  TripItemCheck,
-  TripItemStatus,
-  TripStatus,
   User,
 } from './types';
-import {
-  INITIAL_CUSTOMERS,
-  INITIAL_ORDERS,
-  INITIAL_RETURNS,
-  INITIAL_SUPPLIERS,
-  INITIAL_TRIPS,
-} from './data/initialData';
-import { isOrderLate } from './utils/helpers';
 
 export default function App() {
   // Auth (real accounts via Lovable Cloud)
@@ -54,8 +39,6 @@ export default function App() {
     setCustomers,
     returns,
     setReturns,
-    trips,
-    setTrips,
     loading: dataLoading,
     syncError,
   } = useCloudData(currentUser?.id);
@@ -89,21 +72,14 @@ export default function App() {
   const [isReturnModalOpen, setIsReturnModalOpen] = useState(false);
   const [editingReturn, setEditingReturn] = useState<ReturnItem | null>(null);
 
-  const [isTripModalOpen, setIsTripModalOpen] = useState(false);
-  const [editingTrip, setEditingTrip] = useState<ShoppingTrip | null>(null);
-
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
   const [whatsAppOrder, setWhatsAppOrder] = useState<Order | null>(null);
 
   const [isBackupModalOpen, setIsBackupModalOpen] = useState(false);
-  const [isTripPrintModalOpen, setIsTripPrintModalOpen] = useState(false);
-  const [tripPrintSupplier, setTripPrintSupplier] = useState<Supplier | undefined>();
 
   // Counts for Badges
   const pendingCount = orders.filter((o) => o.status === 'pending').length;
-  const lateCount = orders.filter((o) => isOrderLate(o)).length;
   const returnsCount = returns.filter((r) => r.status === 'pending_supplier').length;
-  const activeTripsCount = trips.filter((t) => t.status === 'in_progress' || t.status === 'planned').length;
 
   // Handlers for Orders
   const handleOpenNewOrder = (prefill?: { customerId?: string; supplierId?: string }) => {
@@ -200,7 +176,6 @@ export default function App() {
         price: orderData.price,
         deposit: orderData.deposit,
         orderDate: orderData.orderDate || new Date().toISOString().split('T')[0],
-        travelDate: orderData.travelDate || new Date().toISOString().split('T')[0],
         status: orderData.status || 'pending',
         notes: orderData.notes,
         createdAt: new Date().toISOString(),
@@ -339,88 +314,6 @@ export default function App() {
     );
   };
 
-  // Trip sheet modal
-  const handleOpenTripPrint = (supplier?: Supplier) => {
-    setTripPrintSupplier(supplier);
-    setIsTripPrintModalOpen(true);
-  };
-
-  // Handlers for Shopping Trips
-  const handleOpenNewTrip = () => {
-    setEditingTrip(null);
-    setIsTripModalOpen(true);
-  };
-
-  const handleEditTrip = (trip: ShoppingTrip) => {
-    setEditingTrip(trip);
-    setIsTripModalOpen(true);
-  };
-
-  const handleSaveTrip = (tripData: Partial<ShoppingTrip>) => {
-    if (editingTrip) {
-      setTrips((prev) =>
-        prev.map((t) => (t.id === editingTrip.id ? ({ ...t, ...tripData } as ShoppingTrip) : t))
-      );
-    } else {
-      const newTrip: ShoppingTrip = {
-        id: `trip-${Date.now()}`,
-        title: tripData.title || 'رحلة تسوق وشراء',
-        date: tripData.date || new Date().toISOString().split('T')[0],
-        destination: tripData.destination || 'سوق الموسكي',
-        status: tripData.status || 'planned',
-        items: tripData.items || [],
-        notes: tripData.notes,
-        createdAt: new Date().toISOString(),
-      };
-      setTrips((prev) => [newTrip, ...prev]);
-    }
-  };
-
-  const handleDeleteTrip = (tripId: string) => {
-    if (confirm('هل أنت متأكد من رغبتك في حذف رحلة الشراء هذه؟')) {
-      setTrips((prev) => prev.filter((t) => t.id !== tripId));
-    }
-  };
-
-  const handleUpdateTripItemStatus = (
-    tripId: string,
-    orderId: string,
-    itemStatus: TripItemStatus
-  ) => {
-    setTrips((prev) =>
-      prev.map((trip) => {
-        if (trip.id !== tripId) return trip;
-        const existingItems = trip.items || [];
-        const index = existingItems.findIndex((c) => c.orderId === orderId);
-        let updatedItems: TripItemCheck[];
-        if (index >= 0) {
-          updatedItems = existingItems.map((c, i) =>
-            i === index ? { ...c, status: itemStatus } : c
-          );
-        } else {
-          updatedItems = [
-            ...existingItems,
-            { orderId, status: itemStatus },
-          ];
-        }
-        return { ...trip, items: updatedItems };
-      })
-    );
-
-    // If item marked bought, mark order as done
-    if (itemStatus === 'bought') {
-      setOrders((prev) =>
-        prev.map((o) => (o.id === orderId ? { ...o, status: 'done' } : o))
-      );
-    }
-  };
-
-  const handleUpdateTripStatus = (tripId: string, status: TripStatus) => {
-    setTrips((prev) =>
-      prev.map((t) => (t.id === tripId ? { ...t, status } : t))
-    );
-  };
-
   // WhatsApp template modal trigger
   const handleOpenWhatsAppForOrder = (order: Order) => {
     setWhatsAppOrder(order);
@@ -444,15 +337,6 @@ export default function App() {
     if (data.suppliers) setSuppliers(data.suppliers);
     if (data.customers) setCustomers(data.customers);
     if (data.returns) setReturns(data.returns);
-    if (data.trips) setTrips(data.trips);
-  };
-
-  const handleResetDemoData = () => {
-    setOrders(INITIAL_ORDERS);
-    setSuppliers(INITIAL_SUPPLIERS);
-    setCustomers(INITIAL_CUSTOMERS);
-    setReturns(INITIAL_RETURNS);
-    setTrips(INITIAL_TRIPS);
   };
 
   // Real authentication gate
@@ -493,8 +377,6 @@ export default function App() {
         onOpenNewReturn={handleOpenNewReturn}
         onOpenBackup={() => setIsBackupModalOpen(true)}
         pendingCount={pendingCount}
-        lateCount={lateCount}
-        tripsCount={activeTripsCount}
         currentUser={currentUser}
         onOpenProfile={() => setIsProfileModalOpen(true)}
         onLockScreen={handleLogout}
@@ -508,13 +390,10 @@ export default function App() {
             suppliers={suppliers}
             customers={customers}
             returns={returns}
-            trips={trips}
             setActiveTab={setActiveTab}
             onOpenNewOrder={() => handleOpenNewOrder()}
             onOpenNewSupplier={handleOpenNewSupplier}
             onOpenNewReturn={handleOpenNewReturn}
-            onOpenNewTrip={handleOpenNewTrip}
-            onOpenTripPrint={handleOpenTripPrint}
             onToggleOrderStatus={handleToggleOrderStatus}
             onEditOrder={handleEditOrder}
             onDeleteOrder={handleDeleteOrder}
@@ -539,19 +418,6 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'trips' && (
-          <TripsView
-            trips={trips}
-            orders={orders}
-            onOpenNewTrip={handleOpenNewTrip}
-            onEditTrip={handleEditTrip}
-            onDeleteTrip={handleDeleteTrip}
-            onUpdateTripItemStatus={handleUpdateTripItemStatus}
-            onUpdateTripStatus={handleUpdateTripStatus}
-            onOpenWhatsApp={handleOpenWhatsAppForOrder}
-          />
-        )}
-
         {activeTab === 'suppliers' && (
           <SuppliersView
             suppliers={suppliers}
@@ -560,7 +426,6 @@ export default function App() {
             onOpenNewSupplier={handleOpenNewSupplier}
             onEditSupplier={handleEditSupplier}
             onDeleteSupplier={handleDeleteSupplier}
-            onOpenTripPrint={handleOpenTripPrint}
             onToggleOrderStatus={handleToggleOrderStatus}
             selectedSupplierId={targetSupplierId}
           />
@@ -583,9 +448,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         pendingCount={pendingCount}
-        lateCount={lateCount}
         returnsCount={returnsCount}
-        tripsCount={activeTripsCount}
       />
 
       {/* Modals */}
@@ -599,14 +462,6 @@ export default function App() {
         onQuickAddSupplier={handleQuickAddSupplier}
         initialCustomerId={modalInitialCustomerId}
         initialSupplierId={modalInitialSupplierId}
-      />
-
-      <TripModal
-        isOpen={isTripModalOpen}
-        onClose={() => setIsTripModalOpen(false)}
-        onSave={handleSaveTrip}
-        initialTrip={editingTrip}
-        pendingOrders={orders}
       />
 
       <WhatsAppModal
@@ -631,21 +486,11 @@ export default function App() {
         orders={orders}
       />
 
-      <TripPrintModal
-        isOpen={isTripPrintModalOpen}
-        onClose={() => setIsTripPrintModalOpen(false)}
-        supplier={tripPrintSupplier}
-        suppliers={suppliers}
-        orders={orders}
-        returns={returns}
-      />
-
       <BackupModal
         isOpen={isBackupModalOpen}
         onClose={() => setIsBackupModalOpen(false)}
-        appData={{ orders, suppliers, customers, returns, trips }}
+        appData={{ orders, suppliers, customers, returns }}
         onRestoreData={handleRestoreData}
-        onResetDemoData={handleResetDemoData}
       />
 
       {currentUser && (

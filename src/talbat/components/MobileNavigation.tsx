@@ -2,7 +2,6 @@ import React from 'react';
 import {
   LayoutDashboard,
   ShoppingBag,
-  Luggage,
   Truck,
   RotateCcw,
 } from 'lucide-react';
@@ -12,18 +11,14 @@ interface MobileNavigationProps {
   activeTab: ActiveTab;
   setActiveTab: (tab: ActiveTab) => void;
   pendingCount: number;
-  lateCount: number;
   returnsCount: number;
-  tripsCount?: number;
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   activeTab,
   setActiveTab,
   pendingCount,
-  lateCount,
   returnsCount,
-  tripsCount,
 }) => {
   const tabs = [
     {
@@ -36,13 +31,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       label: 'الطلبات',
       icon: ShoppingBag,
       badge: pendingCount,
-      badgeDanger: lateCount > 0,
-    },
-    {
-      id: 'trips' as ActiveTab,
-      label: 'الرحلات',
-      icon: Luggage,
-      badge: tripsCount,
     },
     {
       id: 'suppliers' as ActiveTab,
@@ -87,9 +75,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 />
                 {tab.badge !== undefined && tab.badge > 0 && (
                   <span
-                    className={`absolute -top-1.5 -left-2 text-[9px] font-cairo font-bold px-1 min-w-[15px] h-[15px] flex items-center justify-center rounded-full text-on-ink shadow-xs ${
-                      tab.badgeDanger ? 'bg-late' : 'bg-pending'
-                    }`}
+                    className="absolute -top-1.5 -left-2 text-[9px] font-cairo font-bold px-1 min-w-[15px] h-[15px] flex items-center justify-center rounded-full text-on-ink shadow-xs bg-pending"
                   >
                     {tab.badge}
                   </span>

@@ -1,23 +1,17 @@
 import React from 'react';
-import { Plus, Luggage, RotateCcw, FileSpreadsheet } from 'lucide-react';
+import { Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface WalletQuickActionsProps {
   onOpenNewOrder: () => void;
-  onOpenNewTrip: () => void;
   onOpenNewReturn: () => void;
-  onOpenTripPrint: () => void;
   pendingCount?: number;
-  lateCount?: number;
 }
 
 export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
   onOpenNewOrder,
-  onOpenNewTrip,
   onOpenNewReturn,
-  onOpenTripPrint,
   pendingCount = 0,
-  lateCount = 0,
 }) => {
   const actions = [
     {
@@ -33,18 +27,6 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
       highlight: true,
     },
     {
-      id: 'new-trip',
-      title: 'رحلة شراء',
-      subtitle: 'سفرية السوق',
-      icon: Luggage,
-      color: 'bg-brass hover:bg-brass/85 text-on-ink',
-      iconColor: 'text-on-ink',
-      border: 'ring-brass/25',
-      badge: null,
-      onClick: onOpenNewTrip,
-      highlight: false,
-    },
-    {
       id: 'new-return',
       title: 'تسجيل مرتجع',
       subtitle: 'استبدال/استرداد',
@@ -54,18 +36,6 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
       border: 'ring-late/20',
       badge: null,
       onClick: onOpenNewReturn,
-      highlight: false,
-    },
-    {
-      id: 'trip-print',
-      title: 'كشف السفر',
-      subtitle: 'طباعة/PDF',
-      icon: FileSpreadsheet,
-      color: 'bg-done-soft hover:bg-done-soft/70 text-done',
-      iconColor: 'text-done',
-      border: 'ring-done/20',
-      badge: null,
-      onClick: onOpenTripPrint,
       highlight: false,
     },
   ];

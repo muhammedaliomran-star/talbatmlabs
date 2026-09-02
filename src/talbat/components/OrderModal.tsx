@@ -38,7 +38,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   const [alternativeColor, setAlternativeColor] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [orderDate, setOrderDate] = useState(getTodayDateString());
-  const [travelDate, setTravelDate] = useState('');
   const [status, setStatus] = useState<OrderStatus>('pending');
   const [notes, setNotes] = useState('');
 
@@ -61,7 +60,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       setAlternativeColor(initialOrder.alternativeColor || '');
       setQuantity(initialOrder.quantity || 1);
       setOrderDate(initialOrder.orderDate || getTodayDateString());
-      setTravelDate(initialOrder.travelDate || '');
       setStatus(initialOrder.status || 'pending');
       setNotes(initialOrder.notes || '');
     } else {
@@ -75,11 +73,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       setAlternativeColor('');
       setQuantity(1);
       setOrderDate(getTodayDateString());
-      
-      // Default travel date: 3 days from now
-      const d = new Date();
-      d.setDate(d.getDate() + 3);
-      setTravelDate(d.toISOString().split('T')[0]);
       
       setStatus('pending');
       setNotes('');
@@ -140,11 +133,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       alert('يرجى كتابة تفاصيل الطلب');
       return;
     }
-    if (!travelDate) {
-      alert('يرجى تحديد يوم السفر (ميعاد التوريد)');
-      return;
-    }
-
     const selectedSupplier = suppliers.find((s) => s.id === supplierId);
 
     const orderPayload: Partial<Order> = {
@@ -158,7 +146,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       alternativeColor: alternativeColor.trim() || undefined,
       quantity: Math.max(1, Number(quantity) || 1),
       orderDate,
-      travelDate,
       status,
       notes: notes.trim() || undefined,
     };
@@ -181,7 +168,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                 {initialOrder ? `تعديل الطلب #${initialOrder.orderNumber}` : 'إضافة طلب جديد للعميل'}
               </h2>
               <p className="text-xs text-ink-muted">
-                تسجيل طلبية ملابس وتحديد المورد وميعاد السفر
+                 تسجيل طلبية ملابس وتحديد العميل والمورد
               </p>
             </div>
           </div>
@@ -479,8 +466,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </div>
           </div>
 
-          {/* Dates: Order Date & Travel Date */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* Order Date */}
+          <div>
             <div>
               <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
                 <Calendar className="w-3.5 h-3.5 text-copy-muted" />
@@ -494,20 +481,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-late" />
-                <span>يوم السفر (ميعاد التوريد)</span>
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="date"
-                required
-                value={travelDate}
-                onChange={(e) => setTravelDate(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded-[9px] border border-brass bg-white font-semibold text-ink"
-              />
-            </div>
           </div>
 
           {/* Status Selection */}

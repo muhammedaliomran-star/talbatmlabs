@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle, Send, Copy, Check, Sparkles, AlertTriangle, PackageCheck } from 'lucide-react';
 import { Order } from '../types';
-import { formatArabicDate, createWhatsAppUrl } from '../utils/helpers';
+import { createWhatsAppUrl } from '../utils/helpers';
 
 interface WhatsAppModalProps {
   isOpen: boolean;
@@ -28,16 +28,14 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({
       order.quantity && order.quantity > 1 ? `عدد (${order.quantity})` : '',
     ].filter(Boolean).join(' - ');
 
-    const travelDateStr = formatArabicDate(order.travelDate);
-
     let message = '';
     if (selectedTemplate === 'confirmation') {
-      message = `مرحباً يا فندم (${order.customerName})، تم تسجيل طلبك بنجاح في المحل:\n🛍️ الصنف: ${itemDetails}\n📅 ميعاد التوريد المتوقع: ${travelDateStr}\nسنقوم بإبلاغك فور وصول الطلبية إن شاء الله.`;
+      message = `مرحباً يا فندم (${order.customerName})، تم تسجيل طلبك بنجاح في المحل:\n🛍️ الصنف: ${itemDetails}\nسنقوم بإبلاغك فور وصول الطلبية إن شاء الله.`;
     } else if (selectedTemplate === 'unavailable') {
       message = `مرحباً يا فندم (${order.customerName})، بخصوص طلبك:\n(${itemDetails})\nللأسف الموديل باللون المحدد غير متوفر حالياً لدى المورد في السوق.\n${
         order.alternativeColor
           ? `هل يناسبك نأخذ اللون البديل المتفق عليه (${order.alternativeColor})؟`
-          : 'هل تفضل اختيار لون بديل أم ننتظر توفره في الرحلة القادمة؟'
+          : 'هل تفضل اختيار لون بديل أم ننتظر توفره؟'
       }`;
     } else if (selectedTemplate === 'ready') {
       message = `مرحباً يا فندم (${order.customerName})،\n🎉 طلبك (${itemDetails}) وصل المحل وجاهز للاستلام الآن!\nفي انتظار تشريفك في أي وقت للمعاينة والاستلام. أهلاً بك دائماً!`;
@@ -109,8 +107,8 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({
               >
                 <Sparkles className="w-4 h-4 text-done shrink-0 mt-0.5" />
                 <div>
-                  <div className="text-xs font-bold">تأكيد الحجز وميعاد التوريد</div>
-                  <div className="text-[10px] text-copy-muted font-normal">عند تسجيل الطلب وتحديد السفر</div>
+                  <div className="text-xs font-bold">تأكيد تسجيل الطلب</div>
+                  <div className="text-[10px] text-copy-muted font-normal">عند تسجيل طلب العميل</div>
                 </div>
               </button>
 

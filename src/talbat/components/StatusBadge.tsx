@@ -1,6 +1,5 @@
 import React from 'react';
 import { Order } from '../types';
-import { isOrderLate } from '../utils/helpers';
 
 interface StatusBadgeProps {
   status: 'pending' | 'done';
@@ -9,19 +8,6 @@ interface StatusBadgeProps {
 }
 
 export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, order, className = '' }) => {
-  const late = order ? isOrderLate(order) : false;
-
-  if (late) {
-    return (
-      <span
-        className={`hang-tag bg-late-soft text-late border border-late-soft ${className}`}
-        title="تجاوز ميعاد السفر المحدد وما زال معلقاً"
-      >
-        متأخر
-      </span>
-    );
-  }
-
   if (status === 'done') {
     return (
       <span

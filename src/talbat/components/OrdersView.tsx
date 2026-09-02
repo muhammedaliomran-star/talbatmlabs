@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Plus, Search, Filter, LayoutGrid, Table as TableIcon, Phone, MessageCircle, Edit2, Trash2, Check, Clock, Calendar, Store, ArrowUpDown, Download, FileSpreadsheet } from 'lucide-react';
-import { Order, OrderStatus, Supplier } from '../types';
-import { formatArabicDate, formatCurrency, isOrderLate, createWhatsAppUrl, getDaysDifference } from '../utils/helpers';
+import { Plus, Search, LayoutGrid, Table as TableIcon, MessageCircle, Edit2, Trash2, Check, Clock, FileSpreadsheet } from 'lucide-react';
+import { Order, Supplier } from '../types';
+import { formatArabicDate, formatCurrency } from '../utils/helpers';
 import { exportOrdersToCSV } from '../utils/exportToCsv';
 import { StatusBadge } from './StatusBadge';
 import { OrderCard } from './OrderCard';
@@ -16,7 +16,7 @@ interface OrdersViewProps {
   onSelectCustomer: (customerName: string) => void;
   onSelectSupplier: (supplierId: string) => void;
   onOpenWhatsApp?: (order: Order) => void;
-  initialFilterStatus?: 'all' | 'pending' | 'late' | 'done';
+  initialFilterStatus?: 'all' | 'pending' | 'done';
   initialSearchTerm?: string;
 }
 
@@ -34,11 +34,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   initialSearchTerm = '',
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
-  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'late' | 'done'>(
+  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'done'>(
     initialFilterStatus
   );
   const [supplierFilter, setSupplierFilter] = useState<string>('all');
-  const [sortBy, setSortBy] = useState<'travelDate' | 'orderDate' | 'price' | 'customer'>('travelDate');
+  const [sortBy, setSortBy] = useState<'orderDate' | 'price' | 'customer'>('orderDate');
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('table');
 
   useEffect(() => {
@@ -54,8 +54,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         // Status filter
         if (statusFilter === 'pending') {
           if (order.status !== 'pending') return false;
-        } else if (statusFilter === 'late') {
-          if (!isOrderLate(order)) return false;
         } else if (statusFilter === 'done') {
           if (order.status !== 'done') return false;
         }
@@ -81,9 +79,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         return true;
       })
       .sort((a, b) => {
-        if (sortBy === 'travelDate') {
-          return a.travelDate.localeCompare(b.travelDate);
-        }
         if (sortBy === 'orderDate') {
           return b.orderDate.localeCompare(a.orderDate);
         }
@@ -97,7 +92,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       });
   }, [orders, statusFilter, supplierFilter, searchTerm, sortBy]);
 
-  const lateCount = orders.filter((o) => isOrderLate(o)).length;
   const pendingCount = orders.filter((o) => o.status === 'pending').length;
   const doneCount = orders.filter((o) => o.status === 'done').length;
 
@@ -110,7 +104,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             سجل طلبات العملاء ({filteredOrders.length})
           </h1>
           <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
-            متابعة الأصناف، الأسعار، ومواعيد السفر لكل مورد
+             متابعة الأصناف والأسعار وحالة كل طلب
           </p>
         </div>
 
@@ -205,16 +199,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               معلّق ({pendingCount})
             </button>
             <button
-              onClick={() => setStatusFilter('late')}
-              className={`px-3 py-1.5 rounded-lg font-bold shrink-0 transition-colors ${
-                statusFilter === 'late'
-                  ? 'bg-late text-white shadow-xs'
-                  : 'bg-late-soft text-late hover:bg-late-soft'
-              }`}
-            >
-              متأخر ({lateCount})
-            </button>
-            <button
               onClick={() => setStatusFilter('done')}
               className={`px-3 py-1.5 rounded-lg font-bold shrink-0 transition-colors ${
                 statusFilter === 'done'
@@ -246,7 +230,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               onChange={(e) => setSortBy(e.target.value as any)}
               className="bg-paper border border-line rounded-lg px-2.5 py-2 font-medium text-ink w-full"
             >
-              <option value="travelDate">ترتيب: ميعاد السفر</option>
               <option value="orderDate">ترتيب: تاريخ الإضافة</option>
               <option value="price">ترتيب: السعر الأكبر</option>
               <option value="customer">ترتيب: اسم العميل</option>
@@ -294,7 +277,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   <th className="p-3 font-cairo">العميل</th>
                   <th className="p-3 font-cairo">المورد</th>
                   <th className="p-3 font-cairo">تفاصيل الصنف والمقاس</th>
-                  <th className="p-3 font-cairo">ميعاد السفر</th>
+                  <th className="p-3 font-cairo">تاريخ الطلب</th>
                   <th className="p-3 font-cairo">السعر / العربون</th>
                   <th className="p-3 font-cairo text-center">الحالة</th>
                   <th className="p-3 font-cairo text-left">إجراءات</th>
@@ -302,16 +285,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               </thead>
               <tbody className="divide-y divide-paper-alt">
                 {filteredOrders.map((order, idx) => {
-                  const late = isOrderLate(order);
-                  const days = getDaysDifference(order.travelDate);
                   const remaining = (order.price || 0) - (order.deposit || 0);
 
                   return (
                     <tr
                       key={order.id}
-                      className={`hover:bg-paper-warm transition-colors ${
-                        late ? 'bg-canvas-subtle' : idx % 2 === 0 ? 'bg-white' : 'bg-canvas-subtle'
-                      }`}
+                      className={`hover:bg-paper-warm transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-canvas-subtle'}`}
                     >
                       {/* Order Number */}
                       <td className="p-3 font-cairo font-bold text-ink">
@@ -381,30 +360,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         )}
                       </td>
 
-                      {/* Travel Date */}
+                      {/* Order Date */}
                       <td className="p-3 whitespace-nowrap">
                         <div className="font-semibold text-ink">
-                          {formatArabicDate(order.travelDate)}
+                          {formatArabicDate(order.orderDate)}
                         </div>
-                        {order.status === 'pending' && (
-                          <div
-                            className={`text-[10px] font-bold ${
-                              late
-                                ? 'text-late'
-                                : days <= 3
-                                ? 'text-pending'
-                                : 'text-copy-muted'
-                            }`}
-                          >
-                            {late
-                              ? `متأخر ${Math.abs(days)} يوم`
-                              : days === 0
-                              ? 'اليوم!'
-                              : days === 1
-                              ? 'غداً'
-                              : `بعد ${days} أيام`}
-                          </div>
-                        )}
                       </td>
 
                       {/* Price / Deposit */}

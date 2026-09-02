@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { Customer, Order, ReturnItem, ShoppingTrip, Supplier } from '../types';
+import type { Customer, Order, ReturnItem, Supplier } from '../types';
 import {
   Collection,
   customersCollection,
@@ -8,24 +8,21 @@ import {
   returnsCollection,
   suppliersCollection,
   syncCollection,
-  tripsCollection,
 } from '../lib/cloudSync';
-import {
-  INITIAL_CUSTOMERS,
-  INITIAL_ORDERS,
-  INITIAL_RETURNS,
-  INITIAL_SUPPLIERS,
-  INITIAL_TRIPS,
-} from '../data/initialData';
 
 const LEGACY_KEY = 'daftar_app_state_v1';
+const REMOVED_SEED_IDS = {
+  orders: new Set(['ord-101', 'ord-102', 'ord-103', 'ord-104', 'ord-105', 'ord-106', 'ord-107']),
+  suppliers: new Set(['sup-1', 'sup-2', 'sup-3', 'sup-4']),
+  customers: new Set(['cust-1', 'cust-2', 'cust-3', 'cust-4', 'cust-5']),
+  returns: new Set(['ret-1', 'ret-2', 'ret-3']),
+};
 
 interface LegacyState {
   orders?: Order[];
   suppliers?: Supplier[];
   customers?: Customer[];
   returns?: ReturnItem[];
-  trips?: ShoppingTrip[];
 }
 
 function readLegacy(): LegacyState | null {
@@ -47,7 +44,6 @@ export function useCloudData(userId?: string | null) {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [returns, setReturns] = useState<ReturnItem[]>([]);
-  const [trips, setTrips] = useState<ShoppingTrip[]>([]);
   const [loading, setLoading] = useState(true);
   const [syncError, setSyncError] = useState<string | null>(null);
 
@@ -57,35 +53,41 @@ export function useCloudData(userId?: string | null) {
     suppliers: [] as Supplier[],
     customers: [] as Customer[],
     returns: [] as ReturnItem[],
-    trips: [] as ShoppingTrip[],
   });
 
   const load = useCallback(async (uid: string) => {
     ready.current = false;
     setLoading(true);
     try {
-      let [o, s, c, r, t] = await Promise.all([
+      const [cloudOrders, cloudSuppliers, cloudCustomers, cloudReturns] = await Promise.all([
         fetchCollection(ordersCollection, uid),
         fetchCollection(suppliersCollection, uid),
         fetchCollection(customersCollection, uid),
         fetchCollection(returnsCollection, uid),
-        fetchCollection(tripsCollection, uid),
       ]);
 
-      const empty = !o.length && !s.length && !c.length && !r.length && !t.length;
-      if (empty) {
-        const legacy = readLegacy();
-        o = legacy?.orders?.length ? legacy.orders : INITIAL_ORDERS;
-        s = legacy?.suppliers?.length ? legacy.suppliers : INITIAL_SUPPLIERS;
-        c = legacy?.customers?.length ? legacy.customers : INITIAL_CUSTOMERS;
-        r = legacy?.returns?.length ? legacy.returns : INITIAL_RETURNS;
-        t = legacy?.trips?.length ? legacy.trips : INITIAL_TRIPS;
+      const legacy = readLegacy();
+      const shouldImportLegacy = !cloudOrders.length && !cloudSuppliers.length && !cloudCustomers.length && !cloudReturns.length && legacy;
+      const o = shouldImportLegacy && legacy.orders?.length
+        ? legacy.orders.filter((item) => !REMOVED_SEED_IDS.orders.has(item.id))
+        : cloudOrders;
+      const s = shouldImportLegacy && legacy.suppliers?.length
+        ? legacy.suppliers.filter((item) => !REMOVED_SEED_IDS.suppliers.has(item.id))
+        : cloudSuppliers;
+      const c = shouldImportLegacy && legacy.customers?.length
+        ? legacy.customers.filter((item) => !REMOVED_SEED_IDS.customers.has(item.id))
+        : cloudCustomers;
+      const r = shouldImportLegacy && legacy.returns?.length
+        ? legacy.returns.filter((item) => !REMOVED_SEED_IDS.returns.has(item.id))
+        : cloudReturns;
 
-        await syncCollection(customersCollection, uid, [], c);
-        await syncCollection(suppliersCollection, uid, [], s);
-        await syncCollection(ordersCollection, uid, [], o);
-        await syncCollection(returnsCollection, uid, [], r);
-        await syncCollection(tripsCollection, uid, [], t);
+      if (shouldImportLegacy) {
+        await Promise.all([
+          syncCollection(customersCollection, uid, [], c),
+          syncCollection(suppliersCollection, uid, [], s),
+          syncCollection(ordersCollection, uid, [], o),
+          syncCollection(returnsCollection, uid, [], r),
+        ]);
         try {
           localStorage.removeItem(LEGACY_KEY);
         } catch {
@@ -93,12 +95,11 @@ export function useCloudData(userId?: string | null) {
         }
       }
 
-      snap.current = { orders: o, suppliers: s, customers: c, returns: r, trips: t };
+      snap.current = { orders: o, suppliers: s, customers: c, returns: r };
       setOrders(o);
       setSuppliers(s);
       setCustomers(c);
       setReturns(r);
-      setTrips(t);
       setSyncError(null);
     } catch (e) {
       console.error('Cloud load failed', e);
@@ -146,7 +147,6 @@ export function useCloudData(userId?: string | null) {
   useEffect(() => push(suppliersCollection, 'suppliers', suppliers), [suppliers, push]);
   useEffect(() => push(customersCollection, 'customers', customers), [customers, push]);
   useEffect(() => push(returnsCollection, 'returns', returns), [returns, push]);
-  useEffect(() => push(tripsCollection, 'trips', trips), [trips, push]);
 
   return {
     orders,
@@ -157,8 +157,6 @@ export function useCloudData(userId?: string | null) {
     setCustomers,
     returns,
     setReturns,
-    trips,
-    setTrips,
     loading,
     syncError,
     reload: () => (userId ? load(userId) : Promise.resolve()),

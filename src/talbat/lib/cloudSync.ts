@@ -1,10 +1,10 @@
 import { supabase } from '@/integrations/supabase/client';
-import type { Customer, Order, ReturnItem, ShoppingTrip, Supplier, TripItemCheck } from '../types';
+import type { Customer, Order, ReturnItem, Supplier } from '../types';
 
 type Row = Record<string, unknown>;
 
 export interface Collection<T extends { id: string }> {
-  table: 'orders' | 'customers' | 'suppliers' | 'returns' | 'trips';
+  table: 'orders' | 'customers' | 'suppliers' | 'returns';
   toRow: (item: T, userId: string) => Row;
   fromRow: (row: Row) => T;
 }
@@ -71,7 +71,6 @@ export const ordersCollection: Collection<Order> = {
     price: o.price ?? null,
     deposit: o.deposit ?? null,
     order_date: o.orderDate || new Date().toISOString().split('T')[0],
-    travel_date: o.travelDate || null,
     status: o.status,
     notes: o.notes ?? null,
     created_at: o.createdAt,
@@ -92,7 +91,6 @@ export const ordersCollection: Collection<Order> = {
     price: n(r['price']),
     deposit: n(r['deposit']),
     orderDate: String(r['order_date'] ?? ''),
-    travelDate: String(r['travel_date'] ?? ''),
     status: (r['status'] === 'done' ? 'done' : 'pending') as Order['status'],
     notes: s(r['notes']),
     createdAt: String(r['created_at'] ?? new Date().toISOString()),
@@ -126,31 +124,6 @@ export const returnsCollection: Collection<ReturnItem> = {
     reason: s(r['reason']),
     returnDate: String(r['return_date'] ?? ''),
     status: String(r['status'] ?? 'pending_supplier') as ReturnItem['status'],
-    createdAt: String(r['created_at'] ?? new Date().toISOString()),
-  }),
-};
-
-export const tripsCollection: Collection<ShoppingTrip> = {
-  table: 'trips',
-  toRow: (t, userId) => ({
-    id: t.id,
-    user_id: userId,
-    title: t.title ?? '',
-    date: t.date || new Date().toISOString().split('T')[0],
-    destination: t.destination ?? null,
-    status: t.status,
-    items: t.items ?? [],
-    notes: t.notes ?? null,
-    created_at: t.createdAt,
-  }),
-  fromRow: (r) => ({
-    id: String(r['id']),
-    title: String(r['title'] ?? ''),
-    date: String(r['date'] ?? ''),
-    destination: s(r['destination']),
-    status: String(r['status'] ?? 'planned') as ShoppingTrip['status'],
-    items: (Array.isArray(r['items']) ? r['items'] : []) as TripItemCheck[],
-    notes: s(r['notes']),
     createdAt: String(r['created_at'] ?? new Date().toISOString()),
   }),
 };

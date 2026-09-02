@@ -1,7 +1,7 @@
 import React from 'react';
 import { Check, Clock, Edit2, MessageCircle, Trash2, Calendar, Phone, Store } from 'lucide-react';
 import { Order } from '../types';
-import { formatArabicDate, formatCurrency, isOrderLate, getDaysDifference } from '../utils/helpers';
+import { formatArabicDate, formatCurrency } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
 import { Button } from '@/components/ui/button';
 
@@ -24,33 +24,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({
   onSelectSupplier,
   onOpenWhatsApp,
 }) => {
-  const late = isOrderLate(order);
-  const daysDiff = getDaysDifference(order.travelDate);
-
   const remaining = (order.price || 0) - (order.deposit || 0);
-
-  const getTravelDayBadge = () => {
-    if (order.status === 'done') {
-      return <span className="text-xs text-done">تم التسليم</span>;
-    }
-    if (late) {
-      return (
-        <span className="text-xs font-semibold text-late">
-          متأخر {Math.abs(daysDiff)} يوم
-        </span>
-      );
-    }
-    if (daysDiff === 0) {
-      return <span className="text-xs font-bold text-pending animate-pulse">السفر اليوم!</span>;
-    }
-    if (daysDiff === 1) {
-      return <span className="text-xs font-semibold text-pending">السفر غداً</span>;
-    }
-    if (daysDiff <= 7) {
-      return <span className="text-xs text-pending">السفر بعد {daysDiff} أيام</span>;
-    }
-    return <span className="text-xs text-copy-muted">{formatArabicDate(order.travelDate)}</span>;
-  };
 
   const handleWhatsAppClick = (e: React.MouseEvent) => {
     if (onOpenWhatsApp) {
@@ -60,7 +34,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({
   };
 
   return (
-    <div className={`rounded-[1.6rem] p-1.5 ring-1 ${late ? 'bg-late-soft/70 ring-late/20' : 'bg-paper-alt/70 ring-line'}`}>
+    <div className="rounded-[1.6rem] p-1.5 ring-1 bg-paper-alt/70 ring-line">
     <article className="relative rounded-[calc(1.6rem-0.375rem)] bg-canvas p-4 shadow-[inset_0_1px_0_var(--canvas)] transition-transform duration-500 motion-spring hover:-translate-y-1 sm:p-5">
       {/* Top row: Customer & Supplier & Status */}
       <div className="flex items-start justify-between gap-3 mb-2.5">
@@ -140,8 +114,8 @@ export const OrderCard: React.FC<OrderCardProps> = ({
       <div className="pt-3 border-t border-dashed border-line flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-1.5 text-copy-muted">
           <Calendar className="w-3.5 h-3.5 text-brass" />
-          <span>يوم السفر:</span>
-          {getTravelDayBadge()}
+          <span>تاريخ الطلب:</span>
+          <span>{formatArabicDate(order.orderDate)}</span>
         </div>
 
         <div className="flex items-center gap-2 text-right">

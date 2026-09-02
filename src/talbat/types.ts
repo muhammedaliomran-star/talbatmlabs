@@ -33,7 +33,6 @@ export interface Order {
   price?: number;
   deposit?: number;
   orderDate: string; // YYYY-MM-DD
-  travelDate: string; // YYYY-MM-DD (ميعاد التوريد / يوم السفر)
   status: OrderStatus;
   notes?: string;
   createdAt: string;
@@ -52,26 +51,6 @@ export interface ReturnItem {
   reason?: string;
   returnDate: string; // YYYY-MM-DD
   status: ReturnStatus;
-  createdAt: string;
-}
-
-export type TripStatus = 'planned' | 'in_progress' | 'completed';
-export type TripItemStatus = 'pending' | 'bought' | 'unavailable' | 'exchanged';
-
-export interface TripItemCheck {
-  orderId: string;
-  status: TripItemStatus;
-  notes?: string;
-}
-
-export interface ShoppingTrip {
-  id: string;
-  title: string; // e.g. "رحلة الإثنين 8 سبتمبر - سوق الموسكي"
-  date: string; // YYYY-MM-DD
-  destination?: string; // السوق / الوجهة
-  status: TripStatus;
-  items: TripItemCheck[];
-  notes?: string;
   createdAt: string;
 }
 
@@ -94,12 +73,11 @@ export interface User {
   createdAt?: string;
 }
 
-export type ActiveTab = 'dashboard' | 'orders' | 'trips' | 'suppliers' | 'returns';
+export type ActiveTab = 'dashboard' | 'orders' | 'suppliers' | 'returns';
 
 export interface AppData {
   orders: Order[];
   suppliers: Supplier[];
   customers: Customer[];
   returns: ReturnItem[];
-  trips?: ShoppingTrip[];
 }
