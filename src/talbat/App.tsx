@@ -457,15 +457,19 @@ export default function App() {
           <OrdersView
             orders={orders}
             suppliers={suppliers}
+            storeName={currentUser?.storeName}
             onOpenNewOrder={() => handleOpenNewOrder()}
             onToggleStatus={handleToggleOrderStatus}
             onEditOrder={handleEditOrder}
             onDeleteOrder={handleDeleteOrder}
+            onBulkDeleteOrders={handleBulkDeleteOrders}
+            onBulkSetStatus={handleBulkSetStatus}
             onSelectCustomer={handleSelectCustomer}
             onSelectSupplier={handleSelectSupplier}
             onOpenWhatsApp={handleOpenWhatsAppForOrder}
             initialSearchTerm={targetCustomerName || ''}
           />
+
         )}
 
         {activeTab === 'suppliers' && (
