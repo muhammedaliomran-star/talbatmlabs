@@ -9,7 +9,6 @@ import {
   Trash2,
   Check,
   Clock,
-  FileSpreadsheet,
   Printer,
   X,
   StickyNote,
@@ -17,20 +16,17 @@ import {
   ArrowDown,
   ChevronRight,
   ChevronLeft,
-  Wallet,
   Notebook,
 } from 'lucide-react';
 import { Order, Supplier } from '../types';
 import { formatArabicDate, formatCurrency } from '../utils/helpers';
-import { exportOrdersToCSV } from '../utils/exportToCsv';
 import { printOrders } from '../utils/printOrders';
 import { StatusBadge } from './StatusBadge';
 import { OrderCard } from './OrderCard';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 
 type StatusFilter = 'all' | 'pending' | 'done';
 type DateRange = 'all' | 'today' | 'week' | 'month' | 'custom';
-type SortKey = 'orderNumber' | 'orderDate' | 'price' | 'remaining' | 'customer' | 'supplier' | 'status';
+type SortKey = 'orderNumber' | 'orderDate' | 'price' | 'customer' | 'supplier' | 'status';
 type SortDir = 'asc' | 'desc';
 
 interface OrdersViewProps {
@@ -58,7 +54,6 @@ interface StoredFilters {
   dateRange: DateRange;
   customFrom: string;
   customTo: string;
-  onlyRemaining: boolean;
   sortKey: SortKey;
   sortDir: SortDir;
   viewMode: 'cards' | 'table';
@@ -71,7 +66,6 @@ const DEFAULT_FILTERS: StoredFilters = {
   dateRange: 'all',
   customFrom: '',
   customTo: '',
-  onlyRemaining: false,
   sortKey: 'orderDate',
   sortDir: 'desc',
   viewMode: 'table',
@@ -130,7 +124,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   initialFilterStatus,
   initialSearchTerm = '',
 }) => {
-  useScrollReveal();
   const stored = useRef<StoredFilters>(readStoredFilters());
 
   const [searchInput, setSearchInput] = useState(initialSearchTerm);
@@ -142,7 +135,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const [dateRange, setDateRange] = useState<DateRange>(stored.current.dateRange);
   const [customFrom, setCustomFrom] = useState(stored.current.customFrom);
   const [customTo, setCustomTo] = useState(stored.current.customTo);
-  const [onlyRemaining, setOnlyRemaining] = useState(stored.current.onlyRemaining);
   const [sortKey, setSortKey] = useState<SortKey>(stored.current.sortKey);
   const [sortDir, setSortDir] = useState<SortDir>(stored.current.sortDir);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>(stored.current.viewMode);
@@ -178,7 +170,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         dateRange,
         customFrom,
         customTo,
-        onlyRemaining,
         sortKey,
         sortDir,
         viewMode,
@@ -194,7 +185,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     dateRange,
     customFrom,
     customTo,
-    onlyRemaining,
     sortKey,
     sortDir,
     viewMode,
@@ -224,11 +214,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       if (start && (order.orderDate || '') < start) return false;
       if (end && (order.orderDate || '') > end) return false;
 
-      if (onlyRemaining) {
-        const remaining = (order.price || 0) - (order.deposit || 0);
-        if (remaining <= 0) return false;
-      }
-
       if (term) {
         const matches =
           order.customerName.toLowerCase().includes(term) ||
@@ -249,10 +234,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           return ((a.orderNumber || 0) - (b.orderNumber || 0)) * dir;
         case 'price':
           return ((a.price || 0) - (b.price || 0)) * dir;
-        case 'remaining':
-          return (
-            ((a.price || 0) - (a.deposit || 0) - ((b.price || 0) - (b.deposit || 0))) * dir
-          );
         case 'customer':
           return a.customerName.localeCompare(b.customerName, 'ar') * dir;
         case 'supplier':
@@ -272,7 +253,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     dateRange,
     customFrom,
     customTo,
-    onlyRemaining,
     sortKey,
     sortDir,
   ]);
@@ -287,7 +267,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     dateRange,
     customFrom,
     customTo,
-    onlyRemaining,
     pageSize,
     sortKey,
     sortDir,
@@ -311,12 +290,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
   const pendingCount = orders.filter((o) => o.status === 'pending').length;
   const doneCount = orders.filter((o) => o.status === 'done').length;
-
-  const totals = useMemo(() => {
-    const price = filteredOrders.reduce((sum, o) => sum + (o.price || 0), 0);
-    const deposit = filteredOrders.reduce((sum, o) => sum + (o.deposit || 0), 0);
-    return { price, deposit, remaining: price - deposit };
-  }, [filteredOrders]);
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const pageAllSelected = pageOrders.length > 0 && pageOrders.every((o) => selectedSet.has(o.id));
@@ -347,7 +320,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const filterLabel = [
     statusFilter === 'all' ? 'كل الحالات' : statusFilter === 'pending' ? 'معلّق' : 'تم التنفيذ',
     DATE_LABELS[dateRange],
-    onlyRemaining ? 'عليه متبقٍ' : '',
   ]
     .filter(Boolean)
     .join(' — ');
@@ -407,57 +379,50 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const hasNoOrdersAtAll = orders.length === 0;
 
   return (
-    <div className="grain-overlay space-y-6 bg-[#F7F7F6] text-[#1A1207] antialiased">
-      {/* Editorial Split Header - Massive Left Typography / Right Actions */}
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 py-2">
-        <div className="w-full lg:w-1/2 space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#1A1207] px-3.5 py-1.5 ring-1 ring-white/10">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#B08948] animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FDFBF7]">Orders Ledger — All Requests</span>
-          </div>
-          <h1 className="font-[Fraunces] text-[32px] font-[800] leading-[0.92] tracking-[-0.03em] text-[#1A1207] sm:text-[40px]">
-            سجل <span className="italic font-[700] text-[#B08948]">طلبات</span> العملاء
-            <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-[#B08948]/70">({filteredOrders.length.toLocaleString('en-US')})</span>
+    <div className="space-y-4">
+      {/* Top Header */}
+      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-line shadow-xs grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 sm:flex sm:flex-wrap sm:justify-between sm:gap-4">
+        <div className="min-w-0">
+          <h1 className="truncate text-lg sm:text-2xl font-extrabold font-cairo text-ink">
+            سجل طلبات العملاء ({filteredOrders.length})
           </h1>
-          <p className="max-w-[520px] text-[13px] leading-6 text-[#6C6A63]">متابعة الأصناف والأسعار وحالة كل طلب — أرشيف منظم بمسافات تنفس واسعة وظلال محيطة ناعمة.</p>
-          <div className="flex flex-wrap gap-2 pt-1">
-            <span className="rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-[#1A1207] ring-1 ring-[#EDE1D2]">الإجمالي {totals.price ? formatCurrency(totals.price) : '—'}</span>
-            <span className="rounded-full bg-[#3F7A5D] px-3 py-1.5 text-[11px] font-bold text-white">المحصّل {formatCurrency(totals.deposit)}</span>
-            <span className="rounded-full bg-[#1A1207] px-3 py-1.5 text-[11px] font-bold text-white">المتبقي {formatCurrency(totals.remaining)}</span>
-          </div>
+          <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
+            متابعة الأصناف والأسعار وحالة كل طلب
+          </p>
         </div>
 
-        <div className="w-full lg:w-1/2 flex lg:justify-end">
-          <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-white p-1.5 ring-1 ring-[#EDE1D2] shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
-            <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-[#FDFBF7] px-4 py-2.5 text-xs font-bold text-[#1A1207] ring-1 ring-[#EDE1D2] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white">
-              <Printer className="w-4 h-4 text-[#B08948]" strokeWidth={1.4} />
-              <span>طباعة</span>
-            </button>
-            <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-[#FDFBF7] px-4 py-2.5 text-xs font-bold text-[#1A1207] ring-1 ring-[#EDE1D2] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white">
-              <FileSpreadsheet className="w-4 h-4 text-[#3F7A5D]" strokeWidth={1.4} />
-              <span>تصدير Excel</span>
-            </button>
-            <button onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-[#1A1207] py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#241A0F] active:scale-[0.98]">
-              <span>طلب جديد</span>
-              <span className="grid size-7 place-items-center rounded-full bg-white text-[#1A1207] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-[1.04]"><Plus className="size-4" strokeWidth={1.7} /></span>
-            </button>
-          </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => printOrders(filteredOrders, { storeName, filterLabel })}
+            className="flex items-center gap-1.5 bg-paper hover:bg-paper-alt text-ink border border-line px-3 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-2xs transition-all"
+            title="طباعة قائمة الطلبات المعروضة"
+          >
+            <Printer className="w-4 h-4 text-brass" />
+            <span className="hidden sm:inline">طباعة</span>
+          </button>
+
+          <button
+            onClick={onOpenNewOrder}
+            className="flex items-center gap-1.5 bg-ink hover:bg-ink-light text-white px-4 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
+          >
+            <Plus className="w-4 h-4 text-brass-light" />
+            <span>طلب جديد</span>
+          </button>
         </div>
       </div>
 
-      {/* Filter and Search - Soft Structuralism Double-Bezel */}
-      <div className="rounded-[2rem] bg-white/60 p-2 ring-1 ring-[#EDE1D2] shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] backdrop-blur-sm">
-        <div className="rounded-[calc(2rem-0.5rem)] bg-white p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <div className="relative flex-1 min-w-0">
-              <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-[#B08948]" strokeWidth={1.4} />
-              <input
-                type="text"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                placeholder="ابحث بالاسم، هاتف العميل، المورد، أو تفاصيل الصنف..."
-                className="w-full pr-10 pl-10 py-3 text-xs sm:text-sm rounded-full border border-[#EDE1D2] bg-[#FDFBF7] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#B08948]/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
-              />
+      {/* Filter and Search Bar */}
+      <div className="bg-white rounded-[14px] p-4 border border-line shadow-xs space-y-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="relative flex-1 min-w-0">
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="ابحث بالاسم، هاتف العميل، المورد، أو تفاصيل الصنف..."
+              className="w-full pr-9 pl-9 py-2.5 text-xs sm:text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
+            />
             {searchInput && (
               <button
                 type="button"
@@ -530,21 +495,9 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               تم التنفيذ ({doneCount})
             </button>
-            <button
-              onClick={() => setOnlyRemaining((v) => !v)}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-colors flex items-center gap-1 ${
-                onlyRemaining
-                  ? 'bg-brass text-white shadow-xs'
-                  : 'bg-paper text-copy-muted hover:bg-paper-alt'
-              }`}
-              title="عرض الطلبات التي عليها مبلغ متبقٍ فقط"
-            >
-              <Wallet className="w-3.5 h-3.5" />
-              عليه متبقٍ
-            </button>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 text-xs sm:flex sm:w-auto sm:items-center">
+          <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 text-xs w-full sm:w-auto">
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value as DateRange)}
@@ -581,9 +534,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               <option value="orderDate:desc">الأحدث أولًا</option>
               <option value="orderDate:asc">الأقدم أولًا</option>
-              <option value="price:desc">السعر الأكبر</option>
-              <option value="price:asc">السعر الأقل</option>
-              <option value="remaining:desc">الأكثر متبقيًا</option>
               <option value="customer:asc">اسم العميل</option>
             </select>
           </div>
@@ -612,26 +562,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
         )}
 
-        {/* Totals for the current filter */}
-        {filteredOrders.length > 0 && (
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 border-t border-paper-alt text-[11px] sm:text-xs font-cairo">
-            <span className="text-copy-muted">
-              إجمالي الأسعار: <strong className="text-ink">{formatCurrency(totals.price)}</strong>
-            </span>
-            <span className="text-copy-muted">
-              العربون المحصّل: <strong className="text-done">{formatCurrency(totals.deposit)}</strong>
-            </span>
-            <span className="text-copy-muted">
-              المتبقي: <strong className="text-pending">{formatCurrency(totals.remaining)}</strong>
-            </span>
-          </div>
-        )}
-        </div>
       </div>
 
-      {/* Bulk actions - Floating Glass Island */}
+      {/* Bulk actions bar */}
       {selectedIds.length > 0 && (
-        <div className="sticky top-[88px] z-20 bg-[#1A1207]/95 text-white rounded-full px-4 py-2 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)] ring-1 ring-white/10 backdrop-blur-2xl flex flex-wrap items-center gap-2 justify-between transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+        <div className="sticky top-2 z-20 bg-ink text-white rounded-[12px] px-4 py-3 shadow-md flex flex-wrap items-center gap-2 justify-between">
           <span className="text-xs sm:text-sm font-bold font-cairo">
             محدد: {selectedIds.length} طلب
           </span>
@@ -647,14 +582,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               className="flex items-center gap-1 bg-pending text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
               <Clock className="w-3.5 h-3.5" /> إعادة كمعلّق
-            </button>
-            <button
-              onClick={() =>
-                exportOrdersToCSV(filteredOrders.filter((o) => selectedSet.has(o.id)))
-              }
-              className="flex items-center gap-1 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg text-xs font-bold"
-            >
-              <FileSpreadsheet className="w-3.5 h-3.5" /> تصدير المحدد
             </button>
             <button
               onClick={() =>
@@ -711,30 +638,29 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
         )
       ) : effectiveViewMode === 'cards' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {pageOrders.map((order) => (
-            <div key={order.id} className="rounded-[1.7rem] bg-white p-1 ring-1 ring-[#EDE1D2] shadow-[0_16px_50px_-30px_rgba(26,18,7,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-[0_20px_60px_-32px_rgba(26,18,7,0.26)] hover:translate-y-[-2px] will-change-transform">
-              <OrderCard
-                order={order}
-                onToggleStatus={onToggleStatus}
-                onEdit={onEditOrder}
-                onDelete={(id) => {
-                  const target = orders.find((o) => o.id === id);
-                  setPendingDelete({
-                    ids: [id],
-                    label: target ? `طلب #${target.orderNumber} — ${target.customerName}` : 'هذا الطلب',
-                  });
-                }}
-                onSelectCustomer={onSelectCustomer}
-                onSelectSupplier={onSelectSupplier}
-                onOpenWhatsApp={onOpenWhatsApp}
-              />
-            </div>
+            <OrderCard
+              key={order.id}
+              order={order}
+              onToggleStatus={onToggleStatus}
+              onEdit={onEditOrder}
+              onDelete={(id) => {
+                const target = orders.find((o) => o.id === id);
+                setPendingDelete({
+                  ids: [id],
+                  label: target ? `طلب #${target.orderNumber} — ${target.customerName}` : 'هذا الطلب',
+                });
+              }}
+              onSelectCustomer={onSelectCustomer}
+              onSelectSupplier={onSelectSupplier}
+              onOpenWhatsApp={onOpenWhatsApp}
+            />
           ))}
         </div>
       ) : (
-        <div className="rounded-[2rem] bg-white p-2 ring-1 ring-[#EDE1D2] shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] overflow-hidden">
-          <div className="overflow-x-auto max-h-[70vh] rounded-[calc(2rem-0.5rem)] bg-white ring-1 ring-[#EDE1D2]">
+        <div className="bg-white rounded-[14px] border border-line overflow-hidden shadow-xs">
+          <div className="overflow-x-auto max-h-[70vh]">
             <table className="w-full text-right text-xs">
               <thead className="sticky top-0 z-10 bg-paper-alt/95 backdrop-blur border-b-2 border-brass text-ink">
                 <tr>
@@ -753,14 +679,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   <th className="p-3 font-cairo">تفاصيل الصنف والمقاس</th>
                   <SortHeader label="تاريخ الطلب" sortKeyName="orderDate" />
                   <SortHeader label="السعر" sortKeyName="price" />
-                  <SortHeader label="المتبقي" sortKeyName="remaining" />
                   <SortHeader label="الحالة" sortKeyName="status" className="text-center" />
                   <th className="p-3 font-cairo text-left">إجراءات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-paper-alt">
                 {pageOrders.map((order, idx) => {
-                  const remaining = (order.price || 0) - (order.deposit || 0);
                   const isSelected = selectedSet.has(order.id);
 
                   return (
@@ -773,7 +697,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                           : idx % 2 === 0
                             ? 'bg-white'
                             : 'bg-canvas-subtle'
-                      } ${remaining > 0 ? 'border-r-2 border-r-pending' : ''}`}
+                      }`}
                     >
                       <td className="p-3" onClick={(e) => e.stopPropagation()}>
                         <input
@@ -872,13 +796,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         {formatCurrency(order.price)}
                       </td>
 
-                      <td className="p-3 whitespace-nowrap font-cairo">
-                        {remaining > 0 ? (
-                          <span className="font-bold text-pending">{formatCurrency(remaining)}</span>
-                        ) : (
-                          <span className="text-copy-muted">مسدّد</span>
-                        )}
-                      </td>
 
                       <td className="p-3 text-center whitespace-nowrap">
                         <StatusBadge status={order.status} order={order} />
@@ -944,10 +861,10 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         </div>
       )}
 
-      {/* Pagination - Floating Island */}
+      {/* Pagination */}
       {filteredOrders.length > 0 && (
-        <div className="rounded-full bg-[#1A1207] px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs ring-1 ring-white/10 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)]">
-          <div className="flex items-center gap-2 text-white/60">
+        <div className="bg-white rounded-[14px] border border-line shadow-xs px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-copy-muted">
             <span>
               عرض {(currentPage - 1) * pageSize + 1}–
               {Math.min(currentPage * pageSize, filteredOrders.length)} من {filteredOrders.length}
