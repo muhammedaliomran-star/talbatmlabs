@@ -15,6 +15,7 @@ import { BackupModal } from './components/BackupModal';
 import { TripPrintModal } from './components/TripPrintModal';
 import { AuthPortal } from './components/AuthPortal';
 import { useAuthUser } from './hooks/useAuthUser';
+import { useCloudData } from './hooks/useCloudData';
 import { UserProfileModal } from './components/UserProfileModal';
 import {
   ActiveTab,
@@ -452,7 +453,6 @@ export default function App() {
     setCustomers(INITIAL_CUSTOMERS);
     setReturns(INITIAL_RETURNS);
     setTrips(INITIAL_TRIPS);
-    localStorage.removeItem(STORAGE_KEY);
   };
 
   // Real authentication gate
