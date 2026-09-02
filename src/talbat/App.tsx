@@ -199,11 +199,59 @@ export default function App() {
     );
   };
 
-  const handleDeleteOrder = (orderId: string) => {
-    if (confirm('هل أنت متأكد من رغبتك في حذف هذا الطلب من السجل؟')) {
-      setOrders((prev) => prev.filter((o) => o.id !== orderId));
-    }
+  const restoreOrders = (removed: Order[]) => {
+    setOrders((prev) => {
+      const ids = new Set(prev.map((o) => o.id));
+      const merged = [...prev, ...removed.filter((o) => !ids.has(o.id))];
+      return merged.sort((a, b) => (b.orderDate || '').localeCompare(a.orderDate || ''));
+    });
   };
+
+  const handleDeleteOrder = (orderId: string) => {
+    const removed = orders.filter((o) => o.id === orderId);
+    if (!removed.length) return;
+    setOrders((prev) => prev.filter((o) => o.id !== orderId));
+    toast('تم حذف الطلب', {
+      description: `طلب #${removed[0].orderNumber} — ${removed[0].customerName}`,
+      action: { label: 'تراجع', onClick: () => restoreOrders(removed) },
+    });
+  };
+
+  const handleBulkDeleteOrders = (orderIds: string[]) => {
+    const ids = new Set(orderIds);
+    const removed = orders.filter((o) => ids.has(o.id));
+    if (!removed.length) return;
+    setOrders((prev) => prev.filter((o) => !ids.has(o.id)));
+    toast(`تم حذف ${removed.length} طلب`, {
+      description: 'يمكنك التراجع خلال ثوانٍ',
+      action: { label: 'تراجع', onClick: () => restoreOrders(removed) },
+    });
+  };
+
+  const handleBulkSetStatus = (orderIds: string[], status: 'pending' | 'done') => {
+    const ids = new Set(orderIds);
+    const before = orders.filter((o) => ids.has(o.id));
+    if (!before.length) return;
+    setOrders((prev) => prev.map((o) => (ids.has(o.id) ? { ...o, status } : o)));
+    toast(
+      status === 'done'
+        ? `تم تعليم ${before.length} طلب كمنفّذ`
+        : `تمت إعادة ${before.length} طلب كمعلّق`,
+      {
+        action: {
+          label: 'تراجع',
+          onClick: () =>
+            setOrders((prev) =>
+              prev.map((o) => {
+                const original = before.find((b) => b.id === o.id);
+                return original ? { ...o, status: original.status } : o;
+              })
+            ),
+        },
+      }
+    );
+  };
+
 
   // Handlers for Suppliers
   const handleOpenNewSupplier = () => {
