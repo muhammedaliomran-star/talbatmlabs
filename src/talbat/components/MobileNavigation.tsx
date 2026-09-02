@@ -4,6 +4,7 @@ import {
   ShoppingBag,
   Truck,
   RotateCcw,
+  Settings,
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 
@@ -12,6 +13,7 @@ interface MobileNavigationProps {
   setActiveTab: (tab: ActiveTab) => void;
   pendingCount: number;
   returnsCount: number;
+  onOpenSettings: () => void;
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
@@ -19,6 +21,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   setActiveTab,
   pendingCount,
   returnsCount,
+  onOpenSettings,
 }) => {
   const tabs = [
     {
@@ -96,6 +99,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             </button>
           );
         })}
+        <button
+          type="button"
+          onClick={onOpenSettings}
+          className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-200 active:scale-95 hover:text-ink"
+          aria-label="الإعدادات"
+        >
+          <Settings className="w-5 h-5" />
+          <span className="text-[10px] mt-0.5 leading-tight font-medium">الإعدادات</span>
+        </button>
       </nav>
     </div>
   );

@@ -503,6 +503,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         pendingCount={pendingCount}
         returnsCount={returnsCount}
+        onOpenSettings={() => setIsProfileModalOpen(true)}
       />
 
       {/* Modals */}

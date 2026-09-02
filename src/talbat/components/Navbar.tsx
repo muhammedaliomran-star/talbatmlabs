@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Lock } from 'lucide-react';
+import React from 'react';
+import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Lock, LogOut } from 'lucide-react';
 import { ActiveTab, User } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
 import { Button } from '@/components/ui/button';
@@ -29,7 +29,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenProfile,
   onLockScreen,
 }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const tabs = [
     { id: 'dashboard' as ActiveTab, label: 'الرئيسية', icon: LayoutDashboard },
     { id: 'orders' as ActiveTab, label: 'الطلبات', icon: ShoppingBag, badge: pendingCount },
@@ -159,39 +158,26 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <Button
               onClick={onOpenNewOrder}
-              className="group h-10 bg-brass px-2 pr-3 text-xs font-bold text-on-ink hover:bg-brass/85 sm:px-2 sm:pr-4 sm:text-sm"
+              className="group hidden h-10 bg-brass px-2 pr-3 text-xs font-bold text-on-ink hover:bg-brass/85 md:inline-flex md:px-2 md:pr-4 md:text-sm"
             >
               <span className="hidden xs:inline">طلب جديد</span>
               <span className="grid size-7 place-items-center rounded-full bg-on-ink/15 transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105"><Plus className="size-4" /></span>
             </Button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label={menuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((open) => !open)}
-              className="relative size-10 bg-ink-light text-on-ink hover:bg-ink-light md:hidden"
-            >
-              <span className={`absolute h-px w-4 bg-current transition-transform duration-500 motion-spring ${menuOpen ? 'rotate-45' : '-translate-y-1.5'}`} />
-              <span className={`absolute h-px w-4 bg-current transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
-              <span className={`absolute h-px w-4 bg-current transition-transform duration-500 motion-spring ${menuOpen ? '-rotate-45' : 'translate-y-1.5'}`} />
-            </Button>
+            {onLockScreen && (
+              <Button
+                onClick={onLockScreen}
+                variant="ghost"
+                size="icon"
+                className="size-10 bg-ink-light text-on-ink hover:bg-late hover:text-white md:hidden"
+                title="تسجيل الخروج"
+                aria-label="تسجيل الخروج"
+              >
+                <LogOut className="size-4" />
+              </Button>
+            )}
           </div>
         </div>
-      </div>
-      <div className={`fixed inset-0 top-0 -z-10 bg-ink/92 px-4 pt-28 backdrop-blur-3xl transition-all duration-700 motion-spring md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}>
-        <nav className="mx-auto flex max-w-sm flex-col gap-2">
-          {tabs.map((tab, index) => {
-            const Icon = tab.icon;
-            return (
-              <Button key={tab.id} variant="ghost" onClick={() => { setActiveTab(tab.id); setMenuOpen(false); }} className={`h-16 justify-between bg-on-ink/5 px-5 text-lg text-on-ink ring-1 ring-on-ink/10 hover:bg-on-ink/10 transition-all duration-700 motion-spring ${menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} style={{ transitionDelay: `${100 + index * 55}ms` }}>
-                <span className="flex items-center gap-3"><Icon className="size-5 text-brass-light" />{tab.label}</span>
-                {tab.badge ? <span className="rounded-full bg-brass px-2 text-xs">{tab.badge}</span> : null}
-              </Button>
-            );
-          })}
-        </nav>
       </div>
     </header>
   );
