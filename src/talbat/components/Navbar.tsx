@@ -48,16 +48,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex h-16 items-center justify-between">
           {/* Logo & Store Title */}
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-full bg-brass font-cairo text-xl font-extrabold text-on-ink shadow-inner">
-              د
-            </div>
+            {currentUser?.logoUrl ? (
+              <img
+                src={currentUser.logoUrl}
+                alt={currentUser.storeName || 'شعار المتجر'}
+                className="size-10 rounded-full object-cover ring-1 ring-brass/50 shadow-inner"
+              />
+            ) : (
+              <div className="flex size-10 items-center justify-center rounded-full bg-brass font-cairo text-xl font-extrabold text-on-ink shadow-inner">
+                {(currentUser?.storeName || 'دَفْتَر').trim().charAt(0)}
+              </div>
+            )}
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-cairo font-extrabold text-xl tracking-tight text-on-ink">
-                  دَفْتَر
+                <span className="font-cairo font-extrabold text-xl tracking-tight text-on-ink max-w-[180px] truncate">
+                  {currentUser?.storeName || 'دَفْتَر'}
                 </span>
-                <span className="text-[11px] bg-ink-light text-brass-light font-semibold px-2 py-0.5 rounded-full border border-brass/30 max-w-[150px] truncate">
-                  {currentUser?.storeName || 'محل ملابس'}
+                <span className="text-[11px] bg-ink-light text-brass-light font-semibold px-2 py-0.5 rounded-full border border-brass/30">
+                  دَفْتَر
                 </span>
               </div>
               <p className="text-[11px] text-ink-muted hidden sm:block">
