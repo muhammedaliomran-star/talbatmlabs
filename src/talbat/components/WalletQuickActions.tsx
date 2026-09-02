@@ -6,14 +6,12 @@ interface WalletQuickActionsProps {
   onOpenNewOrder: () => void;
   onOpenNewReturn: () => void;
   pendingCount?: number;
-  lateCount?: number;
 }
 
 export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
   onOpenNewOrder,
   onOpenNewReturn,
   pendingCount = 0,
-  lateCount = 0,
 }) => {
   const actions = [
     {

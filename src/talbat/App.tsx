@@ -79,7 +79,6 @@ export default function App() {
 
   // Counts for Badges
   const pendingCount = orders.filter((o) => o.status === 'pending').length;
-  const lateCount = 0;
   const returnsCount = returns.filter((r) => r.status === 'pending_supplier').length;
 
   // Handlers for Orders
@@ -378,7 +377,6 @@ export default function App() {
         onOpenNewReturn={handleOpenNewReturn}
         onOpenBackup={() => setIsBackupModalOpen(true)}
         pendingCount={pendingCount}
-        lateCount={lateCount}
         currentUser={currentUser}
         onOpenProfile={() => setIsProfileModalOpen(true)}
         onLockScreen={handleLogout}
@@ -450,7 +448,6 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         pendingCount={pendingCount}
-        lateCount={lateCount}
         returnsCount={returnsCount}
       />
 

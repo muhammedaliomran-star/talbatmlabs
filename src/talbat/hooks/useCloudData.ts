@@ -11,6 +11,12 @@ import {
 } from '../lib/cloudSync';
 
 const LEGACY_KEY = 'daftar_app_state_v1';
+const DEMO_IDS = {
+  orders: new Set(['ord-101', 'ord-102', 'ord-103', 'ord-104', 'ord-105', 'ord-106', 'ord-107']),
+  suppliers: new Set(['sup-1', 'sup-2', 'sup-3', 'sup-4']),
+  customers: new Set(['cust-1', 'cust-2', 'cust-3', 'cust-4', 'cust-5']),
+  returns: new Set(['ret-1', 'ret-2', 'ret-3']),
+};
 
 interface LegacyState {
   orders?: Order[];
@@ -62,10 +68,18 @@ export function useCloudData(userId?: string | null) {
 
       const legacy = readLegacy();
       const shouldImportLegacy = !cloudOrders.length && !cloudSuppliers.length && !cloudCustomers.length && !cloudReturns.length && legacy;
-      const o = shouldImportLegacy && legacy.orders?.length ? legacy.orders : cloudOrders;
-      const s = shouldImportLegacy && legacy.suppliers?.length ? legacy.suppliers : cloudSuppliers;
-      const c = shouldImportLegacy && legacy.customers?.length ? legacy.customers : cloudCustomers;
-      const r = shouldImportLegacy && legacy.returns?.length ? legacy.returns : cloudReturns;
+      const o = shouldImportLegacy && legacy.orders?.length
+        ? legacy.orders.filter((item) => !DEMO_IDS.orders.has(item.id))
+        : cloudOrders;
+      const s = shouldImportLegacy && legacy.suppliers?.length
+        ? legacy.suppliers.filter((item) => !DEMO_IDS.suppliers.has(item.id))
+        : cloudSuppliers;
+      const c = shouldImportLegacy && legacy.customers?.length
+        ? legacy.customers.filter((item) => !DEMO_IDS.customers.has(item.id))
+        : cloudCustomers;
+      const r = shouldImportLegacy && legacy.returns?.length
+        ? legacy.returns.filter((item) => !DEMO_IDS.returns.has(item.id))
+        : cloudReturns;
 
       if (shouldImportLegacy) {
         await Promise.all([

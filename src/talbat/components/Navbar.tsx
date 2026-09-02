@@ -12,7 +12,6 @@ interface NavbarProps {
   onOpenNewReturn: () => void;
   onOpenBackup: () => void;
   pendingCount: number;
-  lateCount: number;
   currentUser?: User | null;
   onOpenProfile?: () => void;
   onLockScreen?: () => void;
@@ -26,7 +25,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenNewReturn,
   onOpenBackup,
   pendingCount,
-  lateCount,
   currentUser,
   onOpenProfile,
   onLockScreen,
@@ -92,9 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {tab.badge !== undefined && tab.badge > 0 && (
                     <span
                       className={`text-[11px] font-cairo font-bold px-1.5 py-0.2 rounded-full ${
-                        lateCount > 0 && tab.id === 'orders'
-                          ? 'bg-late text-on-ink font-bold'
-                          : 'bg-ink-light text-on-ink'
+                        'bg-ink-light text-on-ink'
                       }`}
                     >
                       {tab.badge}
