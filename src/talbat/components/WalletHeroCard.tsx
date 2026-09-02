@@ -96,13 +96,13 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
 
       {/* Main Luxury Wallet Card */}
       {activeCardIndex === 0 ? (
-        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink to-ink-light text-on-ink p-5 sm:p-6 shadow-xl border border-brass-light/30 transition-all duration-300">
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink to-ink-light text-on-ink p-5 sm:p-6 shadow-xl border border-brass-light/30 transition-all duration-700 motion-spring">
           {/* Subtle Decorative Background Shapes & Gold Shimmer */}
           <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-brass/15 blur-2xl pointer-events-none" />
           <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-ink-light/40 blur-2xl pointer-events-none" />
           
           {/* Card Geometric Lines Watermark */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#D3AE72_1px,transparent_1px)] [background-size:16px_16px]" />
+          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(var(--brass-light)_1px,transparent_1px)] [background-size:16px_16px]" />
 
           {/* Top Row: Store Branding & Chip */}
           <div className="relative z-10 flex items-center justify-between mb-4">
@@ -122,7 +122,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
 
             {/* Simulated Gold EMV Chip & Contactless Waves */}
             <div className="flex items-center gap-2">
-              <svg className="w-6 h-6 text-brass-light/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-6 h-6 text-brass-light/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M8.5 16.5a5 5 0 0 1 0-9" strokeLinecap="round" />
                 <path d="M12 19a8.5 8.5 0 0 1 0-14" strokeLinecap="round" />
                 <path d="M15.5 21.5a12 12 0 0 1 0-19" strokeLinecap="round" />
@@ -206,7 +206,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
         </div>
       ) : (
         /* Upcoming Shopping Trip Card */
-        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink-light to-ink text-on-ink p-5 sm:p-6 shadow-xl border border-brass/40 transition-all duration-300">
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink-light to-ink text-on-ink p-5 sm:p-6 shadow-xl border border-brass/40 transition-all duration-700 motion-spring">
           <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full bg-brass/20 blur-2xl pointer-events-none" />
 
           {/* Top Row: Trip Badge */}

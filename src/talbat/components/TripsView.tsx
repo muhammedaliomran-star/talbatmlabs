@@ -65,14 +65,14 @@ export const TripsView: React.FC<TripsViewProps> = ({
     }
     if (diff === 0) {
       return (
-        <span className="text-[11px] font-bold text-pending bg-[#FDF4E7] px-2 py-0.5 rounded-full animate-pulse">
+        <span className="text-[11px] font-bold text-pending bg-pending-soft px-2 py-0.5 rounded-full animate-pulse">
           اليوم في السوق!
         </span>
       );
     }
     if (diff === 1) {
       return (
-        <span className="text-[11px] font-bold text-pending bg-[#FDF4E7] px-2 py-0.5 rounded-full">
+        <span className="text-[11px] font-bold text-pending bg-pending-soft px-2 py-0.5 rounded-full">
           غداً
         </span>
       );
@@ -195,7 +195,7 @@ export const TripsView: React.FC<TripsViewProps> = ({
                               ? 'bg-done-soft text-done'
                               : trip.status === 'in_progress'
                               ? 'bg-size-soft text-ink'
-                              : 'bg-[#FDF4E7] text-pending'
+                              : 'bg-pending-soft text-pending'
                           }`}
                         >
                           {trip.status === 'completed'
@@ -283,7 +283,7 @@ export const TripsView: React.FC<TripsViewProps> = ({
                 {isExpanded && (
                   <div className="p-4 sm:p-5 bg-white divide-y divide-paper-alt">
                     {trip.notes && (
-                      <div className="text-xs text-copy-muted bg-[#FDF4E7] p-2.5 rounded-[8px] mb-3 border border-pending-soft">
+                      <div className="text-xs text-copy-muted bg-pending-soft p-2.5 rounded-[8px] mb-3 border border-pending-soft">
                         <span className="font-bold text-pending">ملاحظات: </span>
                         {trip.notes}
                       </div>
@@ -302,7 +302,7 @@ export const TripsView: React.FC<TripsViewProps> = ({
                                 ? 'bg-done-soft border-done-soft'
                                 : item.status === 'unavailable'
                                 ? 'bg-late-soft border-late-soft'
-                                : 'bg-white border-[#EBE6DC]'
+                                : 'bg-canvas border-line-soft'
                             }`}
                           >
                             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">

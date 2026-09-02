@@ -83,6 +83,11 @@
   --color-ink-muted: var(--ink-muted);
   --color-size-soft: var(--size-soft);
   --color-color-soft: var(--color-soft);
+  --color-placeholder: var(--placeholder);
+  --color-google-blue: var(--google-blue);
+  --color-google-green: var(--google-green);
+  --color-google-yellow: var(--google-yellow);
+  --color-google-red: var(--google-red);
 }
 
 :root {
@@ -143,6 +148,11 @@
   --ink-muted: oklch(0.79 0.025 250);
   --size-soft: oklch(0.955 0.022 255);
   --color-soft: oklch(0.965 0.032 78);
+  --placeholder: oklch(0.69 0.013 88);
+  --google-blue: oklch(0.64 0.177 255);
+  --google-green: oklch(0.66 0.17 145);
+  --google-yellow: oklch(0.82 0.17 86);
+  --google-red: oklch(0.63 0.2 29);
 }
 
 .dark {

@@ -97,7 +97,7 @@ export const AuthPortal: React.FC = () => {
   };
 
   const field =
-    'w-full bg-white border border-line rounded-xl py-3 pr-11 pl-4 text-[15px] text-charcoal placeholder:text-[#A9A498] outline-none focus:border-brass focus:ring-2 focus:ring-brass/15 transition';
+    'w-full bg-canvas border border-line rounded-xl py-3 pr-11 pl-4 text-[15px] text-charcoal placeholder:text-placeholder outline-none focus:border-brass focus:ring-2 focus:ring-brass/15 transition';
 
   return (
     <div className="min-h-screen bg-paper text-charcoal flex flex-col lg:flex-row-reverse">
@@ -157,15 +157,15 @@ export const AuthPortal: React.FC = () => {
             {mode === 'register' && (
               <>
                 <div className="relative">
-                  <UserIcon className="w-4 h-4 text-[#A9A498] absolute top-1/2 -translate-y-1/2 right-4" />
+                  <UserIcon className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
                   <input className={field} placeholder="اسمك" value={name} maxLength={80} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="relative">
-                  <Store className="w-4 h-4 text-[#A9A498] absolute top-1/2 -translate-y-1/2 right-4" />
+                  <Store className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
                   <input className={field} placeholder="اسم المتجر" value={storeName} maxLength={80} onChange={(e) => setStoreName(e.target.value)} />
                 </div>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-[#A9A498] absolute top-1/2 -translate-y-1/2 right-4" />
+                  <Phone className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
                   <input className={field} placeholder="رقم الهاتف (اختياري)" value={phone} maxLength={20} onChange={(e) => setPhone(e.target.value)} />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -188,7 +188,7 @@ export const AuthPortal: React.FC = () => {
             )}
 
             <div className="relative">
-              <Mail className="w-4 h-4 text-[#A9A498] absolute top-1/2 -translate-y-1/2 right-4" />
+              <Mail className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
               <input
                 type="email"
                 autoComplete="email"
@@ -202,7 +202,7 @@ export const AuthPortal: React.FC = () => {
 
             {mode !== 'forgot' && (
               <div className="relative">
-                <Lock className="w-4 h-4 text-[#A9A498] absolute top-1/2 -translate-y-1/2 right-4" />
+                <Lock className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
@@ -215,7 +215,7 @@ export const AuthPortal: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute top-1/2 -translate-y-1/2 left-4 text-[#A9A498] hover:text-copy-muted"
+                  className="absolute top-1/2 -translate-y-1/2 left-4 text-placeholder hover:text-copy-muted"
                   aria-label="إظهار كلمة السر"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -242,7 +242,7 @@ export const AuthPortal: React.FC = () => {
             <>
               <div className="flex items-center gap-3 my-6">
                 <span className="h-px flex-1 bg-line" />
-                <span className="text-xs text-[#A9A498]">أو</span>
+                <span className="text-xs text-placeholder">أو</span>
                 <span className="h-px flex-1 bg-line" />
               </div>
               <button
@@ -251,10 +251,10 @@ export const AuthPortal: React.FC = () => {
                 className="w-full rounded-xl border border-line bg-white py-3.5 text-[15px] font-medium hover:border-line transition flex items-center justify-center gap-2.5"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" aria-hidden="true">
-                  <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.9z" />
-                  <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z" />
-                  <path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.3a12 12 0 0 0 0 10.8l4-3.1z" />
-                  <path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.9 3.6-4.9 6.7-4.9z" />
+                  <path fill="var(--google-blue)" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.9z" />
+                  <path fill="var(--google-green)" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z" />
+                  <path fill="var(--google-yellow)" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.3a12 12 0 0 0 0 10.8l4-3.1z" />
+                  <path fill="var(--google-red)" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.9 3.6-4.9 6.7-4.9z" />
                 </svg>
                 المتابعة بحساب جوجل
               </button>

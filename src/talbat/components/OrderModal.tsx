@@ -343,7 +343,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
           </div>
 
           {/* Quick Specifications: Size, Quantity, Colors */}
-          <div className="p-3 bg-canvas-subtle rounded-[11px] border border-[#EBE6DC] space-y-3">
+          <div className="p-3 bg-canvas-subtle rounded-[11px] border border-line-soft space-y-3">
             {/* Size & Quantity Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* Size */}
@@ -411,7 +411,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </div>
 
             {/* Colors: Primary & Alternative */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#EBE6DC]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-line-soft">
               {/* Primary Color */}
               <div>
                 <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
