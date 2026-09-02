@@ -11,8 +11,10 @@ import {
   Lock,
   CheckCircle2,
   AlertCircle,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { User, UserRole } from '../types';
+import { uploadBrandingImage, resolveBrandingUrl } from '../lib/branding';
 
 interface UserProfileModalProps {
   isOpen: boolean;
@@ -37,10 +39,37 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   const [pinCode, setPinCode] = useState(currentUser.pinCode || '');
   const [password, setPassword] = useState(currentUser.password || '');
   const [role, setRole] = useState<UserRole>(currentUser.role);
+  const [brandImagePath, setBrandImagePath] = useState(currentUser.brandImagePath || '');
+  const [logoPath, setLogoPath] = useState(currentUser.logoPath || '');
+  const [brandPreview, setBrandPreview] = useState(currentUser.brandImageUrl || '');
+  const [logoPreview, setLogoPreview] = useState(currentUser.logoUrl || '');
+  const [uploading, setUploading] = useState<'brand' | 'logo' | null>(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   if (!isOpen) return null;
+
+  const handleUpload = async (kind: 'brand' | 'logo', file?: File | null) => {
+    if (!file) return;
+    setErrorMsg(null);
+    setUploading(kind);
+    try {
+      const path = await uploadBrandingImage(currentUser.id, kind, file);
+      const url = (await resolveBrandingUrl(path)) || '';
+      if (kind === 'brand') {
+        setBrandImagePath(path);
+        setBrandPreview(url);
+      } else {
+        setLogoPath(path);
+        setLogoPreview(url);
+      }
+    } catch (err) {
+      console.error(err);
+      setErrorMsg('تعذر رفع الصورة، حاول مرة أخرى');
+    } finally {
+      setUploading(null);
+    }
+  };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +96,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
       pinCode: pinCode.trim(),
       password: password.trim() || currentUser.password,
       role,
+      brandImagePath: brandImagePath || undefined,
+      logoPath: logoPath || undefined,
     };
 
     onUpdateUser(updated);
@@ -150,6 +181,57 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               onChange={(e) => setStoreName(e.target.value)}
               className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
             />
+          </div>
+
+          {/* هوية المتجر */}
+          <div className="rounded-2xl border border-line bg-paper-warm/60 p-3 space-y-3">
+            <div className="flex items-center gap-1.5">
+              <ImageIcon className="w-3.5 h-3.5 text-brass" />
+              <span className="text-xs font-bold text-ink">هوية المتجر</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-copy-muted">
+                  صورة العلامة
+                </label>
+                <label className="flex h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-line bg-white/70 text-[11px] text-copy-muted hover:border-brass">
+                  {brandPreview ? (
+                    <img src={brandPreview} alt="صورة العلامة" className="h-full w-full object-cover" />
+                  ) : (
+                    <span>{uploading === 'brand' ? 'جارٍ الرفع…' : 'اختر صورة'}</span>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => void handleUpload('brand', e.target.files?.[0])}
+                  />
+                </label>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold text-copy-muted">
+                  شعار صغير (الزاوية)
+                </label>
+                <label className="flex h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-line bg-white/70 text-[11px] text-copy-muted hover:border-brass">
+                  {logoPreview ? (
+                    <img src={logoPreview} alt="شعار المتجر" className="h-14 w-14 rounded-full object-cover" />
+                  ) : (
+                    <span>{uploading === 'logo' ? 'جارٍ الرفع…' : 'اختر شعار'}</span>
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => void handleUpload('logo', e.target.files?.[0])}
+                  />
+                </label>
+              </div>
+            </div>
+            <p className="text-[10px] text-copy-muted">
+              يظهر الشعار في زاوية الشريط العلوي، وتظهر صورة العلامة في ملف المتجر.
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
