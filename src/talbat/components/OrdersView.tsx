@@ -9,7 +9,6 @@ import {
   Trash2,
   Check,
   Clock,
-  FileSpreadsheet,
   Printer,
   X,
   StickyNote,
@@ -17,19 +16,17 @@ import {
   ArrowDown,
   ChevronRight,
   ChevronLeft,
-  Wallet,
   Notebook,
 } from 'lucide-react';
 import { Order, Supplier } from '../types';
 import { formatArabicDate, formatCurrency } from '../utils/helpers';
-import { exportOrdersToCSV } from '../utils/exportToCsv';
 import { printOrders } from '../utils/printOrders';
 import { StatusBadge } from './StatusBadge';
 import { OrderCard } from './OrderCard';
 
 type StatusFilter = 'all' | 'pending' | 'done';
 type DateRange = 'all' | 'today' | 'week' | 'month' | 'custom';
-type SortKey = 'orderNumber' | 'orderDate' | 'price' | 'remaining' | 'customer' | 'supplier' | 'status';
+type SortKey = 'orderNumber' | 'orderDate' | 'price' | 'customer' | 'supplier' | 'status';
 type SortDir = 'asc' | 'desc';
 
 interface OrdersViewProps {
@@ -57,7 +54,6 @@ interface StoredFilters {
   dateRange: DateRange;
   customFrom: string;
   customTo: string;
-  onlyRemaining: boolean;
   sortKey: SortKey;
   sortDir: SortDir;
   viewMode: 'cards' | 'table';
@@ -70,7 +66,6 @@ const DEFAULT_FILTERS: StoredFilters = {
   dateRange: 'all',
   customFrom: '',
   customTo: '',
-  onlyRemaining: false,
   sortKey: 'orderDate',
   sortDir: 'desc',
   viewMode: 'table',
@@ -140,7 +135,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const [dateRange, setDateRange] = useState<DateRange>(stored.current.dateRange);
   const [customFrom, setCustomFrom] = useState(stored.current.customFrom);
   const [customTo, setCustomTo] = useState(stored.current.customTo);
-  const [onlyRemaining, setOnlyRemaining] = useState(stored.current.onlyRemaining);
   const [sortKey, setSortKey] = useState<SortKey>(stored.current.sortKey);
   const [sortDir, setSortDir] = useState<SortDir>(stored.current.sortDir);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>(stored.current.viewMode);
@@ -176,7 +170,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         dateRange,
         customFrom,
         customTo,
-        onlyRemaining,
         sortKey,
         sortDir,
         viewMode,
@@ -192,7 +185,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     dateRange,
     customFrom,
     customTo,
-    onlyRemaining,
     sortKey,
     sortDir,
     viewMode,
@@ -222,11 +214,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       if (start && (order.orderDate || '') < start) return false;
       if (end && (order.orderDate || '') > end) return false;
 
-      if (onlyRemaining) {
-        const remaining = (order.price || 0) - (order.deposit || 0);
-        if (remaining <= 0) return false;
-      }
-
       if (term) {
         const matches =
           order.customerName.toLowerCase().includes(term) ||
@@ -247,10 +234,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           return ((a.orderNumber || 0) - (b.orderNumber || 0)) * dir;
         case 'price':
           return ((a.price || 0) - (b.price || 0)) * dir;
-        case 'remaining':
-          return (
-            ((a.price || 0) - (a.deposit || 0) - ((b.price || 0) - (b.deposit || 0))) * dir
-          );
         case 'customer':
           return a.customerName.localeCompare(b.customerName, 'ar') * dir;
         case 'supplier':
@@ -270,7 +253,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     dateRange,
     customFrom,
     customTo,
-    onlyRemaining,
     sortKey,
     sortDir,
   ]);
@@ -285,7 +267,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     dateRange,
     customFrom,
     customTo,
-    onlyRemaining,
     pageSize,
     sortKey,
     sortDir,
@@ -309,12 +290,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
   const pendingCount = orders.filter((o) => o.status === 'pending').length;
   const doneCount = orders.filter((o) => o.status === 'done').length;
-
-  const totals = useMemo(() => {
-    const price = filteredOrders.reduce((sum, o) => sum + (o.price || 0), 0);
-    const deposit = filteredOrders.reduce((sum, o) => sum + (o.deposit || 0), 0);
-    return { price, deposit, remaining: price - deposit };
-  }, [filteredOrders]);
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
   const pageAllSelected = pageOrders.length > 0 && pageOrders.every((o) => selectedSet.has(o.id));
@@ -345,7 +320,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const filterLabel = [
     statusFilter === 'all' ? 'كل الحالات' : statusFilter === 'pending' ? 'معلّق' : 'تم التنفيذ',
     DATE_LABELS[dateRange],
-    onlyRemaining ? 'عليه متبقٍ' : '',
   ]
     .filter(Boolean)
     .join(' — ');
@@ -425,15 +399,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           >
             <Printer className="w-4 h-4 text-brass" />
             <span className="hidden sm:inline">طباعة</span>
-          </button>
-
-          <button
-            onClick={() => exportOrdersToCSV(filteredOrders)}
-            className="flex items-center gap-1.5 bg-paper hover:bg-paper-alt text-ink border border-line px-3 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-2xs transition-all"
-            title="تصدير هذه الطلبيات إلى ملف Excel / CSV"
-          >
-            <FileSpreadsheet className="w-4 h-4 text-done" />
-            <span className="hidden sm:inline">تصدير Excel</span>
           </button>
 
           <button
@@ -530,18 +495,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               تم التنفيذ ({doneCount})
             </button>
-            <button
-              onClick={() => setOnlyRemaining((v) => !v)}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-colors flex items-center gap-1 ${
-                onlyRemaining
-                  ? 'bg-brass text-white shadow-xs'
-                  : 'bg-paper text-copy-muted hover:bg-paper-alt'
-              }`}
-              title="عرض الطلبات التي عليها مبلغ متبقٍ فقط"
-            >
-              <Wallet className="w-3.5 h-3.5" />
-              عليه متبقٍ
-            </button>
           </div>
 
           <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 text-xs w-full sm:w-auto">
@@ -581,9 +534,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               <option value="orderDate:desc">الأحدث أولًا</option>
               <option value="orderDate:asc">الأقدم أولًا</option>
-              <option value="price:desc">السعر الأكبر</option>
-              <option value="price:asc">السعر الأقل</option>
-              <option value="remaining:desc">الأكثر متبقيًا</option>
               <option value="customer:asc">اسم العميل</option>
             </select>
           </div>
@@ -612,20 +562,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
         )}
 
-        {/* Totals for the current filter */}
-        {filteredOrders.length > 0 && (
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 border-t border-paper-alt text-[11px] sm:text-xs font-cairo">
-            <span className="text-copy-muted">
-              إجمالي الأسعار: <strong className="text-ink">{formatCurrency(totals.price)}</strong>
-            </span>
-            <span className="text-copy-muted">
-              العربون المحصّل: <strong className="text-done">{formatCurrency(totals.deposit)}</strong>
-            </span>
-            <span className="text-copy-muted">
-              المتبقي: <strong className="text-pending">{formatCurrency(totals.remaining)}</strong>
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Bulk actions bar */}
@@ -646,14 +582,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               className="flex items-center gap-1 bg-pending text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
               <Clock className="w-3.5 h-3.5" /> إعادة كمعلّق
-            </button>
-            <button
-              onClick={() =>
-                exportOrdersToCSV(filteredOrders.filter((o) => selectedSet.has(o.id)))
-              }
-              className="flex items-center gap-1 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg text-xs font-bold"
-            >
-              <FileSpreadsheet className="w-3.5 h-3.5" /> تصدير المحدد
             </button>
             <button
               onClick={() =>
@@ -751,14 +679,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   <th className="p-3 font-cairo">تفاصيل الصنف والمقاس</th>
                   <SortHeader label="تاريخ الطلب" sortKeyName="orderDate" />
                   <SortHeader label="السعر" sortKeyName="price" />
-                  <SortHeader label="المتبقي" sortKeyName="remaining" />
                   <SortHeader label="الحالة" sortKeyName="status" className="text-center" />
                   <th className="p-3 font-cairo text-left">إجراءات</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-paper-alt">
                 {pageOrders.map((order, idx) => {
-                  const remaining = (order.price || 0) - (order.deposit || 0);
                   const isSelected = selectedSet.has(order.id);
 
                   return (
@@ -771,7 +697,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                           : idx % 2 === 0
                             ? 'bg-white'
                             : 'bg-canvas-subtle'
-                      } ${remaining > 0 ? 'border-r-2 border-r-pending' : ''}`}
+                      }`}
                     >
                       <td className="p-3" onClick={(e) => e.stopPropagation()}>
                         <input
@@ -870,13 +796,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         {formatCurrency(order.price)}
                       </td>
 
-                      <td className="p-3 whitespace-nowrap font-cairo">
-                        {remaining > 0 ? (
-                          <span className="font-bold text-pending">{formatCurrency(remaining)}</span>
-                        ) : (
-                          <span className="text-copy-muted">مسدّد</span>
-                        )}
-                      </td>
 
                       <td className="p-3 text-center whitespace-nowrap">
                         <StatusBadge status={order.status} order={order} />
