@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Plus, Search, Filter, LayoutGrid, Table as TableIcon, Phone, MessageCircle, Edit2, Trash2, Check, Clock, Calendar, Store, ArrowUpDown, Download, FileSpreadsheet } from 'lucide-react';
-import { Order, OrderStatus, Supplier } from '../types';
+import { Plus, Search, LayoutGrid, Table as TableIcon, MessageCircle, Edit2, Trash2, Check, Clock, FileSpreadsheet } from 'lucide-react';
+import { Order, Supplier } from '../types';
 import { formatArabicDate, formatCurrency } from '../utils/helpers';
 import { exportOrdersToCSV } from '../utils/exportToCsv';
 import { StatusBadge } from './StatusBadge';

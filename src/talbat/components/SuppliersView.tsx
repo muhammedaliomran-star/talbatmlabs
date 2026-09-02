@@ -137,7 +137,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
           </div>
         </div>
 
-        {/* Supplier Dossier & Orders to bring on next trip */}
+        {/* Supplier dossier and related orders */}
         <div className={`lg:col-span-8 bg-white rounded-[14px] border border-line p-4 sm:p-5 shadow-xs space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           {/* Mobile Back Button */}
           <div className="lg:hidden pb-2 border-b border-paper-alt mb-1">
@@ -151,7 +151,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
           {activeSupplier ? (
             <>
-              {/* Header with Supplier Details & Trip Sheet Button */}
+              {/* Supplier details header */}
               <div className="border-b border-paper-alt pb-4 flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">

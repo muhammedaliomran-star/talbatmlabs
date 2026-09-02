@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Search, Phone, Plus, MessageCircle, Calendar, Store, CheckCircle2, Clock, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Search, Phone, Plus, MessageCircle, Calendar } from 'lucide-react';
 import { Customer, Order } from '../types';
 import { formatArabicDate, formatCurrency, createWhatsAppUrl } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
