@@ -544,7 +544,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 text-xs w-full sm:w-auto">
+          <div className="grid grid-cols-1 gap-2 text-xs sm:flex sm:w-auto sm:items-center">
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value as DateRange)}

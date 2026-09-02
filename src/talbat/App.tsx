@@ -46,6 +46,15 @@ export default function App() {
   } = useCloudData(currentUser?.id);
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.localStorage.getItem('daftar_theme') === 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDarkMode);
+    window.localStorage.setItem('daftar_theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   const handleLogout = () => {
     void signOut();
@@ -429,7 +438,8 @@ export default function App() {
         pendingCount={pendingCount}
         currentUser={currentUser}
         onOpenProfile={() => setIsProfileModalOpen(true)}
-        onLockScreen={handleLogout}
+        isDarkMode={isDarkMode}
+        onToggleTheme={() => setIsDarkMode((current) => !current)}
       />
 
       {/* Main Content Area */}
@@ -556,6 +566,7 @@ export default function App() {
           onUpdateUser={handleUpdateUser}
           onLogout={handleLogout}
           onLockScreen={handleLogout}
+          onOpenBackup={() => setIsBackupModalOpen(true)}
         />
       )}
     </div>

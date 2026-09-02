@@ -155,19 +155,19 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-white rounded-[16px] w-full max-w-lg border border-line shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 backdrop-blur-xs sm:items-center sm:p-4">
+      <div className="flex max-h-[94dvh] w-full max-w-lg flex-col overflow-hidden rounded-t-[22px] border border-line bg-white shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-200 sm:max-h-[calc(100dvh-2rem)] sm:rounded-[16px] sm:zoom-in-95">
         {/* Modal Header */}
-        <div className="bg-ink text-white px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+        <div className="flex shrink-0 items-center justify-between bg-ink px-4 py-3 text-white sm:px-5 sm:py-4">
+          <div className="flex min-w-0 items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-brass text-white flex items-center justify-center font-bold">
               {initialOrder ? '✎' : '+'}
             </div>
             <div>
-              <h2 className="text-lg font-bold font-cairo">
+              <h2 className="truncate text-base font-bold font-cairo sm:text-lg">
                 {initialOrder ? `تعديل الطلب #${initialOrder.orderNumber}` : 'إضافة طلب جديد للعميل'}
               </h2>
-              <p className="text-xs text-ink-muted">
+              <p className="truncate text-[11px] text-ink-muted sm:text-xs">
                  تسجيل طلبية ملابس وتحديد العميل والمورد
               </p>
             </div>
@@ -181,7 +181,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
         </div>
 
         {/* Modal Body / Form */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="flex-1 space-y-4 overflow-y-auto p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5">
           {/* Customer Name & Phone */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="relative">
@@ -279,18 +279,18 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </div>
 
             {showQuickSupplier ? (
-              <div className="flex gap-2 p-2 bg-pending-soft/50 rounded-[9px] border border-pending-soft mb-2">
+              <div className="flex flex-col gap-2 rounded-[9px] border border-pending-soft bg-pending-soft/50 p-2 sm:flex-row">
                 <input
                   type="text"
                   value={newSupplierName}
                   onChange={(e) => setNewSupplierName(e.target.value)}
                   placeholder="اسم المورد الجديد (مثال: توكيل الهدى)"
-                  className="flex-1 px-3 py-1.5 text-xs rounded-md bg-white border border-line focus:outline-none focus:border-brass"
+                  className="w-full flex-1 px-3 py-2 text-xs rounded-md bg-white border border-line focus:outline-none focus:border-brass"
                 />
                 <button
                   type="button"
                   onClick={handleCreateSupplier}
-                  className="px-3 py-1.5 bg-brass text-white text-xs font-bold rounded-md hover:bg-brass"
+                  className="min-h-10 px-3 py-2 bg-brass text-white text-xs font-bold rounded-md hover:bg-brass"
                 >
                   إضافة
                 </button>
@@ -529,17 +529,17 @@ export const OrderModal: React.FC<OrderModalProps> = ({
           </div>
 
           {/* Submit Actions */}
-          <div className="pt-3 border-t border-line flex items-center justify-end gap-2">
+          <div className="sticky bottom-0 -mx-4 mt-2 flex items-center justify-end gap-2 border-t border-line bg-white px-4 pt-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:-mx-5 sm:px-5">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-copy-muted hover:bg-paper rounded-[8px]"
+              className="min-h-10 px-4 py-2 text-xs font-bold text-copy-muted hover:bg-paper rounded-[8px]"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-ink hover:bg-ink-light text-white text-xs sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
+              className="min-h-11 px-5 py-2.5 bg-ink hover:bg-ink-light text-white text-xs sm:px-6 sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-4 h-4 text-brass-light" />
               <span>{initialOrder ? 'حفظ التعديلات' : 'تسجيل الطلب'}</span>

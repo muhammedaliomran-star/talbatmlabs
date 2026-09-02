@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   AlertCircle,
   Image as ImageIcon,
+  HardDriveDownload,
 } from 'lucide-react';
 import { User, UserRole } from '../types';
 import { uploadBrandingImage, resolveBrandingUrl } from '../lib/branding';
@@ -23,6 +24,7 @@ interface UserProfileModalProps {
   onUpdateUser: (updatedUser: User) => void;
   onLogout: () => void;
   onLockScreen: () => void;
+  onOpenBackup: () => void;
 }
 
 export const UserProfileModal: React.FC<UserProfileModalProps> = ({
@@ -32,6 +34,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   onUpdateUser,
   onLogout,
   onLockScreen,
+  onOpenBackup,
 }) => {
   const [name, setName] = useState(currentUser.name);
   const [storeName, setStoreName] = useState(currentUser.storeName);
@@ -109,8 +112,8 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs font-tajawal animate-in fade-in duration-200">
-      <div className="bg-white rounded-[22px] border border-line shadow-2xl w-full max-w-md overflow-hidden text-right">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-xs font-tajawal animate-in fade-in duration-200 sm:items-center sm:p-4">
+      <div className="flex max-h-[94dvh] w-full max-w-md flex-col overflow-hidden rounded-t-[22px] border border-line bg-white text-right shadow-2xl sm:max-h-[calc(100dvh-2rem)] sm:rounded-[22px]">
         {/* Header */}
         <div className="bg-ink text-white px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -144,7 +147,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         </div>
 
         {/* Content */}
-        <form onSubmit={handleSave} className="p-5 space-y-4">
+        <form onSubmit={handleSave} className="space-y-4 overflow-y-auto p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-5">
           {errorMsg && (
             <div className="p-3 bg-late-soft border border-late-soft rounded-xl text-xs text-late flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -271,6 +274,32 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               className="w-full px-3 py-2 text-xs rounded-xl border border-line-soft bg-paper-alt/50 text-copy-muted cursor-not-allowed dir-ltr text-right"
             />
           </div>
+
+          <section className="rounded-2xl border border-line bg-paper-warm/60 p-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex min-w-0 items-start gap-2">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-brass/15 text-brass">
+                  <HardDriveDownload className="size-4" />
+                </span>
+                <div>
+                  <h4 className="text-xs font-bold text-ink">النسخ الاحتياطي والبيانات</h4>
+                  <p className="mt-0.5 text-[11px] leading-relaxed text-copy-muted">
+                    احفظ نسخة من سجلات الدفتر أو استرجع نسخة سابقة.
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onOpenBackup();
+                }}
+                className="shrink-0 rounded-xl bg-ink px-3 py-2 text-[11px] font-bold text-white transition-colors hover:bg-ink-light"
+              >
+                فتح
+              </button>
+            </div>
+          </section>
 
           {/* Quick lock & logout buttons */}
           <div className="pt-2 border-t border-paper-alt flex items-center justify-between gap-2">

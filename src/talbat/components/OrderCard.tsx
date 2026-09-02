@@ -24,8 +24,6 @@ export const OrderCard: React.FC<OrderCardProps> = ({
   onSelectSupplier,
   onOpenWhatsApp,
 }) => {
-  const remaining = (order.price || 0) - (order.deposit || 0);
-
   const handleWhatsAppClick = (e: React.MouseEvent) => {
     if (onOpenWhatsApp) {
       e.preventDefault();
@@ -122,11 +120,6 @@ export const OrderCard: React.FC<OrderCardProps> = ({
           {order.price !== undefined && (
             <span className="font-bold text-ink font-cairo text-sm">
               {formatCurrency(order.price)}
-            </span>
-          )}
-          {order.deposit !== undefined && order.deposit > 0 && remaining > 0 && (
-            <span className="text-[11px] text-copy-muted bg-pending-soft px-1.5 py-0.5 rounded">
-              باقي: {formatCurrency(remaining)}
             </span>
           )}
         </div>
