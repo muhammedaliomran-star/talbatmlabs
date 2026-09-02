@@ -520,8 +520,8 @@ export default function App() {
   // Real authentication gate
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#F6F4EF] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#DED8CC] border-t-[#B08948] animate-spin" />
+      <div className="min-h-screen bg-paper flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-line border-t-[#B08948] animate-spin" />
       </div>
     );
   }
@@ -531,7 +531,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F4EF] text-[#24262B] flex flex-col antialiased">
+    <div className="min-h-screen bg-paper text-charcoal flex flex-col antialiased">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}

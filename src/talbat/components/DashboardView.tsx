@@ -92,7 +92,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           value={totalOrders}
           subtitle={`${customers.length} عملاء مسجلين`}
           variant="default"
-          icon={<ShoppingBag className="w-4 h-4 text-[#1B2E4A]" />}
+          icon={<ShoppingBag className="w-4 h-4 text-ink" />}
           onClick={() => setActiveTab('orders')}
         />
         <StatCard
@@ -100,7 +100,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           value={pendingOrders.length}
           subtitle="تحتاج للشراء والتوريد"
           variant="pending"
-          icon={<Clock className="w-4 h-4 text-[#B8792A]" />}
+          icon={<Clock className="w-4 h-4 text-pending" />}
           onClick={() => setActiveTab('orders')}
         />
         <StatCard
@@ -108,7 +108,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           value={lateOrders.length}
           subtitle={lateOrders.length > 0 ? 'تجاوزت يوم السفر المحدد' : 'لا توجد طلبات متأخرة'}
           variant="late"
-          icon={<AlertTriangle className="w-4 h-4 text-[#B4463A]" />}
+          icon={<AlertTriangle className="w-4 h-4 text-late" />}
           onClick={() => setActiveTab('orders')}
         />
         <StatCard
@@ -116,7 +116,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           value={doneOrders.length}
           subtitle="استلمها العميل بنجاح"
           variant="done"
-          icon={<CheckCircle2 className="w-4 h-4 text-[#3F7A5D]" />}
+          icon={<CheckCircle2 className="w-4 h-4 text-done" />}
           onClick={() => setActiveTab('orders')}
         />
         <div className="col-span-2 sm:col-span-1 lg:col-span-1">
@@ -125,24 +125,24 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             value={formatCurrency(totalReturnsValue)}
             subtitle={`${returns.filter((r) => r.status === 'pending_supplier').length} أصناف معلقة`}
             variant="brass"
-            icon={<RotateCcw className="w-4 h-4 text-[#B08948]" />}
+            icon={<RotateCcw className="w-4 h-4 text-brass" />}
             onClick={() => setActiveTab('returns')}
           />
         </div>
       </div>
 
       {/* 4. Alert Section: Upcoming Travel Dates (next 3 - 7 days) */}
-      <div className="bg-white rounded-[18px] sm:rounded-[22px] border border-[#DED8CC] overflow-hidden shadow-xs">
-        <div className="bg-[#FAF6EF] px-4 sm:px-5 py-3 border-b border-[#EAE1D2] flex flex-wrap items-center justify-between gap-2">
+      <div className="bg-canvas rounded-[18px] sm:rounded-[22px] border border-line overflow-hidden shadow-xs">
+        <div className="bg-paper-warm px-4 sm:px-5 py-3 border-b border-line-soft flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#B08948]/15 flex items-center justify-center text-[#B08948]">
+            <div className="w-7 h-7 rounded-lg bg-brass/15 flex items-center justify-center text-brass">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm sm:text-base font-bold font-cairo text-[#1B2E4A]">
+              <h2 className="text-sm sm:text-base font-bold font-cairo text-ink">
                 مواعيد السفر والتوريد القريبة (خلال 7 أيام)
               </h2>
-              <p className="text-[11px] text-[#6C6A63]">
+              <p className="text-[11px] text-copy-muted">
                 طلبات الزبائن التي اقترب ميعاد الذهاب لإحضارها من الموردين
               </p>
             </div>
@@ -150,16 +150,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
           <button
             onClick={() => onOpenTripPrint()}
-            className="text-xs font-bold text-[#1B2E4A] hover:text-[#B08948] bg-white border border-[#DED8CC] px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors shadow-2xs"
+            className="text-xs font-bold text-ink hover:text-brass bg-canvas border border-line px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors shadow-2xs"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-[#B08948]" />
+            <FileSpreadsheet className="w-3.5 h-3.5 text-brass" />
             <span>طباعة كشف السفر</span>
           </button>
         </div>
 
         <div className="p-3.5 sm:p-5">
           {upcomingOrders.length === 0 ? (
-            <div className="text-center py-5 text-[#6C6A63] text-xs sm:text-sm">
+            <div className="text-center py-5 text-copy-muted text-xs sm:text-sm">
               لا توجد طلبات معلقة قريبة في الأيام القادمة. جميع الطلبات منفذة أو بتواريخ لاحقة.
             </div>
           ) : (
@@ -173,31 +173,31 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="font-bold text-xs sm:text-sm text-[#1B2E4A] font-cairo">
+                        <div className="font-bold text-xs sm:text-sm text-ink font-cairo">
                           {order.customerName}
                         </div>
-                        <div className="text-[11px] text-[#6C6A63] mt-0.5">
-                          من: <span className="font-semibold text-[#1B2E4A]">{order.supplierName}</span>
+                        <div className="text-[11px] text-copy-muted mt-0.5">
+                          من: <span className="font-semibold text-ink">{order.supplierName}</span>
                         </div>
                       </div>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                        days <= 1 ? 'bg-amber-100 text-amber-900 border border-amber-300 font-bold' : 'bg-[#F6ECDC] text-[#B8792A]'
+                        days <= 1 ? 'bg-amber-100 text-amber-900 border border-amber-300 font-bold' : 'bg-pending-soft text-pending'
                       }`}>
                         {days === 0 ? 'اليوم!' : days === 1 ? 'غداً' : `بعد ${days} أيام`}
                       </span>
                     </div>
 
-                    <div className="text-xs text-[#24262B] bg-white p-2 rounded-[8px] border border-[#EAE1D2]">
+                    <div className="text-xs text-charcoal bg-canvas p-2 rounded-[8px] border border-line-soft">
                       {order.description}
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] pt-1 border-t border-[#EAE1D2]">
-                      <span className="text-[#6C6A63]">
+                    <div className="flex items-center justify-between text-[11px] pt-1 border-t border-line-soft">
+                      <span className="text-copy-muted">
                         {formatArabicDate(order.travelDate)}
                       </span>
                       <button
                         onClick={() => onToggleOrderStatus(order.id)}
-                        className="text-[11px] font-bold text-[#3F7A5D] hover:underline"
+                        className="text-[11px] font-bold text-done hover:underline"
                       >
                         ✓ تم الاستلام
                       </button>
