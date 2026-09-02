@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Moon, Sun } from 'lucide-react';
+import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Lock, LogOut } from 'lucide-react';
 import { ActiveTab, User } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,7 @@ interface NavbarProps {
   pendingCount: number;
   currentUser?: User | null;
   onOpenProfile?: () => void;
-  isDarkMode: boolean;
-  onToggleTheme: () => void;
+  onLockScreen?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -28,8 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   pendingCount,
   currentUser,
   onOpenProfile,
-  isDarkMode,
-  onToggleTheme,
+  onLockScreen,
 }) => {
   const tabs = [
     { id: 'dashboard' as ActiveTab, label: 'الرئيسية', icon: LayoutDashboard },
@@ -114,16 +112,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Download className="w-4 h-4" />
             </Button>
 
-            <Button
-              onClick={onToggleTheme}
-              variant="ghost"
-              size="icon"
-              className="hidden size-9 bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink lg:inline-flex"
-              title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
-              aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
-            >
-              {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
+            {/* Lock screen quick button */}
+            {onLockScreen && (
+              <Button
+                onClick={onLockScreen}
+                variant="ghost" size="icon" className="hidden size-9 bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink lg:inline-flex"
+                title="قفل التطبيق مؤقتاً"
+              >
+                <Lock className="w-4 h-4" />
+              </Button>
+            )}
 
             {/* User Profile Avatar Pill */}
             {currentUser && onOpenProfile && (
@@ -166,16 +164,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="grid size-7 place-items-center rounded-full bg-on-ink/15 transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105"><Plus className="size-4" /></span>
             </Button>
 
-            <Button
-              onClick={onToggleTheme}
-              variant="ghost"
-              size="icon"
-              className="size-10 bg-ink-light text-on-ink hover:bg-ink-light md:hidden"
-              title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
-              aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
-            >
-              {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
-            </Button>
+            {onLockScreen && (
+              <Button
+                onClick={onLockScreen}
+                variant="ghost"
+                size="icon"
+                className="size-10 bg-ink-light text-on-ink hover:bg-late hover:text-white md:hidden"
+                title="تسجيل الخروج"
+                aria-label="تسجيل الخروج"
+              >
+                <LogOut className="size-4" />
+              </Button>
+            )}
           </div>
         </div>
       </div>
