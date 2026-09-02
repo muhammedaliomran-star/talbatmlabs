@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import type { Customer, Order, ReturnItem, Supplier } from '../types';
+
 import {
   Collection,
   customersCollection,
@@ -129,6 +131,16 @@ export function useCloudData(userId?: string | null) {
     return () => window.removeEventListener('focus', onFocus);
   }, [userId, load]);
 
+  const setterFor = useCallback(
+    (key: keyof typeof snap.current) => {
+      if (key === 'orders') return setOrders as unknown as (v: unknown[]) => void;
+      if (key === 'suppliers') return setSuppliers as unknown as (v: unknown[]) => void;
+      if (key === 'customers') return setCustomers as unknown as (v: unknown[]) => void;
+      return setReturns as unknown as (v: unknown[]) => void;
+    },
+    []
+  );
+
   const push = useCallback(
     <T extends { id: string }>(col: Collection<T>, key: keyof typeof snap.current, next: T[]) => {
       if (!userId || !ready.current) return;
@@ -137,16 +149,23 @@ export function useCloudData(userId?: string | null) {
       (snap.current[key] as unknown as T[]) = next;
       syncCollection(col, userId, prev, next).catch((e) => {
         console.error('Cloud sync failed', e);
-        setSyncError('تعذر حفظ التغييرات، جارٍ العمل محليًا');
+        // Roll back the optimistic change so the screen matches the database.
+        (snap.current[key] as unknown as T[]) = prev;
+        setterFor(key)(prev as unknown as unknown[]);
+        setSyncError('تعذر حفظ التغييرات، تم التراجع عن آخر تعديل');
+        toast.error('تعذر حفظ التغيير في قاعدة البيانات', {
+          description: 'تم التراجع عن آخر تعديل، تحقق من الاتصال وحاول مرة أخرى',
+        });
       });
     },
-    [userId]
+    [userId, setterFor]
   );
 
   useEffect(() => push(ordersCollection, 'orders', orders), [orders, push]);
   useEffect(() => push(suppliersCollection, 'suppliers', suppliers), [suppliers, push]);
   useEffect(() => push(customersCollection, 'customers', customers), [customers, push]);
   useEffect(() => push(returnsCollection, 'returns', returns), [returns, push]);
+
 
   return {
     orders,
