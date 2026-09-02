@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { User, UserRole } from '../types';
+import { resolveBrandingUrl } from '../lib/branding';
 
 const colors = ['bg-brass', 'bg-done', 'bg-ink-light', 'bg-late'];
 
@@ -22,6 +23,13 @@ export function useAuthUser() {
       s.user.email?.split('@')[0] ||
       'مستخدم';
 
+    const brandImagePath = (profile as { brand_image_url?: string | null })?.brand_image_url || undefined;
+    const logoPath = (profile as { logo_url?: string | null })?.logo_url || undefined;
+    const [brandImageUrl, logoUrl] = await Promise.all([
+      resolveBrandingUrl(brandImagePath),
+      resolveBrandingUrl(logoPath),
+    ]);
+
     setUser({
       id: s.user.id,
       name: profile?.name || fallbackName,
@@ -30,6 +38,10 @@ export function useAuthUser() {
       storeName: profile?.store_name || 'متجري',
       phone: profile?.phone || undefined,
       avatarColor: profile?.avatar_color || colors[0],
+      brandImagePath,
+      brandImageUrl,
+      logoPath,
+      logoUrl,
       createdAt: profile?.created_at || s.user.created_at,
     });
     setLoading(false);
@@ -58,7 +70,11 @@ export function useAuthUser() {
   const updateProfile = useCallback(
     async (updated: User) => {
       if (!session) return;
-      setUser(updated);
+      const [brandImageUrl, logoUrl] = await Promise.all([
+        resolveBrandingUrl(updated.brandImagePath),
+        resolveBrandingUrl(updated.logoPath),
+      ]);
+      setUser({ ...updated, brandImageUrl, logoUrl });
       await supabase
         .from('profiles')
         .update({
@@ -66,7 +82,9 @@ export function useAuthUser() {
           store_name: updated.storeName,
           phone: updated.phone ?? null,
           avatar_color: updated.avatarColor ?? colors[0],
-        })
+          brand_image_url: updated.brandImagePath ?? null,
+          logo_url: updated.logoPath ?? null,
+        } as never)
         .eq('id', session.user.id);
     },
     [session]

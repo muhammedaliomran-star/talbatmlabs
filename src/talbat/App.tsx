@@ -15,6 +15,7 @@ import { BackupModal } from './components/BackupModal';
 import { TripPrintModal } from './components/TripPrintModal';
 import { AuthPortal } from './components/AuthPortal';
 import { useAuthUser } from './hooks/useAuthUser';
+import { useCloudData } from './hooks/useCloudData';
 import { UserProfileModal } from './components/UserProfileModal';
 import {
   ActiveTab,
@@ -39,87 +40,25 @@ import {
 } from './data/initialData';
 import { isOrderLate } from './utils/helpers';
 
-const STORAGE_KEY = 'daftar_app_state_v1';
-
 export default function App() {
-  // Load initial state from localStorage or sample data
-  const [orders, setOrders] = useState<Order[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppData;
-        if (parsed.orders) return parsed.orders;
-      }
-    } catch (e) {
-      console.error('Error loading orders from localStorage', e);
-    }
-    return INITIAL_ORDERS;
-  });
-
-  const [suppliers, setSuppliers] = useState<Supplier[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppData;
-        if (parsed.suppliers) return parsed.suppliers;
-      }
-    } catch (e) {
-      console.error('Error loading suppliers from localStorage', e);
-    }
-    return INITIAL_SUPPLIERS;
-  });
-
-  const [customers, setCustomers] = useState<Customer[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppData;
-        if (parsed.customers) return parsed.customers;
-      }
-    } catch (e) {
-      console.error('Error loading customers from localStorage', e);
-    }
-    return INITIAL_CUSTOMERS;
-  });
-
-  const [returns, setReturns] = useState<ReturnItem[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppData;
-        if (parsed.returns) return parsed.returns;
-      }
-    } catch (e) {
-      console.error('Error loading returns from localStorage', e);
-    }
-    return INITIAL_RETURNS;
-  });
-
-  const [trips, setTrips] = useState<ShoppingTrip[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppData;
-        if (parsed.trips && parsed.trips.length > 0) return parsed.trips;
-      }
-    } catch (e) {
-      console.error('Error loading trips from localStorage', e);
-    }
-    return INITIAL_TRIPS;
-  });
-
-  // Save to localStorage whenever data changes
-  useEffect(() => {
-    try {
-      const appData: AppData = { orders, suppliers, customers, returns, trips };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-    } catch (e) {
-      console.error('Error saving state to localStorage', e);
-    }
-  }, [orders, suppliers, customers, returns, trips]);
-
   // Auth (real accounts via Lovable Cloud)
   const { user: currentUser, loading: authLoading, updateProfile, signOut } = useAuthUser();
+
+  // Real shared data (synced across devices)
+  const {
+    orders,
+    setOrders,
+    suppliers,
+    setSuppliers,
+    customers,
+    setCustomers,
+    returns,
+    setReturns,
+    trips,
+    setTrips,
+    loading: dataLoading,
+    syncError,
+  } = useCloudData(currentUser?.id);
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
@@ -514,7 +453,6 @@ export default function App() {
     setCustomers(INITIAL_CUSTOMERS);
     setReturns(INITIAL_RETURNS);
     setTrips(INITIAL_TRIPS);
-    localStorage.removeItem(STORAGE_KEY);
   };
 
   // Real authentication gate
@@ -530,8 +468,22 @@ export default function App() {
     return <AuthPortal />;
   }
 
+  if (dataLoading) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col items-center justify-center gap-4">
+        <div className="w-8 h-8 rounded-full border-2 border-line border-t-brass animate-spin" />
+        <p className="text-sm text-copy-muted">جارٍ تحميل دفترك من قاعدة البيانات…</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grain-overlay min-h-screen bg-paper text-charcoal flex flex-col antialiased">
+      {syncError && (
+        <div className="bg-late-soft text-late text-center text-xs font-semibold py-2 px-4">
+          {syncError}
+        </div>
+      )}
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}

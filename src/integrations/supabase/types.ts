@@ -14,11 +14,115 @@ export type Database = {
   }
   public: {
     Tables: {
+      customers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          alternative_color: string | null
+          color: string | null
+          created_at: string
+          customer_id: string | null
+          customer_name: string
+          customer_phone: string | null
+          deposit: number | null
+          description: string
+          id: string
+          notes: string | null
+          order_date: string
+          order_number: number
+          price: number | null
+          quantity: number | null
+          size: string | null
+          status: string
+          supplier_id: string | null
+          supplier_name: string
+          travel_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          alternative_color?: string | null
+          color?: string | null
+          created_at?: string
+          customer_id?: string | null
+          customer_name?: string
+          customer_phone?: string | null
+          deposit?: number | null
+          description?: string
+          id?: string
+          notes?: string | null
+          order_date?: string
+          order_number?: number
+          price?: number | null
+          quantity?: number | null
+          size?: string | null
+          status?: string
+          supplier_id?: string | null
+          supplier_name?: string
+          travel_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          alternative_color?: string | null
+          color?: string | null
+          created_at?: string
+          customer_id?: string | null
+          customer_name?: string
+          customer_phone?: string | null
+          deposit?: number | null
+          description?: string
+          id?: string
+          notes?: string | null
+          order_date?: string
+          order_number?: number
+          price?: number | null
+          quantity?: number | null
+          size?: string | null
+          status?: string
+          supplier_id?: string | null
+          supplier_name?: string
+          travel_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_color: string | null
+          brand_image_url: string | null
           created_at: string
           id: string
+          logo_url: string | null
           name: string
           phone: string | null
           store_name: string
@@ -26,8 +130,10 @@ export type Database = {
         }
         Insert: {
           avatar_color?: string | null
+          brand_image_url?: string | null
           created_at?: string
           id: string
+          logo_url?: string | null
           name?: string
           phone?: string | null
           store_name?: string
@@ -35,12 +141,134 @@ export type Database = {
         }
         Update: {
           avatar_color?: string | null
+          brand_image_url?: string | null
           created_at?: string
           id?: string
+          logo_url?: string | null
           name?: string
           phone?: string | null
           store_name?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      returns: {
+        Row: {
+          created_at: string
+          customer_name: string | null
+          id: string
+          order_id: string | null
+          price: number
+          product_name: string
+          reason: string | null
+          return_date: string
+          status: string
+          supplier_id: string | null
+          supplier_name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          customer_name?: string | null
+          id?: string
+          order_id?: string | null
+          price?: number
+          product_name?: string
+          reason?: string | null
+          return_date?: string
+          status?: string
+          supplier_id?: string | null
+          supplier_name?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          customer_name?: string | null
+          id?: string
+          order_id?: string | null
+          price?: number
+          product_name?: string
+          reason?: string | null
+          return_date?: string
+          status?: string
+          supplier_id?: string | null
+          supplier_name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      suppliers: {
+        Row: {
+          address: string | null
+          created_at: string
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      trips: {
+        Row: {
+          created_at: string
+          date: string
+          destination: string | null
+          id: string
+          items: Json
+          notes: string | null
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string
+          destination?: string | null
+          id?: string
+          items?: Json
+          notes?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          destination?: string | null
+          id?: string
+          items?: Json
+          notes?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }

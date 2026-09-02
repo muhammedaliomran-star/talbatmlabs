@@ -85,6 +85,10 @@ export interface User {
   storeName: string;
   pinCode?: string; // 4 or 6 digit quick PIN
   avatarColor?: string;
+  brandImagePath?: string;
+  brandImageUrl?: string;
+  logoPath?: string;
+  logoUrl?: string;
   phone?: string;
   password?: string;
   createdAt?: string;
