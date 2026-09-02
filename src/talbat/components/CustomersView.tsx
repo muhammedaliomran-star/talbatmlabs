@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, Search, Phone, Plus, MessageCircle, Calendar, Store, CheckCircle2, Clock, AlertTriangle, ArrowRight } from 'lucide-react';
 import { Customer, Order } from '../types';
-import { formatArabicDate, formatCurrency, createWhatsAppUrl, isOrderLate } from '../utils/helpers';
+import { formatArabicDate, formatCurrency, createWhatsAppUrl } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
 
 interface CustomersViewProps {
@@ -264,17 +264,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                 ) : (
                   <div className="space-y-3">
                     {customerOrders.map((order) => {
-                      const late = isOrderLate(order);
                       const remaining = (order.price || 0) - (order.deposit || 0);
 
                       return (
                         <div
                           key={order.id}
-                          className={`p-4 rounded-[12px] border transition-all ${
-                            late
-                              ? 'bg-canvas-subtle border-late-soft'
-                              : 'bg-white border-paper-alt hover:border-line'
-                          }`}
+                          className="p-4 rounded-[12px] border transition-all bg-white border-paper-alt hover:border-line"
                         >
                           <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                             <div>
@@ -298,7 +293,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                           <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-2 border-t border-paper-alt">
                             <div className="flex items-center gap-1.5 text-copy-muted">
                               <Calendar className="w-3.5 h-3.5 text-brass" />
-                              <span>ميعاد السفر: {formatArabicDate(order.travelDate)}</span>
+                              <span>تاريخ الطلب: {formatArabicDate(order.orderDate)}</span>
                             </div>
 
                             <div className="flex items-center gap-3">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Plus, Store, MapPin, Phone, Edit2, Trash2, Printer, ShoppingBag, RotateCcw, Check, Clock, Search } from 'lucide-react';
+import { Plus, Store, MapPin, Phone, Edit2, Trash2, ShoppingBag, RotateCcw, Search } from 'lucide-react';
 import { Order, ReturnItem, Supplier } from '../types';
-import { formatArabicDate, formatCurrency, isOrderLate } from '../utils/helpers';
+import { formatCurrency } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
 
 interface SuppliersViewProps {
@@ -11,7 +11,6 @@ interface SuppliersViewProps {
   onOpenNewSupplier: () => void;
   onEditSupplier: (supplier: Supplier) => void;
   onDeleteSupplier: (supplierId: string) => void;
-  onOpenTripPrint: (supplier: Supplier) => void;
   onToggleOrderStatus: (orderId: string) => void;
   selectedSupplierId?: string | null;
 }
@@ -23,7 +22,6 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
   onOpenNewSupplier,
   onEditSupplier,
   onDeleteSupplier,
-  onOpenTripPrint,
   onToggleOrderStatus,
   selectedSupplierId,
 }) => {
@@ -44,7 +42,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
   const activeSupplierOrders = activeSupplier
     ? orders
         .filter((o) => o.supplierId === activeSupplier.id)
-        .sort((a, b) => a.travelDate.localeCompare(b.travelDate))
+        .sort((a, b) => b.orderDate.localeCompare(a.orderDate))
     : [];
 
   const activeSupplierReturns = activeSupplier
@@ -52,7 +50,6 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
     : [];
 
   const pendingOrders = activeSupplierOrders.filter((o) => o.status === 'pending');
-  const lateOrders = activeSupplierOrders.filter((o) => isOrderLate(o));
   const totalOrdersValue = activeSupplierOrders.reduce((sum, o) => sum + (o.price || 0), 0);
   const totalReturnsValue = activeSupplierReturns.reduce((sum, r) => sum + (r.price || 0), 0);
 
@@ -65,7 +62,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
             دليل الموردين والمصانع ({suppliers.length})
           </h1>
           <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
-            إدارة بيانات الموردين، تجهيز كشوف رحلات الشراء، ومتابعة المرتجعات
+             إدارة بيانات الموردين وطلباتهم ومتابعة المرتجعات
           </p>
         </div>
 
@@ -181,15 +178,6 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => onOpenTripPrint(activeSupplier)}
-                    className="flex items-center gap-1.5 bg-ink hover:bg-ink-light text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-colors shadow-xs"
-                    title="تجهيز كشف مطبوع للسفر"
-                  >
-                    <Printer className="w-4 h-4 text-brass-light" />
-                    <span>كشف رحلة السفر للمورد</span>
-                  </button>
-
-                  <button
                     onClick={() => onEditSupplier(activeSupplier)}
                     className="p-2 text-copy-muted hover:text-ink hover:bg-paper rounded-lg border border-line"
                     title="تعديل المورد"
@@ -223,13 +211,6 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                   </div>
                 </div>
 
-                <div className="p-3 bg-late-soft rounded-[10px] border border-late-soft">
-                  <div className="text-xs text-late">طلبات متأخرة</div>
-                  <div className="text-lg font-bold font-cairo text-late mt-1">
-                    {lateOrders.length}
-                  </div>
-                </div>
-
                 <div className="p-3 bg-paper-warm rounded-[10px] border border-line-soft">
                   <div className="text-xs text-brass">مرتجعات للتسوية</div>
                   <div className="text-lg font-bold font-cairo text-brass mt-1">
@@ -254,15 +235,10 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                 ) : (
                   <div className="space-y-3">
                     {activeSupplierOrders.map((order) => {
-                      const late = isOrderLate(order);
                       return (
                         <div
                           key={order.id}
-                          className={`p-3.5 rounded-[12px] border transition-all ${
-                            late
-                              ? 'bg-canvas-subtle border-late-soft'
-                              : 'bg-white border-paper-alt'
-                          }`}
+                          className="p-3.5 rounded-[12px] border transition-all bg-white border-paper-alt"
                         >
                           <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                             <div>
@@ -284,7 +260,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
                           <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-2 border-t border-paper-alt">
                             <span className="text-copy-muted">
-                              ميعاد السفر: {formatArabicDate(order.travelDate)}
+                              تاريخ الطلب: {formatArabicDate(order.orderDate)}
                             </span>
                             <div className="flex items-center gap-3">
                               {order.price !== undefined && (
