@@ -219,6 +219,38 @@
   background-color: var(--canvas);
 }
 
+/* The editorial workspace uses a small, fixed light palette in a few views.
+   Map those tokens at the theme boundary so the same components remain legible
+   without duplicating their markup for dark mode. */
+.dark :is([class*="bg-[#FDFBF7]"], [class*="bg-[#FFFCF6]"], [class*="bg-[#F7F7F6]"], [class*="bg-[#F6FBF7]"]) {
+  background-color: var(--canvas) !important;
+}
+
+.dark :is([class*="bg-[#FFFBF0]"], [class*="bg-[#EDE8DD]"], [class*="bg-[#DED8CC]"]) {
+  background-color: var(--paper-warm) !important;
+}
+
+.dark [class*="bg-[#FFF1EF]"] {
+  background-color: var(--late-soft) !important;
+}
+
+.dark :is([class*="text-[#1A1207]"], [class*="text-[#241A0F]"]) {
+  color: var(--charcoal) !important;
+}
+
+.dark :is([class*="text-[#6C6A63]"], [class*="text-[#9A9590]"]) {
+  color: var(--copy-muted) !important;
+}
+
+.dark :is([class*="text-[#8A6A2A]"], [class*="text-[#B8792A]"]) {
+  color: var(--brass-light) !important;
+}
+
+.dark :is([class*="border-[#EDE1D2]"], [class*="border-[#EAE1D2]"], [class*="ring-[#EDE1D2]"], [class*="ring-[#DED8CC]"]) {
+  border-color: var(--line) !important;
+  --tw-ring-color: var(--line) !important;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
