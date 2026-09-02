@@ -17,8 +17,8 @@ export function useAuthUser() {
     ]);
 
     const fallbackName =
-      (s.user.user_metadata?.name as string) ||
-      (s.user.user_metadata?.full_name as string) ||
+      (s.user.user_metadata?.['name'] as string) ||
+      (s.user.user_metadata?.['full_name'] as string) ||
       s.user.email?.split('@')[0] ||
       'مستخدم';
 
