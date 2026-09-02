@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
 
 interface StatCardProps {
   title: string;
@@ -21,38 +22,23 @@ export const StatCard: React.FC<StatCardProps> = ({
     switch (variant) {
       case 'pending':
         return {
-          numColor: 'text-[#B8792A]',
-          bg: 'bg-white',
-          border: 'border-[#EED7BA]',
-          accent: 'bg-[#F6ECDC]',
+          numColor: 'text-pending', shell: 'bg-pending-soft/55 ring-pending/15', accent: 'bg-pending-soft text-pending',
         };
       case 'late':
         return {
-          numColor: 'text-[#B4463A]',
-          bg: 'bg-[#FFF7F6]',
-          border: 'border-[#F4D1CD]',
-          accent: 'bg-[#F6E3E0]',
+          numColor: 'text-late', shell: 'bg-late-soft/60 ring-late/15', accent: 'bg-late-soft text-late',
         };
       case 'done':
         return {
-          numColor: 'text-[#3F7A5D]',
-          bg: 'bg-white',
-          border: 'border-[#CDE3D5]',
-          accent: 'bg-[#E7F0EA]',
+          numColor: 'text-done', shell: 'bg-done-soft/55 ring-done/15', accent: 'bg-done-soft text-done',
         };
       case 'brass':
         return {
-          numColor: 'text-[#B08948]',
-          bg: 'bg-white',
-          border: 'border-[#EAE1D2]',
-          accent: 'bg-[#FAF6EF]',
+          numColor: 'text-brass', shell: 'bg-paper-alt/70 ring-brass/15', accent: 'bg-color-soft text-brass',
         };
       default:
         return {
-          numColor: 'text-[#1B2E4A]',
-          bg: 'bg-white',
-          border: 'border-[#DED8CC]',
-          accent: 'bg-[#F6F4EF]',
+          numColor: 'text-ink', shell: 'bg-paper-alt/65 ring-ink/10', accent: 'bg-size-soft text-ink',
         };
     }
   };
@@ -60,26 +46,29 @@ export const StatCard: React.FC<StatCardProps> = ({
   const colors = getColors();
 
   return (
-    <div
-      onClick={onClick}
-      className={`rounded-[14px] p-4 sm:p-5 border transition-all duration-200 shadow-xs ${colors.bg} ${colors.border} ${
-        onClick ? 'cursor-pointer hover:shadow-md hover:-translate-y-0.5' : ''
-      }`}
-    >
-      <div className="flex items-center justify-between gap-3 mb-2">
-        <span className="text-xs sm:text-sm font-medium text-[#6C6A63]">{title}</span>
+    <div className={`h-full rounded-[1.5rem] p-1.5 ring-1 ${colors.shell}`}>
+      <Button
+        variant="ghost"
+        onClick={onClick}
+        className={`h-full min-h-36 w-full items-stretch rounded-[calc(1.5rem-0.375rem)] bg-canvas p-4 text-right shadow-[inset_0_1px_0_var(--canvas)] hover:bg-canvas sm:p-5 ${onClick ? 'group hover:-translate-y-1' : 'cursor-default'}`}
+      >
+      <div className="flex w-full flex-col">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <span className="text-[10px] font-bold text-copy-muted uppercase">{title}</span>
         {icon && (
-          <div className={`p-2 rounded-lg ${colors.accent}`}>
+          <div className={`grid size-9 place-items-center rounded-full transition-transform duration-500 motion-spring group-hover:scale-105 ${colors.accent}`}>
             {icon}
           </div>
         )}
       </div>
-      <div className={`text-2xl sm:text-3xl font-extrabold font-cairo tracking-tight ${colors.numColor}`}>
+      <div className={`text-2xl sm:text-3xl font-extrabold font-cairo ${colors.numColor}`}>
         {value}
       </div>
       {subtitle && (
-        <div className="text-xs text-[#6C6A63] mt-1.5 font-medium">{subtitle}</div>
+        <div className="mt-2 whitespace-normal text-xs font-medium text-copy-muted">{subtitle}</div>
       )}
+      </div>
+      </Button>
     </div>
   );
 };

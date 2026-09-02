@@ -17,6 +17,7 @@ import {
 import { Order } from '../types';
 import { formatArabicDate, formatCurrency, isOrderLate, getDaysDifference } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
+import { Button } from '@/components/ui/button';
 
 interface WalletActivityFeedProps {
   orders: Order[];
@@ -60,7 +61,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
   const getTravelBadge = (order: Order) => {
     if (order.status === 'done') {
       return (
-        <span className="text-[10px] font-bold text-[#3F7A5D] bg-[#E7F0EA] px-2 py-0.5 rounded-full">
+        <span className="text-[10px] font-bold text-done bg-done-soft px-2 py-0.5 rounded-full">
           تم الاستلام ✓
         </span>
       );
@@ -68,45 +69,45 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
     const daysDiff = getDaysDifference(order.travelDate);
     if (isOrderLate(order)) {
       return (
-        <span className="text-[10px] font-bold text-white bg-[#B4463A] px-2 py-0.5 rounded-full animate-pulse">
+        <span className="text-[10px] font-bold text-on-ink bg-late px-2 py-0.5 rounded-full animate-pulse">
           متأخر {Math.abs(daysDiff)} يوم!
         </span>
       );
     }
     if (daysDiff === 0) {
       return (
-        <span className="text-[10px] font-bold text-[#B8792A] bg-[#F6ECDC] px-2 py-0.5 rounded-full">
+        <span className="text-[10px] font-bold text-pending bg-pending-soft px-2 py-0.5 rounded-full">
           السفر اليوم!
         </span>
       );
     }
     if (daysDiff === 1) {
       return (
-        <span className="text-[10px] font-bold text-[#B8792A] bg-[#F6ECDC] px-2 py-0.5 rounded-full">
+        <span className="text-[10px] font-bold text-pending bg-pending-soft px-2 py-0.5 rounded-full">
           السفر غداً
         </span>
       );
     }
     return (
-      <span className="text-[10px] text-[#6C6A63] bg-[#F6F4EF] px-2 py-0.5 rounded-full">
+      <span className="text-[10px] text-copy-muted bg-paper px-2 py-0.5 rounded-full">
         بعد {daysDiff} أيام
       </span>
     );
   };
 
   return (
-    <div className="bg-white rounded-[22px] sm:rounded-[26px] border border-[#DED8CC] p-4 sm:p-5 shadow-xs">
+    <div className="h-full rounded-[1.75rem] bg-paper-alt/70 p-1.5 ring-1 ring-line"><div className="h-full rounded-[calc(1.75rem-0.375rem)] bg-canvas p-4 shadow-[inset_0_1px_0_var(--canvas)] sm:p-5">
       {/* Header with Title & Filter Pills */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-[#FAF6EF] border border-[#EAE1D2] flex items-center justify-center text-[#B08948]">
+          <div className="w-8 h-8 rounded-xl bg-paper-warm border border-line-soft flex items-center justify-center text-brass">
             <Layers className="w-4 h-4" />
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold font-cairo text-[#1B2E4A]">
+            <span className="mb-1 block text-[10px] font-bold uppercase text-brass">آخر العمليات</span><h2 className="text-base sm:text-lg font-bold font-cairo text-ink">
               النشاط المالي وسجل العمليات
             </h2>
-            <p className="text-[11px] text-[#6C6A63]">
+            <p className="text-[11px] text-copy-muted">
               طلبيات الزبائن وتفاصيل الدفع والتوريد
             </p>
           </div>
@@ -114,7 +115,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
 
         <button
           onClick={onViewAllOrders}
-          className="text-xs font-bold text-[#B08948] hover:text-[#1B2E4A] flex items-center gap-0.5 transition-colors"
+          className="text-xs font-bold text-brass hover:text-ink flex items-center gap-0.5 transition-colors"
         >
           <span>الكل ({orders.length})</span>
           <ChevronRight className="w-3.5 h-3.5 rotate-180" />
@@ -127,8 +128,8 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           onClick={() => setFilter('all')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'all'
-              ? 'bg-[#1B2E4A] text-white shadow-xs'
-              : 'bg-[#F6F4EF] text-[#6C6A63] hover:bg-[#EFEBE2]'
+              ? 'bg-ink text-on-ink shadow-xs'
+              : 'bg-paper text-copy-muted hover:bg-paper-alt'
           }`}
         >
           الكل ({orders.length})
@@ -138,8 +139,8 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           onClick={() => setFilter('pending')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'pending'
-              ? 'bg-[#B8792A] text-white shadow-xs'
-              : 'bg-[#F6ECDC] text-[#B8792A] hover:bg-[#EED7BA]'
+              ? 'bg-pending text-on-ink shadow-xs'
+               : 'bg-pending-soft text-pending hover:bg-pending-soft/70'
           }`}
         >
           معلّق ({pendingOrders.length})
@@ -150,8 +151,8 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
             onClick={() => setFilter('late')}
             className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
               filter === 'late'
-                ? 'bg-[#B4463A] text-white shadow-xs animate-pulse'
-                : 'bg-[#F6E3E0] text-[#B4463A] hover:bg-[#F0CDC8]'
+                ? 'bg-late text-on-ink shadow-xs animate-pulse'
+                 : 'bg-late-soft text-late hover:bg-late-soft/70'
             }`}
           >
             متأخر ({lateOrders.length})
@@ -162,8 +163,8 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           onClick={() => setFilter('done')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'done'
-              ? 'bg-[#3F7A5D] text-white shadow-xs'
-              : 'bg-[#E7F0EA] text-[#3F7A5D] hover:bg-[#CDE3D5]'
+              ? 'bg-done text-on-ink shadow-xs'
+               : 'bg-done-soft text-done hover:bg-done-soft/70'
           }`}
         >
           مكتمل ({doneOrders.length})
@@ -171,9 +172,9 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
       </div>
 
       {/* Transactions List */}
-      <div className="divide-y divide-[#EFEBE2] mt-2">
+      <div className="divide-y divide-paper-alt mt-2">
         {feedOrders.length === 0 ? (
-          <div className="py-8 text-center text-xs text-[#6C6A63]">
+          <div className="py-8 text-center text-xs text-copy-muted">
             لا توجد عمليات تطابق الفلتر الحالي
           </div>
         ) : (
@@ -184,7 +185,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
             return (
               <div
                 key={order.id}
-                className="py-3 sm:py-3.5 flex items-center justify-between gap-3 group hover:bg-[#FAF6EF]/50 -mx-2 px-2 rounded-xl transition-colors"
+                className="py-3 sm:py-3.5 flex items-center justify-between gap-3 group hover:bg-paper-warm/50 -mx-2 px-2 rounded-xl transition-colors"
               >
                 {/* Left: Category Icon Squircle + Customer & Item Details */}
                 <div className="flex items-center gap-3 min-w-0">
@@ -192,10 +193,10 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                   <div
                     className={`w-11 h-11 rounded-2xl shrink-0 flex items-center justify-center font-cairo font-bold transition-transform group-hover:scale-105 ${
                       order.status === 'done'
-                        ? 'bg-[#E7F0EA] text-[#3F7A5D] border border-[#CDE3D5]'
+                        ? 'bg-done-soft text-done ring-1 ring-done/20'
                         : isLate
-                        ? 'bg-[#F6E3E0] text-[#B4463A] border border-[#F4D1CD]'
-                        : 'bg-[#FAF6EF] text-[#B08948] border border-[#EAE1D2]'
+                        ? 'bg-late-soft text-late ring-1 ring-late/20'
+                        : 'bg-paper-warm text-brass border border-line-soft'
                     }`}
                   >
                     <Shirt className="w-5 h-5" />
@@ -206,27 +207,27 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onSelectCustomer(order.customerName)}
-                        className="font-bold text-xs sm:text-sm font-cairo text-[#1B2E4A] hover:text-[#B08948] truncate text-right"
+                        className="font-bold text-xs sm:text-sm font-cairo text-ink hover:text-brass truncate text-right"
                       >
                         {order.customerName}
                       </button>
-                      <span className="text-[10px] text-[#6C6A63] font-cairo font-medium">
+                      <span className="text-[10px] text-copy-muted font-cairo font-medium">
                         #{order.orderNumber}
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#24262B] truncate mt-0.5">
+                    <p className="text-xs text-charcoal truncate mt-0.5">
                       {order.description}
                     </p>
 
                     <div className="flex flex-wrap items-center gap-1.5 mt-1 text-[10px]">
                       {order.size && (
-                        <span className="px-1.5 py-0.2 rounded-md bg-[#EBF0F7] text-[#1B2E4A] font-semibold">
+                        <span className="px-1.5 py-0.2 rounded-md bg-size-soft text-ink font-semibold">
                           {order.size}
                         </span>
                       )}
                       {order.color && (
-                        <span className="px-1.5 py-0.2 rounded-md bg-[#FBF2E3] text-[#B08948] font-semibold">
+                        <span className="px-1.5 py-0.2 rounded-md bg-color-soft text-brass font-semibold">
                           {order.color}
                         </span>
                       )}
@@ -237,20 +238,20 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
 
                 {/* Right: Price & Quick Action Buttons */}
                 <div className="text-left shrink-0 flex flex-col items-end gap-1">
-                  <div className="font-bold font-cairo text-xs sm:text-sm text-[#1B2E4A]">
+                  <div className="font-bold font-cairo text-xs sm:text-sm text-ink">
                     {order.price !== undefined ? formatCurrency(order.price) : '-'}
                   </div>
 
                   {order.deposit !== undefined && order.deposit > 0 && remaining > 0 ? (
-                    <span className="text-[10px] text-[#B8792A] font-semibold bg-[#F6ECDC] px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] text-pending font-semibold bg-pending-soft px-1.5 py-0.5 rounded">
                       باقي: {formatCurrency(remaining)}
                     </span>
                   ) : order.status === 'done' ? (
-                    <span className="text-[10px] text-[#3F7A5D] font-semibold">
+                    <span className="text-[10px] text-done font-semibold">
                       تم السداد ✓
                     </span>
                   ) : (
-                    <span className="text-[10px] text-[#6C6A63]">
+                    <span className="text-[10px] text-copy-muted">
                       مطلوب توريده
                     </span>
                   )}
@@ -260,7 +261,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                     {order.customerPhone && onOpenWhatsApp && (
                       <button
                         onClick={() => onOpenWhatsApp(order)}
-                        className="p-1 text-[#3F7A5D] hover:bg-[#E7F0EA] rounded-md transition-colors"
+                        className="p-1 text-done hover:bg-done-soft rounded-md transition-colors"
                         title="مراسلة واتساب"
                       >
                         <MessageCircle className="w-3.5 h-3.5" />
@@ -270,8 +271,8 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                       onClick={() => onToggleStatus(order.id)}
                       className={`p-1 rounded-md text-[10px] font-bold transition-colors ${
                         order.status === 'done'
-                          ? 'text-[#B8792A] hover:bg-[#F6ECDC]'
-                          : 'text-[#3F7A5D] hover:bg-[#E7F0EA]'
+                          ? 'text-pending hover:bg-pending-soft'
+                          : 'text-done hover:bg-done-soft'
                       }`}
                       title={order.status === 'done' ? 'إرجاع كمعلق' : 'تحديد كتم التنفيذ'}
                     >
@@ -284,6 +285,6 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           })
         )}
       </div>
-    </div>
+    </div></div>
   );
 };

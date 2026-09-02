@@ -74,19 +74,19 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
     switch (status) {
       case 'pending_supplier':
         return (
-          <span className="hang-tag bg-[#F6E3E0] text-[#B4463A] border border-[#F4D1CD]">
+          <span className="hang-tag bg-late-soft text-late border border-late-soft">
             معلق مع المورد
           </span>
         );
       case 'refunded':
         return (
-          <span className="hang-tag bg-[#E7F0EA] text-[#3F7A5D] border border-[#CDE3D5]">
+          <span className="hang-tag bg-done-soft text-done border border-done-soft">
             تم استرداد القيمة
           </span>
         );
       case 'exchanged':
         return (
-          <span className="hang-tag bg-[#FAF6EF] text-[#B08948] border border-[#EAE1D2]">
+          <span className="hang-tag bg-paper-warm text-brass border border-line-soft">
             تم الاستبدال
           </span>
         );
@@ -96,12 +96,12 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-[#DED8CC] shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-[#1B2E4A]">
+          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-ink">
             سجل المرتجعات وحسابات الموردين ({returns.length})
           </h1>
-          <p className="text-xs sm:text-sm text-[#6C6A63] mt-0.5">
+          <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
             توثيق البضائع المعيبة والمرتجعة لتسويتها وخصمها من حسابات الموردين
           </p>
         </div>
@@ -109,16 +109,16 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => exportReturnsToCSV(filteredReturns)}
-            className="flex items-center gap-1.5 bg-[#F6F4EF] hover:bg-[#EFEBE2] text-[#1B2E4A] border border-[#DED8CC] px-3.5 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-2xs transition-all"
+            className="flex items-center gap-1.5 bg-paper hover:bg-paper-alt text-ink border border-line px-3.5 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-2xs transition-all"
             title="تصدير المرتجعات لمطابقتها مع الموردين"
           >
-            <FileSpreadsheet className="w-4 h-4 text-[#3F7A5D]" />
+            <FileSpreadsheet className="w-4 h-4 text-done" />
             <span>تصدير Excel للموردين</span>
           </button>
 
           <button
             onClick={onOpenNewReturn}
-            className="flex items-center gap-1.5 bg-[#B4463A] hover:bg-[#9E382E] text-white px-4 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
+            className="flex items-center gap-1.5 bg-late hover:bg-late text-white px-4 py-2.5 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
           >
             <Plus className="w-4 h-4" />
             <span>تسجيل مرتجع جديد</span>
@@ -128,39 +128,39 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Supplier Breakdown Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-        <div className="bg-white rounded-[14px] p-4 border border-[#F4D1CD] shadow-xs">
-          <div className="text-xs font-semibold text-[#6C6A63] mb-1 flex items-center justify-between">
+        <div className="bg-white rounded-[14px] p-4 border border-late-soft shadow-xs">
+          <div className="text-xs font-semibold text-copy-muted mb-1 flex items-center justify-between">
             <span>مرتجعات قيد التسوية (معلّقة)</span>
-            <Clock className="w-4 h-4 text-[#B4463A]" />
+            <Clock className="w-4 h-4 text-late" />
           </div>
-          <div className="text-2xl font-extrabold font-cairo text-[#B4463A]">
+          <div className="text-2xl font-extrabold font-cairo text-late">
             {formatCurrency(pendingValue)}
           </div>
-          <div className="text-[11px] text-[#6C6A63] mt-1">
+          <div className="text-[11px] text-copy-muted mt-1">
             مطلوب خصمها في رحلات الشراء القادمة
           </div>
         </div>
 
-        <div className="bg-white rounded-[14px] p-4 border border-[#CDE3D5] shadow-xs">
-          <div className="text-xs font-semibold text-[#6C6A63] mb-1 flex items-center justify-between">
+        <div className="bg-white rounded-[14px] p-4 border border-done-soft shadow-xs">
+          <div className="text-xs font-semibold text-copy-muted mb-1 flex items-center justify-between">
             <span>مرتجعات تم استردادها كاش</span>
-            <CheckCircle2 className="w-4 h-4 text-[#3F7A5D]" />
+            <CheckCircle2 className="w-4 h-4 text-done" />
           </div>
-          <div className="text-2xl font-extrabold font-cairo text-[#3F7A5D]">
+          <div className="text-2xl font-extrabold font-cairo text-done">
             {formatCurrency(refundedValue)}
           </div>
-          <div className="text-[11px] text-[#6C6A63] mt-1">تمت تسويتها بنجاح</div>
+          <div className="text-[11px] text-copy-muted mt-1">تمت تسويتها بنجاح</div>
         </div>
 
-        <div className="bg-white rounded-[14px] p-4 border border-[#DED8CC] shadow-xs">
-          <div className="text-xs font-semibold text-[#6C6A63] mb-1 flex items-center justify-between">
+        <div className="bg-white rounded-[14px] p-4 border border-line shadow-xs">
+          <div className="text-xs font-semibold text-copy-muted mb-1 flex items-center justify-between">
             <span>إجمالي قيمة كافة المرتجعات</span>
-            <DollarSign className="w-4 h-4 text-[#1B2E4A]" />
+            <DollarSign className="w-4 h-4 text-ink" />
           </div>
-          <div className="text-2xl font-extrabold font-cairo text-[#1B2E4A]">
+          <div className="text-2xl font-extrabold font-cairo text-ink">
             {formatCurrency(totalValue)}
           </div>
-          <div className="text-[11px] text-[#6C6A63] mt-1">
+          <div className="text-[11px] text-copy-muted mt-1">
             منذ بداية التسجيل في الدفتر
           </div>
         </div>
@@ -168,9 +168,9 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Breakdown per Supplier (As emphasized in PRD) */}
       {supplierBreakdown.length > 0 && (
-        <div className="bg-white rounded-[14px] border border-[#DED8CC] p-4 shadow-xs">
-          <h2 className="text-sm font-bold font-cairo text-[#1B2E4A] mb-3 flex items-center gap-1.5">
-            <Store className="w-4 h-4 text-[#B08948]" />
+        <div className="bg-white rounded-[14px] border border-line p-4 shadow-xs">
+          <h2 className="text-sm font-bold font-cairo text-ink mb-3 flex items-center gap-1.5">
+            <Store className="w-4 h-4 text-brass" />
             <span>كشف إجمالي المرتجعات لكل مورد للمحاسبة معه</span>
           </h2>
 
@@ -181,14 +181,14 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                 onClick={() => setSupplierFilter(item.supplierId)}
                 className={`p-3 rounded-[10px] border cursor-pointer transition-all ${
                   supplierFilter === item.supplierId
-                    ? 'bg-[#FAF6EF] border-[#B08948] ring-1 ring-[#B08948]'
-                    : 'bg-[#F6F4EF]/60 border-[#EFEBE2] hover:bg-[#FAF6EF]'
+                    ? 'bg-paper-warm border-brass ring-1 ring-brass'
+                    : 'bg-paper/60 border-paper-alt hover:bg-paper-warm'
                 }`}
               >
-                <div className="font-bold text-xs text-[#1B2E4A] line-clamp-1">{item.name}</div>
-                <div className="flex items-center justify-between mt-2 pt-1 border-t border-[#EFEBE2]">
-                  <span className="text-[11px] text-[#6C6A63]">{item.count} أصناف</span>
-                  <span className="font-bold text-xs text-[#B4463A] font-cairo">
+                <div className="font-bold text-xs text-ink line-clamp-1">{item.name}</div>
+                <div className="flex items-center justify-between mt-2 pt-1 border-t border-paper-alt">
+                  <span className="text-[11px] text-copy-muted">{item.count} أصناف</span>
+                  <span className="font-bold text-xs text-late font-cairo">
                     {formatCurrency(item.totalAmount)}
                   </span>
                 </div>
@@ -199,15 +199,15 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
       )}
 
       {/* Filter and Search */}
-      <div className="bg-white rounded-[14px] p-4 border border-[#DED8CC] shadow-xs flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-white rounded-[14px] p-4 border border-line shadow-xs flex flex-wrap items-center justify-between gap-3">
         <div className="relative flex-1 min-w-[240px]">
-          <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-[#6C6A63]" />
+          <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="ابحث بالصنف، المورد، أو سبب الإرجاع..."
-            className="w-full pr-9 pl-4 py-2 text-xs sm:text-sm rounded-[9px] border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948]"
+            className="w-full pr-9 pl-4 py-2 text-xs sm:text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
           />
         </div>
 
@@ -215,7 +215,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           <select
             value={supplierFilter}
             onChange={(e) => setSupplierFilter(e.target.value)}
-            className="bg-[#F6F4EF] border border-[#DED8CC] rounded-lg px-2.5 py-2 font-medium text-[#1B2E4A]"
+            className="bg-paper border border-line rounded-lg px-2.5 py-2 font-medium text-ink"
           >
             <option value="all">كل الموردين</option>
             {suppliers.map((s) => (
@@ -228,7 +228,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#F6F4EF] border border-[#DED8CC] rounded-lg px-2.5 py-2 font-medium text-[#1B2E4A]"
+            className="bg-paper border border-line rounded-lg px-2.5 py-2 font-medium text-ink"
           >
             <option value="all">كل الحالات</option>
             <option value="pending_supplier">معلق مع المورد</option>
@@ -240,12 +240,12 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Returns Table */}
       {filteredReturns.length === 0 ? (
-        <div className="bg-white rounded-[14px] p-10 text-center border border-[#DED8CC]">
-          <div className="w-12 h-12 rounded-full bg-[#F6F4EF] text-[#6C6A63] mx-auto flex items-center justify-center mb-2">
+        <div className="bg-white rounded-[14px] p-10 text-center border border-line">
+          <div className="w-12 h-12 rounded-full bg-paper text-copy-muted mx-auto flex items-center justify-center mb-2">
             <RotateCcw className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold font-cairo text-[#1B2E4A]">لا توجد مرتجعات مسجلة</h3>
-          <p className="text-xs text-[#6C6A63] mt-1">
+          <h3 className="text-base font-bold font-cairo text-ink">لا توجد مرتجعات مسجلة</h3>
+          <p className="text-xs text-copy-muted mt-1">
             سجل أي قطعة ملابس معيبة أو تحتاج استرجاعاً لموردها لمتابعة الحساب
           </p>
         </div>
@@ -256,40 +256,40 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             {filteredReturns.map((ret) => (
               <div
                 key={ret.id}
-                className="bg-white rounded-[14px] border border-[#DED8CC] p-4 shadow-xs space-y-3"
+                className="bg-white rounded-[14px] border border-line p-4 shadow-xs space-y-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <div className="font-bold text-sm font-cairo text-[#1B2E4A]">
+                    <div className="font-bold text-sm font-cairo text-ink">
                       {ret.productName}
                     </div>
-                    <div className="text-xs text-[#6C6A63] mt-0.5">
-                      المورد: <span className="font-bold text-[#1B2E4A]">{ret.supplierName}</span>
+                    <div className="text-xs text-copy-muted mt-0.5">
+                      المورد: <span className="font-bold text-ink">{ret.supplierName}</span>
                     </div>
                     {ret.customerName && (
-                      <div className="text-[11px] text-[#6C6A63]">
+                      <div className="text-[11px] text-copy-muted">
                         طلب العميل: {ret.customerName}
                       </div>
                     )}
                   </div>
-                  <div className="font-cairo font-bold text-base text-[#B4463A] shrink-0">
+                  <div className="font-cairo font-bold text-base text-late shrink-0">
                     {formatCurrency(ret.price)}
                   </div>
                 </div>
 
                 {ret.reason && (
-                  <div className="text-xs text-[#6C6A63] bg-[#FAF6EF] p-2 rounded-lg border border-[#EAE1D2]">
+                  <div className="text-xs text-copy-muted bg-paper-warm p-2 rounded-lg border border-line-soft">
                     السبب: {ret.reason}
                   </div>
                 )}
 
-                <div className="flex items-center justify-between pt-2 border-t border-[#EFEBE2] gap-2">
+                <div className="flex items-center justify-between pt-2 border-t border-paper-alt gap-2">
                   <select
                     value={ret.status}
                     onChange={(e) =>
                       onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)
                     }
-                    className="bg-[#F6F4EF] border border-[#DED8CC] rounded-lg px-2 py-1 text-xs font-semibold text-[#1B2E4A] flex-1 max-w-[170px]"
+                    className="bg-paper border border-line rounded-lg px-2 py-1 text-xs font-semibold text-ink flex-1 max-w-[170px]"
                   >
                     <option value="pending_supplier">معلق مع المورد</option>
                     <option value="refunded">تم استرداد القيمة</option>
@@ -299,14 +299,14 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                   <div className="flex items-center gap-1 shrink-0">
                     <button
                       onClick={() => onEditReturn(ret)}
-                      className="p-1.5 text-[#6C6A63] hover:text-[#1B2E4A] hover:bg-[#F6F4EF] rounded-[7px] transition-colors"
+                      className="p-1.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[7px] transition-colors"
                       title="تعديل"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => onDeleteReturn(ret.id)}
-                      className="p-1.5 text-[#6C6A63] hover:text-[#B4463A] hover:bg-[#F6E3E0] rounded-[7px] transition-colors"
+                      className="p-1.5 text-copy-muted hover:text-late hover:bg-late-soft rounded-[7px] transition-colors"
                       title="حذف"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -318,10 +318,10 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           </div>
 
           {/* Desktop Table View (>= md) */}
-          <div className="hidden md:block bg-white rounded-[14px] border border-[#DED8CC] overflow-hidden shadow-xs">
+          <div className="hidden md:block bg-white rounded-[14px] border border-line overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-xs">
-                <thead className="bg-[#1B2E4A] text-white">
+                <thead className="bg-ink text-white">
                   <tr>
                     <th className="p-3 font-cairo">الصنف المرتجع</th>
                     <th className="p-3 font-cairo">المورد</th>
@@ -332,41 +332,41 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                     <th className="p-3 font-cairo text-left">إجراءات</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#EFEBE2]">
+                <tbody className="divide-y divide-paper-alt">
                   {filteredReturns.map((ret, idx) => (
                     <tr
                       key={ret.id}
-                      className={`hover:bg-[#FAF6EF] transition-colors ${
-                        idx % 2 === 0 ? 'bg-white' : 'bg-[#FDFCF9]'
+                      className={`hover:bg-paper-warm transition-colors ${
+                        idx % 2 === 0 ? 'bg-white' : 'bg-canvas-subtle'
                       }`}
                     >
                       <td className="p-3">
-                        <div className="font-bold text-sm text-[#1B2E4A] font-cairo">
+                        <div className="font-bold text-sm text-ink font-cairo">
                           {ret.productName}
                         </div>
                         {ret.customerName && (
-                          <div className="text-[11px] text-[#6C6A63]">
+                          <div className="text-[11px] text-copy-muted">
                             طلب العميل: {ret.customerName}
                           </div>
                         )}
                       </td>
 
                       <td className="p-3">
-                        <span className="font-semibold text-xs text-[#1B2E4A]">
+                        <span className="font-semibold text-xs text-ink">
                           {ret.supplierName}
                         </span>
                       </td>
 
-                      <td className="p-3 max-w-xs text-[#6C6A63]">
+                      <td className="p-3 max-w-xs text-copy-muted">
                         {ret.reason || '—'}
                       </td>
 
-                      <td className="p-3 whitespace-nowrap text-[#6C6A63]">
+                      <td className="p-3 whitespace-nowrap text-copy-muted">
                         {formatArabicDate(ret.returnDate)}
                       </td>
 
                       <td className="p-3 whitespace-nowrap">
-                        <span className="font-cairo font-bold text-sm text-[#B4463A]">
+                        <span className="font-cairo font-bold text-sm text-late">
                           {formatCurrency(ret.price)}
                         </span>
                       </td>
@@ -377,7 +377,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                           onChange={(e) =>
                             onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)
                           }
-                          className="bg-white border border-[#DED8CC] rounded-lg px-2 py-1 text-xs font-semibold text-[#1B2E4A]"
+                          className="bg-white border border-line rounded-lg px-2 py-1 text-xs font-semibold text-ink"
                         >
                           <option value="pending_supplier">معلق مع المورد</option>
                           <option value="refunded">تم استرداد القيمة</option>
@@ -389,14 +389,14 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                         <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => onEditReturn(ret)}
-                            className="p-1.5 text-[#6C6A63] hover:text-[#1B2E4A] hover:bg-[#F6F4EF] rounded-[7px] transition-colors"
+                            className="p-1.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[7px] transition-colors"
                             title="تعديل"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => onDeleteReturn(ret.id)}
-                            className="p-1.5 text-[#6C6A63] hover:text-[#B4463A] hover:bg-[#F6E3E0] rounded-[7px] transition-colors"
+                            className="p-1.5 text-copy-muted hover:text-late hover:bg-late-soft rounded-[7px] transition-colors"
                             title="حذف"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

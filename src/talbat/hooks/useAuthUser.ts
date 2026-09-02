@@ -3,7 +3,7 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { User, UserRole } from '../types';
 
-const colors = ['bg-[#B08948]', 'bg-[#3F7A5D]', 'bg-[#2C4568]', 'bg-[#B4463A]'];
+const colors = ['bg-brass', 'bg-done', 'bg-ink-light', 'bg-late'];
 
 export function useAuthUser() {
   const [session, setSession] = useState<Session | null>(null);

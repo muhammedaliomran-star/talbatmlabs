@@ -520,8 +520,8 @@ export default function App() {
   // Real authentication gate
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#F6F4EF] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#DED8CC] border-t-[#B08948] animate-spin" />
+      <div className="min-h-screen bg-paper flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-line border-t-brass animate-spin" />
       </div>
     );
   }
@@ -531,7 +531,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F4EF] text-[#24262B] flex flex-col antialiased">
+    <div className="grain-overlay min-h-screen bg-paper text-charcoal flex flex-col antialiased">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -549,7 +549,7 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 pb-24 md:pb-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24 md:pb-12">
         {activeTab === 'dashboard' && (
           <DashboardView
             orders={orders}

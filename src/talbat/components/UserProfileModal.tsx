@@ -79,17 +79,17 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs font-tajawal animate-in fade-in duration-200">
-      <div className="bg-white rounded-[22px] border border-[#DED8CC] shadow-2xl w-full max-w-md overflow-hidden text-right">
+      <div className="bg-white rounded-[22px] border border-line shadow-2xl w-full max-w-md overflow-hidden text-right">
         {/* Header */}
-        <div className="bg-[#1B2E4A] text-white px-5 py-4 flex items-center justify-between">
+        <div className="bg-ink text-white px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div
               className={`w-9 h-9 rounded-xl flex items-center justify-center text-white font-cairo font-bold text-base shadow-sm ${
                 currentUser.role === 'owner'
-                  ? 'bg-[#B08948]'
+                  ? 'bg-brass'
                   : currentUser.role === 'buyer'
-                  ? 'bg-[#3F7A5D]'
-                  : 'bg-[#2C4568]'
+                  ? 'bg-done'
+                  : 'bg-ink-light'
               }`}
             >
               {currentUser.name.charAt(0)}
@@ -98,7 +98,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
               <h3 className="font-bold font-cairo text-sm text-white">
                 الملف التعريفي وحساب المتجر
               </h3>
-              <p className="text-[11px] text-[#D9DEE7]">
+              <p className="text-[11px] text-ink-muted">
                 {currentUser.storeName}
               </p>
             </div>
@@ -106,7 +106,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-[#D9DEE7] hover:text-white hover:bg-white/10 transition-colors"
+            className="p-1 rounded-lg text-ink-muted hover:text-white hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -115,57 +115,57 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
         {/* Content */}
         <form onSubmit={handleSave} className="p-5 space-y-4">
           {errorMsg && (
-            <div className="p-3 bg-[#F6E3E0] border border-[#F0CDC8] rounded-xl text-xs text-[#B4463A] flex items-center gap-2">
+            <div className="p-3 bg-late-soft border border-late-soft rounded-xl text-xs text-late flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {savedSuccess && (
-            <div className="p-3 bg-[#E7F0EA] border border-[#CDE3D5] rounded-xl text-xs text-[#3F7A5D] flex items-center gap-2">
+            <div className="p-3 bg-done-soft border border-done-soft rounded-xl text-xs text-done flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>تم حفظ التعديلات بنجاح!</span>
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+            <label className="block text-xs font-bold text-ink mb-1">
               اسم المستخدم / المسؤول
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+            <label className="block text-xs font-bold text-ink mb-1">
               اسم المتجر / البوتيك
             </label>
             <input
               type="text"
               value={storeName}
               onChange={(e) => setStoreName(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+              <label className="block text-xs font-bold text-ink mb-1">
                 رقم الهاتف
               </label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+              <label className="block text-xs font-bold text-ink mb-1">
                 رمز PIN السريع (4 أرقام)
               </label>
               <input
@@ -173,34 +173,34 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 maxLength={4}
                 value={pinCode}
                 onChange={(e) => setPinCode(e.target.value.replace(/\D/g, ''))}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948] text-center font-bold dir-ltr"
+                className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass text-center font-bold dir-ltr"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+            <label className="block text-xs font-bold text-ink mb-1">
               البريد الإلكتروني (ثابت)
             </label>
             <input
               type="email"
               disabled
               value={currentUser.email}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-[#EAE1D2] bg-[#EFEBE2]/50 text-[#6C6A63] cursor-not-allowed dir-ltr text-right"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-line-soft bg-paper-alt/50 text-copy-muted cursor-not-allowed dir-ltr text-right"
             />
           </div>
 
           {/* Quick lock & logout buttons */}
-          <div className="pt-2 border-t border-[#EFEBE2] flex items-center justify-between gap-2">
+          <div className="pt-2 border-t border-paper-alt flex items-center justify-between gap-2">
             <button
               type="button"
               onClick={() => {
                 onClose();
                 onLockScreen();
               }}
-              className="px-3 py-2 rounded-xl border border-[#DED8CC] bg-[#FAF6EF] hover:bg-[#F2EADB] text-xs font-bold text-[#1B2E4A] flex items-center gap-1.5 transition-colors"
+              className="px-3 py-2 rounded-xl border border-line bg-paper-warm hover:bg-paper-alt text-xs font-bold text-ink flex items-center gap-1.5 transition-colors"
             >
-              <Lock className="w-3.5 h-3.5 text-[#B08948]" />
+              <Lock className="w-3.5 h-3.5 text-brass" />
               <span>قفل الشاشة مؤقتاً</span>
             </button>
 
@@ -210,7 +210,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 onClose();
                 onLogout();
               }}
-              className="px-3 py-2 rounded-xl border border-[#F0CDC8] bg-[#F6E3E0] hover:bg-[#F0CDC8] text-xs font-bold text-[#B4463A] flex items-center gap-1.5 transition-colors"
+              className="px-3 py-2 rounded-xl border border-late-soft bg-late-soft hover:bg-late-soft text-xs font-bold text-late flex items-center gap-1.5 transition-colors"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>تسجيل الخروج</span>
@@ -222,13 +222,13 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-[#6C6A63] hover:text-[#1B2E4A] rounded-xl hover:bg-[#F6F4EF]"
+              className="px-4 py-2 text-xs font-bold text-copy-muted hover:text-ink rounded-xl hover:bg-paper"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold text-white bg-[#B08948] hover:bg-[#9E783B] rounded-xl shadow-xs transition-colors"
+              className="px-5 py-2 text-xs font-bold text-white bg-brass hover:bg-brass rounded-xl shadow-xs transition-colors"
             >
               حفظ التعديلات
             </button>

@@ -108,25 +108,25 @@ export const TripModal: React.FC<TripModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-white rounded-[16px] w-full max-w-xl border border-[#DED8CC] shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-[16px] w-full max-w-xl border border-line shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="bg-[#1B2E4A] text-white px-5 py-4 flex items-center justify-between">
+        <div className="bg-ink text-white px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#B08948] text-white flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-lg bg-brass text-white flex items-center justify-center font-bold">
               <ShoppingBag className="w-4 h-4" />
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-bold font-cairo">
                 {initialTrip ? 'تعديل رحلة الشراء' : 'تخطيط رحلة شراء جديدة (سفرية السوق)'}
               </h2>
-              <p className="text-xs text-[#D9DEE7]">
+              <p className="text-xs text-ink-muted">
                 تجميع طلبيات العملاء في قائمة مراجعة واحدة للسوق
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-[#D9DEE7] hover:text-white transition-colors"
+            className="p-1.5 rounded-lg hover:bg-white/10 text-ink-muted hover:text-white transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -137,7 +137,7 @@ export const TripModal: React.FC<TripModalProps> = ({
           {/* Title & Date */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#1B2E4A] mb-1.5">
+              <label className="block text-xs font-bold text-ink mb-1.5">
                 عنوان الرحلة <span className="text-red-500">*</span>
               </label>
               <input
@@ -146,13 +146,13 @@ export const TripModal: React.FC<TripModalProps> = ({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="مثال: رحلة الموسكي - الأحد"
-                className="w-full px-3 py-2 text-sm rounded-[9px] border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948]"
+                className="w-full px-3 py-2 text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#1B2E4A] mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-[#B08948]" />
+              <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-brass" />
                 <span>تاريخ النزول للسوق</span>
                 <span className="text-red-500">*</span>
               </label>
@@ -161,15 +161,15 @@ export const TripModal: React.FC<TripModalProps> = ({
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded-[9px] border border-[#DED8CC] bg-white font-semibold text-[#1B2E4A]"
+                className="w-full px-3 py-2 text-sm rounded-[9px] border border-line bg-white font-semibold text-ink"
               />
             </div>
           </div>
 
           {/* Destination */}
           <div>
-            <label className="block text-xs font-bold text-[#1B2E4A] mb-1.5 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-[#B08948]" />
+            <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-brass" />
               <span>السوق أو الوجهة المستهدفة</span>
             </label>
             <div className="flex flex-wrap gap-1 mb-2">
@@ -180,8 +180,8 @@ export const TripModal: React.FC<TripModalProps> = ({
                   onClick={() => setDestination(dest)}
                   className={`px-2.5 py-1 text-xs rounded-md border transition-colors ${
                     destination === dest
-                      ? 'bg-[#1B2E4A] text-white border-[#1B2E4A]'
-                      : 'bg-[#F6F4EF] text-[#1B2E4A] border-[#DED8CC] hover:bg-[#F6ECDC]'
+                      ? 'bg-ink text-white border-ink'
+                      : 'bg-paper text-ink border-line hover:bg-pending-soft'
                   }`}
                 >
                   {dest}
@@ -193,21 +193,21 @@ export const TripModal: React.FC<TripModalProps> = ({
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
               placeholder="اكتب الوجهة (مثال: محلات العتبة وزنقة الستات)"
-              className="w-full px-3 py-1.5 text-xs rounded-[8px] border border-[#DED8CC] bg-white focus:outline-none focus:border-[#B08948]"
+              className="w-full px-3 py-1.5 text-xs rounded-[8px] border border-line bg-white focus:outline-none focus:border-brass"
             />
           </div>
 
           {/* Status */}
           <div>
-            <label className="block text-xs font-bold text-[#1B2E4A] mb-1.5">حالة الرحلة</label>
+            <label className="block text-xs font-bold text-ink mb-1.5">حالة الرحلة</label>
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => setStatus('planned')}
                 className={`py-2 px-2 text-xs font-bold rounded-[8px] border transition-all ${
                   status === 'planned'
-                    ? 'bg-[#F6ECDC] border-[#B8792A] text-[#B8792A] ring-1 ring-[#B8792A]'
-                    : 'bg-white border-[#DED8CC] text-[#6C6A63] hover:bg-[#F6F4EF]'
+                    ? 'bg-pending-soft border-pending text-pending ring-1 ring-pending'
+                    : 'bg-white border-line text-copy-muted hover:bg-paper'
                 }`}
               >
                 مجدولة (مخطط لها)
@@ -217,8 +217,8 @@ export const TripModal: React.FC<TripModalProps> = ({
                 onClick={() => setStatus('in_progress')}
                 className={`py-2 px-2 text-xs font-bold rounded-[8px] border transition-all ${
                   status === 'in_progress'
-                    ? 'bg-[#EBF0F7] border-[#1B2E4A] text-[#1B2E4A] ring-1 ring-[#1B2E4A]'
-                    : 'bg-white border-[#DED8CC] text-[#6C6A63] hover:bg-[#F6F4EF]'
+                    ? 'bg-size-soft border-ink text-ink ring-1 ring-ink'
+                    : 'bg-white border-line text-copy-muted hover:bg-paper'
                 }`}
               >
                 جارية الآن في السوق
@@ -228,8 +228,8 @@ export const TripModal: React.FC<TripModalProps> = ({
                 onClick={() => setStatus('completed')}
                 className={`py-2 px-2 text-xs font-bold rounded-[8px] border transition-all ${
                   status === 'completed'
-                    ? 'bg-[#E7F0EA] border-[#3F7A5D] text-[#3F7A5D] ring-1 ring-[#3F7A5D]'
-                    : 'bg-white border-[#DED8CC] text-[#6C6A63] hover:bg-[#F6F4EF]'
+                    ? 'bg-done-soft border-done text-done ring-1 ring-done'
+                    : 'bg-white border-line text-copy-muted hover:bg-paper'
                 }`}
               >
                 تمت واكتملت
@@ -240,21 +240,21 @@ export const TripModal: React.FC<TripModalProps> = ({
           {/* Orders Checklist Selection */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-bold text-[#1B2E4A]">
+              <label className="text-xs font-bold text-ink">
                 اختر طلبيات العملاء المدرجة في هذه الرحلة ({selectedOrderIds.length} محددة):
               </label>
               <button
                 type="button"
                 onClick={handleSelectAll}
-                className="text-xs text-[#B08948] font-bold hover:underline"
+                className="text-xs text-brass font-bold hover:underline"
               >
                 {selectedOrderIds.length === pendingOrders.length ? 'إلغاء تحديد الكل' : 'تحديد جميع الطلبات'}
               </button>
             </div>
 
-            <div className="border border-[#DED8CC] rounded-[11px] max-h-48 overflow-y-auto divide-y divide-[#EFEBE2] bg-[#FDFCF9]">
+            <div className="border border-line rounded-[11px] max-h-48 overflow-y-auto divide-y divide-paper-alt bg-canvas-subtle">
               {pendingOrders.length === 0 ? (
-                <div className="p-4 text-center text-xs text-[#6C6A63]">
+                <div className="p-4 text-center text-xs text-copy-muted">
                   لا توجد طلبيات مسجلة حالياً
                 </div>
               ) : (
@@ -265,7 +265,7 @@ export const TripModal: React.FC<TripModalProps> = ({
                       key={order.id}
                       onClick={() => toggleOrderSelection(order.id)}
                       className={`p-2.5 flex items-center justify-between gap-2 cursor-pointer transition-colors text-xs ${
-                        isChecked ? 'bg-[#FBF2E3]' : 'hover:bg-white'
+                        isChecked ? 'bg-color-soft' : 'hover:bg-white'
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -273,23 +273,23 @@ export const TripModal: React.FC<TripModalProps> = ({
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => {}} // Handled by parent div
-                          className="w-4 h-4 rounded text-[#B08948] focus:ring-[#B08948]"
+                          className="w-4 h-4 rounded text-brass focus:ring-brass"
                         />
                         <div>
-                          <div className="font-bold font-cairo text-[#1B2E4A]">
+                          <div className="font-bold font-cairo text-ink">
                             {order.customerName}
-                            <span className="text-[10px] text-[#6C6A63] mr-1.5 font-normal">
+                            <span className="text-[10px] text-copy-muted mr-1.5 font-normal">
                               ({order.supplierName})
                             </span>
                           </div>
-                          <div className="text-[11px] text-[#6C6A63] line-clamp-1">
+                          <div className="text-[11px] text-copy-muted line-clamp-1">
                             {order.description} {order.size ? `[مقاس: ${order.size}]` : ''} {order.color ? `[لون: ${order.color}]` : ''}
                           </div>
                         </div>
                       </div>
 
                       <div className="text-right shrink-0">
-                        <span className="text-[11px] font-bold font-cairo text-[#1B2E4A] bg-[#F6F4EF] px-1.5 py-0.5 rounded">
+                        <span className="text-[11px] font-bold font-cairo text-ink bg-paper px-1.5 py-0.5 rounded">
                           #{order.orderNumber}
                         </span>
                       </div>
@@ -302,7 +302,7 @@ export const TripModal: React.FC<TripModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+            <label className="block text-xs font-bold text-ink mb-1">
               ملاحظات الرحلة (تذكيرات شخصية، مصاريف، إلخ)
             </label>
             <input
@@ -310,24 +310,24 @@ export const TripModal: React.FC<TripModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="مثال: المرور على مصنع الوفاء أولاً لتسليم مرتجع الجاكيت"
-              className="w-full px-3 py-1.5 text-xs rounded-[9px] border border-[#DED8CC] bg-[#F6F4EF]"
+              className="w-full px-3 py-1.5 text-xs rounded-[9px] border border-line bg-paper"
             />
           </div>
 
           {/* Submit Actions */}
-          <div className="pt-3 border-t border-[#DED8CC] flex items-center justify-end gap-2">
+          <div className="pt-3 border-t border-line flex items-center justify-end gap-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-[#6C6A63] hover:bg-[#F6F4EF] rounded-[8px]"
+              className="px-4 py-2 text-xs font-bold text-copy-muted hover:bg-paper rounded-[8px]"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-[#1B2E4A] hover:bg-[#2C4568] text-white text-xs sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
+              className="px-6 py-2.5 bg-ink hover:bg-ink-light text-white text-xs sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
             >
-              <CheckCircle2 className="w-4 h-4 text-[#D3AE72]" />
+              <CheckCircle2 className="w-4 h-4 text-brass-light" />
               <span>{initialTrip ? 'حفظ التعديلات' : 'إنشاء الرحلة'}</span>
             </button>
           </div>

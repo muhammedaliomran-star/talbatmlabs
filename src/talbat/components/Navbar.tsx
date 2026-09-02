@@ -1,7 +1,8 @@
-import React from 'react';
-import { Plus, Download, RefreshCw, Layers, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Luggage, Lock, User as UserIcon } from 'lucide-react';
+import React, { useState } from 'react';
+import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Luggage, Lock } from 'lucide-react';
 import { ActiveTab, User } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
+import { Button } from '@/components/ui/button';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -32,6 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenProfile,
   onLockScreen,
 }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const tabs = [
     { id: 'dashboard' as ActiveTab, label: 'الرئيسية', icon: LayoutDashboard },
     { id: 'orders' as ActiveTab, label: 'الطلبات', icon: ShoppingBag, badge: pendingCount },
@@ -41,42 +43,43 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#1B2E4A] text-white shadow-md border-b border-[#2C4568]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-18">
+    <header className="sticky top-3 z-40 px-3 text-on-ink md:top-5">
+      <div className="mx-auto max-w-7xl rounded-full bg-ink/96 px-3 shadow-[0_18px_50px_-28px_var(--ink)] ring-1 ring-on-ink/10 backdrop-blur-2xl sm:px-4">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo & Store Title */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#B08948] text-white flex items-center justify-center font-cairo font-extrabold text-xl shadow-inner tracking-wider">
+            <div className="flex size-10 items-center justify-center rounded-full bg-brass font-cairo text-xl font-extrabold text-on-ink shadow-inner">
               د
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-cairo font-extrabold text-xl tracking-tight text-white">
+                <span className="font-cairo font-extrabold text-xl tracking-tight text-on-ink">
                   دَفْتَر
                 </span>
-                <span className="text-[11px] bg-[#2C4568] text-[#D3AE72] font-semibold px-2 py-0.5 rounded-full border border-[#B08948]/30 max-w-[150px] truncate">
+                <span className="text-[11px] bg-ink-light text-brass-light font-semibold px-2 py-0.5 rounded-full border border-brass/30 max-w-[150px] truncate">
                   {currentUser?.storeName || 'محل ملابس'}
                 </span>
               </div>
-              <p className="text-[11px] text-[#D9DEE7] hidden sm:block">
+              <p className="text-[11px] text-ink-muted hidden sm:block">
                 إدارة طلبات العملاء، الموردين ومواعيد السفر
               </p>
             </div>
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#142338] p-1 rounded-xl border border-[#2C4568]/60">
+          <nav className="hidden items-center gap-1 rounded-full bg-ink-deep p-1 ring-1 ring-ink-light/60 md:flex">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               return (
-                <button
+                <Button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                  variant="ghost"
+                  className={`h-9 gap-2 px-3.5 text-sm font-semibold duration-500 motion-spring ${
                     isActive
-                      ? 'bg-[#B08948] text-white shadow-xs'
-                      : 'text-[#D9DEE7] hover:text-white hover:bg-[#2C4568]/50'
+                      ? 'bg-brass text-on-ink shadow-xs'
+                      : 'text-ink-muted hover:text-on-ink hover:bg-ink-light/50'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -85,14 +88,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span
                       className={`text-[11px] font-cairo font-bold px-1.5 py-0.2 rounded-full ${
                         lateCount > 0 && tab.id === 'orders'
-                          ? 'bg-[#B4463A] text-white font-bold'
-                          : 'bg-[#2C4568] text-white'
+                          ? 'bg-late text-on-ink font-bold'
+                          : 'bg-ink-light text-on-ink'
                       }`}
                     >
                       {tab.badge}
                     </span>
                   )}
-                </button>
+                </Button>
               );
             })}
           </nav>
@@ -101,48 +104,48 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2">
             <PWAInstallButton />
 
-            <button
+            <Button
               onClick={onOpenBackup}
-              className="p-2 rounded-lg bg-[#2C4568] hover:bg-[#395782] text-[#D9DEE7] hover:text-white transition-colors"
+              variant="ghost" size="icon" className="hidden size-9 bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink sm:inline-flex"
               title="نسخ احتياطي وتصدير"
             >
               <Download className="w-4 h-4" />
-            </button>
+            </Button>
 
             {/* Lock screen quick button */}
             {onLockScreen && (
-              <button
+              <Button
                 onClick={onLockScreen}
-                className="p-2 rounded-lg bg-[#2C4568] hover:bg-[#395782] text-[#D9DEE7] hover:text-white transition-colors"
+                variant="ghost" size="icon" className="hidden size-9 bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink lg:inline-flex"
                 title="قفل التطبيق مؤقتاً"
               >
                 <Lock className="w-4 h-4" />
-              </button>
+              </Button>
             )}
 
             {/* User Profile Avatar Pill */}
             {currentUser && onOpenProfile && (
-              <button
+              <Button
                 onClick={onOpenProfile}
-                className="flex items-center gap-2 bg-[#142338] hover:bg-[#2C4568] border border-[#2C4568] px-2.5 py-1.5 rounded-xl transition-all text-right"
+                variant="ghost" className="hidden h-10 gap-2 bg-ink-deep px-2.5 text-right ring-1 ring-ink-light hover:bg-ink-light lg:flex"
                 title="الملف التعريفي للمتجر والحساب"
               >
                 <div
-                  className={`w-7 h-7 rounded-lg text-white font-bold font-cairo text-xs flex items-center justify-center ${
+                  className={`w-7 h-7 rounded-lg text-on-ink font-bold font-cairo text-xs flex items-center justify-center ${
                     currentUser.role === 'owner'
-                      ? 'bg-[#B08948]'
+                      ? 'bg-brass'
                       : currentUser.role === 'buyer'
-                      ? 'bg-[#3F7A5D]'
-                      : 'bg-[#2C4568]'
+                      ? 'bg-done'
+                      : 'bg-ink-light'
                   }`}
                 >
                   {currentUser.name.charAt(0)}
                 </div>
                 <div className="hidden lg:block">
-                  <div className="text-xs font-bold text-white leading-tight">
+                  <div className="text-xs font-bold text-on-ink leading-tight">
                     {currentUser.name}
                   </div>
-                  <div className="text-[10px] text-[#D3AE72] leading-tight">
+                  <div className="text-[10px] text-brass-light leading-tight">
                     {currentUser.role === 'owner'
                       ? 'صاحب المتجر'
                       : currentUser.role === 'buyer'
@@ -150,18 +153,44 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'مساعد'}
                   </div>
                 </div>
-              </button>
+              </Button>
             )}
 
-            <button
+            <Button
               onClick={onOpenNewOrder}
-              className="flex items-center gap-1.5 bg-[#B08948] hover:bg-[#9E783B] active:scale-98 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold shadow-sm transition-all"
+              className="group h-10 bg-brass px-2 pr-3 text-xs font-bold text-on-ink hover:bg-brass/85 sm:px-2 sm:pr-4 sm:text-sm"
             >
-              <Plus className="w-4 h-4" />
               <span className="hidden xs:inline">طلب جديد</span>
-            </button>
+              <span className="grid size-7 place-items-center rounded-full bg-on-ink/15 transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105"><Plus className="size-4" /></span>
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={menuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((open) => !open)}
+              className="relative size-10 bg-ink-light text-on-ink hover:bg-ink-light md:hidden"
+            >
+              <span className={`absolute h-px w-4 bg-current transition-transform duration-500 motion-spring ${menuOpen ? 'rotate-45' : '-translate-y-1.5'}`} />
+              <span className={`absolute h-px w-4 bg-current transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`absolute h-px w-4 bg-current transition-transform duration-500 motion-spring ${menuOpen ? '-rotate-45' : 'translate-y-1.5'}`} />
+            </Button>
           </div>
         </div>
+      </div>
+      <div className={`fixed inset-0 top-0 -z-10 bg-ink/92 px-4 pt-28 backdrop-blur-3xl transition-all duration-700 motion-spring md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}>
+        <nav className="mx-auto flex max-w-sm flex-col gap-2">
+          {tabs.map((tab, index) => {
+            const Icon = tab.icon;
+            return (
+              <Button key={tab.id} variant="ghost" onClick={() => { setActiveTab(tab.id); setMenuOpen(false); }} className={`h-16 justify-between bg-on-ink/5 px-5 text-lg text-on-ink ring-1 ring-on-ink/10 hover:bg-on-ink/10 transition-all duration-700 motion-spring ${menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`} style={{ transitionDelay: `${100 + index * 55}ms` }}>
+                <span className="flex items-center gap-3"><Icon className="size-5 text-brass-light" />{tab.label}</span>
+                {tab.badge ? <span className="rounded-full bg-brass px-2 text-xs">{tab.badge}</span> : null}
+              </Button>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );

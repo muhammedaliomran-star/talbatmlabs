@@ -169,10 +169,10 @@ export const AuthView: React.FC<AuthViewProps> = ({
       phone: regPhone.trim(),
       avatarColor:
         regRole === 'owner'
-          ? 'bg-[#B08948]'
+          ? 'bg-brass'
           : regRole === 'buyer'
-          ? 'bg-[#3F7A5D]'
-          : 'bg-[#2C4568]',
+          ? 'bg-done'
+          : 'bg-ink-light',
       createdAt: new Date().toISOString(),
     };
 
@@ -180,19 +180,19 @@ export const AuthView: React.FC<AuthViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#1B2E4A] flex flex-col justify-between py-6 px-4 sm:px-6 relative overflow-hidden text-right font-tajawal">
+    <div className="min-h-screen bg-ink flex flex-col justify-between py-6 px-4 sm:px-6 relative overflow-hidden text-right font-tajawal">
       {/* Ambient luxury background effects */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#B08948]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#3F7A5D]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-brass/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-done/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Top Brand Bar */}
-      <div className="w-full max-w-md mx-auto flex items-center justify-between text-[#FAF6EF]/70 text-xs">
+      <div className="w-full max-w-md mx-auto flex items-center justify-between text-paper-warm/70 text-xs">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-[#B08948]" />
+          <ShieldCheck className="w-4 h-4 text-brass" />
           <span>نظام مشفر ومحمي محلياً</span>
         </div>
         <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-[11px]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4EBA86] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-done animate-pulse" />
           <span>جاهز للعمل بدون إنترنت (PWA)</span>
         </div>
       </div>
@@ -201,25 +201,25 @@ export const AuthView: React.FC<AuthViewProps> = ({
       <div className="w-full max-w-md mx-auto my-auto py-4">
         {/* Brand Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#B08948] to-[#926F36] text-white shadow-xl shadow-black/20 mb-3 border border-[#EAE1D2]/20">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-brass to-brass text-white shadow-xl shadow-black/20 mb-3 border border-line-soft/20">
             <span className="font-cairo font-extrabold text-3xl">د</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-cairo tracking-tight">
             دَفْتَر مَلابِس
           </h1>
-          <p className="text-xs sm:text-sm text-[#D9DEE7] mt-1">
+          <p className="text-xs sm:text-sm text-ink-muted mt-1">
             منظومة إدارة طلبيات الموضة، رحلات الشراء وحسابات الموردين
           </p>
         </div>
 
         {/* Card */}
         <div
-          className={`bg-white rounded-[24px] shadow-2xl border border-[#DED8CC] p-5 sm:p-7 transition-transform ${
+          className={`bg-white rounded-[24px] shadow-2xl border border-line p-5 sm:p-7 transition-transform ${
             shake ? 'animate-shake' : ''
           }`}
         >
           {/* Tabs switch */}
-          <div className="flex bg-[#F6F4EF] p-1 rounded-xl border border-[#DED8CC] mb-5 text-xs font-bold font-cairo">
+          <div className="flex bg-paper p-1 rounded-xl border border-line mb-5 text-xs font-bold font-cairo">
             <button
               onClick={() => {
                 setActiveTab('pin');
@@ -227,8 +227,8 @@ export const AuthView: React.FC<AuthViewProps> = ({
               }}
               className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
                 activeTab === 'pin'
-                  ? 'bg-[#1B2E4A] text-white shadow-xs'
-                  : 'text-[#6C6A63] hover:text-[#1B2E4A]'
+                  ? 'bg-ink text-white shadow-xs'
+                  : 'text-copy-muted hover:text-ink'
               }`}
             >
               <KeyRound className="w-3.5 h-3.5" />
@@ -241,8 +241,8 @@ export const AuthView: React.FC<AuthViewProps> = ({
               }}
               className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
                 activeTab === 'password'
-                  ? 'bg-[#1B2E4A] text-white shadow-xs'
-                  : 'text-[#6C6A63] hover:text-[#1B2E4A]'
+                  ? 'bg-ink text-white shadow-xs'
+                  : 'text-copy-muted hover:text-ink'
               }`}
             >
               <Lock className="w-3.5 h-3.5" />
@@ -255,8 +255,8 @@ export const AuthView: React.FC<AuthViewProps> = ({
               }}
               className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all ${
                 activeTab === 'register'
-                  ? 'bg-[#1B2E4A] text-white shadow-xs'
-                  : 'text-[#6C6A63] hover:text-[#1B2E4A]'
+                  ? 'bg-ink text-white shadow-xs'
+                  : 'text-copy-muted hover:text-ink'
               }`}
             >
               <Store className="w-3.5 h-3.5" />
@@ -266,7 +266,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
 
           {/* Error Message banner */}
           {errorMsg && (
-            <div className="mb-4 p-3 bg-[#F6E3E0] border border-[#F0CDC8] rounded-xl text-xs text-[#B4463A] flex items-center gap-2">
+            <div className="mb-4 p-3 bg-late-soft border border-late-soft rounded-xl text-xs text-late flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMsg}</span>
             </div>
@@ -277,7 +277,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
             <div className="space-y-4">
               {/* Account Selector Pill / Avatar */}
               <div>
-                <label className="block text-[11px] font-bold text-[#6C6A63] mb-1.5">
+                <label className="block text-[11px] font-bold text-copy-muted mb-1.5">
                   اختر المستخدم:
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -294,25 +294,25 @@ export const AuthView: React.FC<AuthViewProps> = ({
                         }}
                         className={`p-2 rounded-xl border text-right transition-all flex flex-col justify-between ${
                           isSelected
-                            ? 'bg-[#FAF6EF] border-[#B08948] ring-1 ring-[#B08948] shadow-xs'
-                            : 'bg-white border-[#EAE1D2] hover:bg-[#F6F4EF]'
+                            ? 'bg-paper-warm border-brass ring-1 ring-brass shadow-xs'
+                            : 'bg-white border-line-soft hover:bg-paper'
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
                           <span
                             className={`w-2 h-2 rounded-full ${
                               u.role === 'owner'
-                                ? 'bg-[#B08948]'
+                                ? 'bg-brass'
                                 : u.role === 'buyer'
-                                ? 'bg-[#3F7A5D]'
-                                : 'bg-[#2C4568]'
+                                ? 'bg-done'
+                                : 'bg-ink-light'
                             }`}
                           />
-                          <span className="font-bold text-xs text-[#1B2E4A] truncate">
+                          <span className="font-bold text-xs text-ink truncate">
                             {u.name}
                           </span>
                         </div>
-                        <span className="text-[10px] text-[#6C6A63] mt-1">
+                        <span className="text-[10px] text-copy-muted mt-1">
                           {u.role === 'owner'
                             ? 'صاحب المتجر'
                             : u.role === 'buyer'
@@ -327,7 +327,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
 
               {/* Pin indicator circles */}
               <div className="py-2 text-center">
-                <div className="text-xs text-[#6C6A63] mb-2 font-medium">
+                <div className="text-xs text-copy-muted mb-2 font-medium">
                   أدخل رمز PIN المكون من 4 أرقام
                 </div>
                 <div className="flex justify-center items-center gap-3 dir-ltr">
@@ -338,15 +338,15 @@ export const AuthView: React.FC<AuthViewProps> = ({
                         key={index}
                         className={`w-4 h-4 rounded-full transition-all duration-150 ${
                           isFilled
-                            ? 'bg-[#B08948] scale-110 shadow-xs'
-                            : 'border-2 border-[#DED8CC] bg-[#FAF6EF]'
+                            ? 'bg-brass scale-110 shadow-xs'
+                            : 'border-2 border-line bg-paper-warm'
                         }`}
                       />
                     );
                   })}
                 </div>
-                <div className="text-[11px] text-[#8C887B] mt-2">
-                  (الرمز الافتراضي للتجربة: <span className="font-bold text-[#1B2E4A]">1234</span> للمالك أو <span className="font-bold text-[#1B2E4A]">5678</span> للمشتريات)
+                <div className="text-[11px] text-copy-muted mt-2">
+                  (الرمز الافتراضي للتجربة: <span className="font-bold text-ink">1234</span> للمالك أو <span className="font-bold text-ink">5678</span> للمشتريات)
                 </div>
               </div>
 
@@ -357,7 +357,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
                     key={digit}
                     type="button"
                     onClick={() => handlePinPress(digit)}
-                    className="h-12 rounded-xl bg-[#F6F4EF] hover:bg-[#EAE1D2] active:scale-95 text-[#1B2E4A] font-cairo font-bold text-xl transition-all shadow-2xs flex items-center justify-center"
+                    className="h-12 rounded-xl bg-paper hover:bg-line-soft active:scale-95 text-ink font-cairo font-bold text-xl transition-all shadow-2xs flex items-center justify-center"
                   >
                     {digit}
                   </button>
@@ -365,21 +365,21 @@ export const AuthView: React.FC<AuthViewProps> = ({
                 <button
                   type="button"
                   onClick={handlePinClear}
-                  className="h-12 rounded-xl bg-[#F6F4EF] hover:bg-[#EAE1D2] active:scale-95 text-[#6C6A63] font-bold text-xs transition-all flex items-center justify-center"
+                  className="h-12 rounded-xl bg-paper hover:bg-line-soft active:scale-95 text-copy-muted font-bold text-xs transition-all flex items-center justify-center"
                 >
                   مسح
                 </button>
                 <button
                   type="button"
                   onClick={() => handlePinPress('0')}
-                  className="h-12 rounded-xl bg-[#F6F4EF] hover:bg-[#EAE1D2] active:scale-95 text-[#1B2E4A] font-cairo font-bold text-xl transition-all shadow-2xs flex items-center justify-center"
+                  className="h-12 rounded-xl bg-paper hover:bg-line-soft active:scale-95 text-ink font-cairo font-bold text-xl transition-all shadow-2xs flex items-center justify-center"
                 >
                   0
                 </button>
                 <button
                   type="button"
                   onClick={handlePinDelete}
-                  className="h-12 rounded-xl bg-[#F6F4EF] hover:bg-[#EAE1D2] active:scale-95 text-[#B4463A] transition-all flex items-center justify-center"
+                  className="h-12 rounded-xl bg-paper hover:bg-line-soft active:scale-95 text-late transition-all flex items-center justify-center"
                   title="حذف"
                 >
                   <Delete className="w-5 h-5" />
@@ -390,7 +390,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
               <button
                 type="button"
                 onClick={() => onLogin(selectedUserForPin, rememberMe)}
-                className="w-full mt-2 py-2.5 bg-[#FAF6EF] hover:bg-[#F2EADB] text-[#B08948] border border-[#EAE1D2] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                className="w-full mt-2 py-2.5 bg-paper-warm hover:bg-paper-alt text-brass border border-line-soft rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
               >
                 <Fingerprint className="w-4 h-4" />
                 <span>دخول سريع فوري كـ ({selectedUserForPin.name})</span>
@@ -402,38 +402,38 @@ export const AuthView: React.FC<AuthViewProps> = ({
           {activeTab === 'password' && (
             <form onSubmit={handlePasswordSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+                <label className="block text-xs font-bold text-ink mb-1">
                   البريد الإلكتروني أو اسم المستخدم
                 </label>
                 <div className="relative">
-                  <Mail className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-[#6C6A63]" />
+                  <Mail className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
                   <input
                     type="text"
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
                     placeholder="owner@daftar.app أو مازن أحمد"
-                    className="w-full pr-9 pl-3 py-2.5 text-xs sm:text-sm rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full pr-9 pl-3 py-2.5 text-xs sm:text-sm rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+                <label className="block text-xs font-bold text-ink mb-1">
                   كلمة المرور
                 </label>
                 <div className="relative">
-                  <Lock className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-[#6C6A63]" />
+                  <Lock className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pr-9 pl-10 py-2.5 text-xs sm:text-sm rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full pr-9 pl-10 py-2.5 text-xs sm:text-sm rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6C6A63] hover:text-[#1B2E4A]"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-copy-muted hover:text-ink"
                   >
                     {showPassword ? (
                       <EyeOff className="w-4 h-4" />
@@ -442,18 +442,18 @@ export const AuthView: React.FC<AuthViewProps> = ({
                     )}
                   </button>
                 </div>
-                <p className="text-[11px] text-[#6C6A63] mt-1">
-                  كلمة المرور الافتراضية للحسابات التجريبية: <span className="font-bold text-[#1B2E4A]">password123</span>
+                <p className="text-[11px] text-copy-muted mt-1">
+                  كلمة المرور الافتراضية للحسابات التجريبية: <span className="font-bold text-ink">password123</span>
                 </p>
               </div>
 
               <div className="flex items-center justify-between text-xs pt-1">
-                <label className="flex items-center gap-2 cursor-pointer text-[#6C6A63]">
+                <label className="flex items-center gap-2 cursor-pointer text-copy-muted">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 rounded text-[#B08948] focus:ring-[#B08948] border-[#DED8CC]"
+                    className="w-4 h-4 rounded text-brass focus:ring-brass border-line"
                   />
                   <span>تذكر تسجيل الدخول</span>
                 </label>
@@ -463,7 +463,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
                     setEmailOrPhone('owner@daftar.app');
                     setPassword('password123');
                   }}
-                  className="text-[11px] font-bold text-[#B08948] hover:underline"
+                  className="text-[11px] font-bold text-brass hover:underline"
                 >
                   تعبئة الحساب الافتراضي
                 </button>
@@ -471,7 +471,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-3 bg-[#1B2E4A] hover:bg-[#142338] text-white rounded-xl font-cairo font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-2 active:scale-98"
+                className="w-full py-3 bg-ink hover:bg-ink-deep text-white rounded-xl font-cairo font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-2 active:scale-98"
               >
                 <span>تسجيل الدخول إلى المتجر</span>
                 <ArrowRight className="w-4 h-4 rotate-180" />
@@ -483,42 +483,42 @@ export const AuthView: React.FC<AuthViewProps> = ({
           {activeTab === 'register' && (
             <form onSubmit={handleRegisterSubmit} className="space-y-3">
               <div>
-                <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
-                  اسم المتجر / المحل <span className="text-[#B4463A]">*</span>
+                <label className="block text-xs font-bold text-ink mb-1">
+                  اسم المتجر / المحل <span className="text-late">*</span>
                 </label>
                 <div className="relative">
-                  <Store className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-[#6C6A63]" />
+                  <Store className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
                   <input
                     type="text"
                     value={regStoreName}
                     onChange={(e) => setRegStoreName(e.target.value)}
                     placeholder="مثال: بوتيك الأناقة للملابس"
-                    className="w-full pr-9 pl-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full pr-9 pl-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
-                    اسم المسؤول <span className="text-[#B4463A]">*</span>
+                  <label className="block text-xs font-bold text-ink mb-1">
+                    اسم المسؤول <span className="text-late">*</span>
                   </label>
                   <input
                     type="text"
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
                     placeholder="مثال: أحمد مصطفى"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+                  <label className="block text-xs font-bold text-ink mb-1">
                     الصفة / الدور
                   </label>
                   <select
                     value={regRole}
                     onChange={(e) => setRegRole(e.target.value as UserRole)}
-                    className="w-full px-2.5 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] text-[#1B2E4A] font-semibold"
+                    className="w-full px-2.5 py-2 text-xs rounded-xl border border-line bg-paper text-ink font-semibold"
                   >
                     <option value="owner">صاحب المتجر (المالك)</option>
                     <option value="buyer">مسؤول المشتريات والرحلات</option>
@@ -529,19 +529,19 @@ export const AuthView: React.FC<AuthViewProps> = ({
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
-                    البريد الإلكتروني <span className="text-[#B4463A]">*</span>
+                  <label className="block text-xs font-bold text-ink mb-1">
+                    البريد الإلكتروني <span className="text-late">*</span>
                   </label>
                   <input
                     type="email"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     placeholder="name@store.com"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+                  <label className="block text-xs font-bold text-ink mb-1">
                     رقم الهاتف
                   </label>
                   <input
@@ -549,14 +549,14 @@ export const AuthView: React.FC<AuthViewProps> = ({
                     value={regPhone}
                     onChange={(e) => setRegPhone(e.target.value)}
                     placeholder="01012345678"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+                  <label className="block text-xs font-bold text-ink mb-1">
                     كلمة المرور
                   </label>
                   <input
@@ -564,11 +564,11 @@ export const AuthView: React.FC<AuthViewProps> = ({
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-[#1B2E4A] mb-1">
+                  <label className="block text-xs font-bold text-ink mb-1">
                     رمز PIN السريع (4 أرقام)
                   </label>
                   <input
@@ -577,14 +577,14 @@ export const AuthView: React.FC<AuthViewProps> = ({
                     value={regPin}
                     onChange={(e) => setRegPin(e.target.value.replace(/\D/g, ''))}
                     placeholder="مثال: 1234"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-[#DED8CC] bg-[#F6F4EF] focus:bg-white focus:outline-none focus:border-[#B08948] focus:ring-1 focus:ring-[#B08948] dir-ltr text-center font-bold"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass dir-ltr text-center font-bold"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-[#B08948] hover:bg-[#9E783B] text-white rounded-xl font-cairo font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-1.5 mt-3 active:scale-98"
+                className="w-full py-2.5 bg-brass hover:bg-brass text-white rounded-xl font-cairo font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-1.5 mt-3 active:scale-98"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>إنشاء الحساب وبدء العمل</span>
@@ -593,15 +593,15 @@ export const AuthView: React.FC<AuthViewProps> = ({
           )}
 
           {/* Quick Demo Switcher Footer */}
-          <div className="mt-5 pt-4 border-t border-[#EFEBE2] flex flex-col gap-2 text-center">
-            <span className="text-[11px] text-[#6C6A63]">
+          <div className="mt-5 pt-4 border-t border-paper-alt flex flex-col gap-2 text-center">
+            <span className="text-[11px] text-copy-muted">
               حسابات تجريبية سريعة بنقرة واحدة:
             </span>
             <div className="flex items-center justify-center gap-2">
               <button
                 type="button"
                 onClick={() => onLogin(users[0], true)}
-                className="px-2.5 py-1 rounded-lg bg-[#FAF6EF] hover:bg-[#F2EADB] border border-[#EAE1D2] text-[11px] font-bold text-[#B08948] transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-paper-warm hover:bg-paper-alt border border-line-soft text-[11px] font-bold text-brass transition-colors"
               >
                 دخول كمالك متجر (مازن)
               </button>
@@ -609,7 +609,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
                 <button
                   type="button"
                   onClick={() => onLogin(users[1], true)}
-                  className="px-2.5 py-1 rounded-lg bg-[#FAF6EF] hover:bg-[#F2EADB] border border-[#EAE1D2] text-[11px] font-bold text-[#3F7A5D] transition-colors"
+                  className="px-2.5 py-1 rounded-lg bg-paper-warm hover:bg-paper-alt border border-line-soft text-[11px] font-bold text-done transition-colors"
                 >
                   دخول كمسؤول مشتريات (كريم)
                 </button>
@@ -620,7 +620,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
       </div>
 
       {/* Bottom info */}
-      <div className="w-full max-w-md mx-auto text-center text-[11px] text-[#D9DEE7]/60">
+      <div className="w-full max-w-md mx-auto text-center text-[11px] text-ink-muted/60">
         دفتر ملابس © 2026 — نظام متخصص لإدارة طلبيات متاجر الأزياء وحسابات أسواق الجملة
       </div>
     </div>
