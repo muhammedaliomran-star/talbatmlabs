@@ -88,8 +88,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span>مورد جديد</span>
                 <span className="grid size-6 place-items-center rounded-full bg-white/15"><ArrowUpLeft className="size-3" strokeWidth={1.8} /></span>
               </button>
+            </div>
+          </div>
         </div>
       </div>
+
 
       {/* Stats - Asymmetrical Bento with cascade depths */}
       <div data-reveal className="reveal-section grid grid-cols-2 lg:grid-cols-12 gap-4 mb-8" style={{ transitionDelay: '200ms' }}>
