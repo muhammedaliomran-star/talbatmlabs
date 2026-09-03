@@ -66,7 +66,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
                 <span className="text-xs font-bold tracking-wide text-line-soft font-cairo block">
                   دفتر ملابس • الحسابات
                 </span>
-                <span className="text-[11px] font-medium text-ink-muted">
+                <span className="text-xs font-medium text-ink-muted">
                   المحفظة والسيولة النقدية
                 </span>
               </div>
@@ -118,7 +118,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
           <div className="relative z-10 pt-3 mt-4 border-t border-on-ink/10 grid grid-cols-3 gap-2">
             {/* Deposits */}
             <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
-              <div className="flex items-center gap-1 text-[11px] font-medium text-ink-muted mb-0.5">
+              <div className="flex items-center gap-1 text-xs font-medium text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-done" />
                 <span>عربون محصّل</span>
               </div>
@@ -129,7 +129,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
 
             {/* Remaining */}
             <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
-              <div className="flex items-center gap-1 text-[11px] font-medium text-ink-muted mb-0.5">
+              <div className="flex items-center gap-1 text-xs font-medium text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brass-light" />
                 <span>متبقي عند الاستلام</span>
               </div>
@@ -140,7 +140,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
 
             {/* Pending Returns */}
             <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
-              <div className="flex items-center gap-1 text-[11px] font-medium text-ink-muted mb-0.5">
+              <div className="flex items-center gap-1 text-xs font-medium text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-late" />
                 <span>مرتجع معلق</span>
               </div>

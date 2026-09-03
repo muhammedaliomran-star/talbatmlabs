@@ -66,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   دَفْتَر
                 </span>
               </div>
-              <p className="text-[11px] text-ink-muted hidden sm:block">
+              <p className="text-xs text-ink-muted hidden sm:block">
                 إدارة طلبات العملاء والموردين والمرتجعات
               </p>
             </div>
@@ -192,9 +192,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label="القائمة"
             >
               <span className="relative flex flex-col items-center justify-center gap-1.5">
-                <span className={`block h-0.5 w-4 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-                <span className={`block h-0.5 w-4 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'}`} />
-                <span className={`block h-0.5 w-4 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                <span className={`block h-0.5 w-4 bg-current rounded-full transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                <span className={`block h-0.5 w-4 bg-current rounded-full transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'}`} />
+                <span className={`block h-0.5 w-4 bg-current rounded-full transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
               </span>
             </button>
           </div>
@@ -219,7 +219,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={tab.id}
                   onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }}
                   style={{ transitionDelay: `${100 + idx * 60}ms` }}
-                  className={`flex items-center gap-4 rounded-[1.5rem] px-6 py-5 text-lg font-bold transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform ${isActive ? 'bg-brass text-on-ink shadow-lg' : 'bg-white/5 text-on-ink/80 hover:bg-white/10 hover:text-on-ink'}`}
+                  className={`flex items-center gap-4 rounded-[1.5rem] px-6 py-5 text-lg font-bold transition-[transform,opacity] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform ${isActive ? 'bg-brass text-on-ink shadow-lg' : 'bg-white/5 text-on-ink/80 hover:bg-white/10 hover:text-on-ink'}`}
                 >
                   <Icon className="w-6 h-6" strokeWidth={1.5} />
                   <span>{tab.label}</span>

@@ -344,8 +344,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
         </div>
       </div>
 
-      {/* Typography: Fraunces for editorial numbers */}
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,700;9..144,0,800;9..144,1,700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');`}</style>
+
     </div>
   );
 };

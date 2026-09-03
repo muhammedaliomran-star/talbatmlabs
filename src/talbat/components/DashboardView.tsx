@@ -67,17 +67,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-5 mb-8">
         {/* Hero - dominant, slight rotation on desktop */}
         <div data-reveal className="reveal-section lg:col-span-8 lg:rotate-[-0.6deg] lg:hover:rotate-[0deg] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform" style={{ transitionDelay: '80ms' }}>
-          <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
-            <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.28)]">
               <WalletHeroCard orders={orders} returns={returns} onViewOrders={() => setActiveTab('orders')} />
-            </div>
-          </div>
         </div>
 
         {/* Quick Actions - overlapping cascade, elevated */}
         <div data-reveal className="reveal-section lg:col-span-4 lg:rotate-[0.9deg] lg:-ml-3 lg:mt-6 lg:hover:rotate-[0deg] lg:hover:ml-0 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform" style={{ transitionDelay: '140ms' }}>
-          <div className="rounded-[2rem] bg-brass/15 p-2 ring-1 ring-brass/15">
-            <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+          <div className="rounded-[2rem] bg-canvas p-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_16px_40px_-20px_rgba(26,18,7,0.12)] ring-1 ring-line/50">
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-brass">
                 <Sparkles className="size-3" strokeWidth={1.6} /> إجراءات سريعة
               </div>
@@ -88,7 +83,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span>مورد جديد</span>
                 <span className="grid size-6 place-items-center rounded-full bg-white/15"><ArrowUpLeft className="size-3" strokeWidth={1.8} /></span>
               </button>
-            </div>
           </div>
         </div>
       </div>
