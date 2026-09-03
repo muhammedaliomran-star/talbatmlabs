@@ -53,7 +53,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div data-reveal className="reveal-section mb-8">
         <div className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-3.5 py-1.5 ring-1 ring-white/10">
           <span className="h-1.5 w-1.5 rounded-full bg-brass-light animate-pulse" />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-on-ink">Atelier Dashboard — Live Ledger</span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-on-ink">Atelier Dashboard — Live Ledger</span>
         </div>
         <h1 className="mt-4 font-palestine text-[32px] font-[400] leading-[0.9] tracking-[-0.03em] text-charcoal sm:text-[42px] lg:text-[52px]">
           نظرة <span className="font-palestine font-[400] not-italic text-brass">اليوم</span> على الدفتر
@@ -73,7 +73,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* Quick Actions - overlapping cascade, elevated */}
         <div data-reveal className="reveal-section lg:col-span-4 lg:rotate-[0.9deg] lg:-ml-3 lg:mt-6 lg:hover:rotate-[0deg] lg:hover:ml-0 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform" style={{ transitionDelay: '140ms' }}>
           <div className="rounded-[2rem] bg-canvas p-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_16px_40px_-20px_rgba(26,18,7,0.12)] ring-1 ring-line/50">
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-brass">
+              <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-brass">
                 <Sparkles className="size-3" strokeWidth={1.6} /> إجراءات سريعة
               </div>
               <div className="mt-4">

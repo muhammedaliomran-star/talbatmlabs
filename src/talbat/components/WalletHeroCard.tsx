@@ -41,7 +41,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
           title={showBalance ? 'إخفاء الأرقام' : 'إظهار الأرقام'}
         >
           {showBalance ? <EyeOff className="w-3.5 h-3.5 text-brass" /> : <Eye className="w-3.5 h-3.5 text-done" />}
-          <span className="text-[11px] font-medium hidden sm:inline">
+          <span className="text-xs font-medium hidden sm:inline">
             {showBalance ? 'إخفاء المبالغ' : 'إظهار المبالغ'}
           </span>
         </button>
@@ -109,7 +109,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
               )}
             </div>
 
-            <p className="text-[11px] text-ink-muted mt-0.5">
+            <p className="text-xs text-ink-muted mt-0.5">
               {activeOrders.length} طلبيات قيد التنفيذ والتوريد من الموردين
             </p>
           </div>
@@ -117,7 +117,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
           {/* Bottom Card Micro-Stats (Deposits, Remaining, Returns) */}
           <div className="relative z-10 pt-3 mt-4 border-t border-on-ink/10 grid grid-cols-3 gap-2">
             {/* Deposits */}
-            <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
+            <div className="px-2 py-1">
               <div className="flex items-center gap-1 text-xs font-medium text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-done" />
                 <span>عربون محصّل</span>
@@ -128,7 +128,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
             </div>
 
             {/* Remaining */}
-            <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
+            <div className="px-2 py-1">
               <div className="flex items-center gap-1 text-xs font-medium text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-brass-light" />
                 <span>متبقي عند الاستلام</span>
@@ -139,7 +139,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
             </div>
 
             {/* Pending Returns */}
-            <div className="bg-canvas/5 rounded-xl p-2.5 backdrop-blur-xs border border-on-ink/5">
+            <div className="px-2 py-1">
               <div className="flex items-center gap-1 text-xs font-medium text-ink-muted mb-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-late" />
                 <span>مرتجع معلق</span>

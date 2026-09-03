@@ -62,7 +62,7 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
               <span className="text-xs sm:text-sm font-bold font-cairo text-center leading-tight">
                 {act.title}
               </span>
-              <span className={`text-[10px] hidden sm:block mt-0.5 leading-none ${
+              <span className={`text-xs hidden sm:block mt-0.5 leading-none ${
                 act.highlight ? 'text-on-ink/70' : 'opacity-80'
               }`}>
                 {act.subtitle}
