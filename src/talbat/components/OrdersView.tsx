@@ -416,11 +416,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-brass/70">({filteredOrders.length.toLocaleString('en-US')})</span>
           </h1>
           <p className="max-w-[520px] text-[13px] leading-6 text-copy-muted">متابعة الأصناف والأسعار وحالة كل طلب — أرشيف منظم بمسافات تنفس واسعة وظلال محيطة ناعمة.</p>
-          <div className="flex flex-wrap gap-2 pt-1">
-            <span className="rounded-full bg-canvas px-3 py-1.5 text-[11px] font-bold text-charcoal ring-1 ring-line">الإجمالي {totals.price ? formatCurrency(totals.price) : '—'}</span>
-            <span className="rounded-full bg-done px-3 py-1.5 text-[11px] font-bold text-white">المحصّل {formatCurrency(totals.deposit)}</span>
-            <span className="rounded-full bg-ink-deep px-3 py-1.5 text-[11px] font-bold text-white">المتبقي {formatCurrency(totals.remaining)}</span>
-          </div>
         </div>
 
         <div className="w-full lg:w-1/2 flex lg:justify-end">
