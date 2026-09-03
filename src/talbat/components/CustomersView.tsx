@@ -85,6 +85,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
           </button>
         )}
       </div>
+      </div>
 
       {/* Main Grid: Left is Customer list, Right is Customer Dossier */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
@@ -155,6 +156,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               })
             )}
           </div>
+        </div>
         </div>
 
         {/* Customer Dossier / Profile (8 cols) */}

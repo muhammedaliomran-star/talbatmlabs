@@ -430,11 +430,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="w-full lg:w-1/2 flex lg:justify-end">
           <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
             <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
-              <Printer className="w-4 h-4 text-brass" strokeWidth={1.5} strokeWidth={1.4} />
+              <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
               <span>طباعة</span>
             </button>
             <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
-              <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} strokeWidth={1.4} />
+              <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.4} />
               <span>تصدير Excel</span>
             </button>
             <button onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
@@ -450,7 +450,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1 min-w-0">
-              <Search className="w-4 h-4" strokeWidth={1.5} absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
+              <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
               <input
                 type="text"
                 value={searchInput}
@@ -987,6 +987,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
+        </div>
         </div>
       )}
 
