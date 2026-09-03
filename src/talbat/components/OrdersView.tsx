@@ -429,15 +429,15 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
         <div className="w-full lg:w-1/2 flex lg:justify-end">
           <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
-            <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
+            <button type="button" onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
               <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
               <span>طباعة</span>
             </button>
-            <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
+            <button type="button" onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
               <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.4} />
               <span>تصدير Excel</span>
             </button>
-            <button onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
+            <button type="button" onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
               <span>طلب جديد</span>
               <span className="grid size-7 place-items-center rounded-full bg-canvas text-charcoal transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-[1.04]"><Plus className="size-4" strokeWidth={1.7} /></span>
             </button>
@@ -473,7 +473,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
           <div className="hidden sm:flex items-center gap-2 self-end sm:self-auto">
             <div className="flex items-center bg-paper p-1 rounded-lg border border-line">
-              <button
+              <button type="button"
                 onClick={() => setViewMode('table')}
                 className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   viewMode === 'table' ? 'bg-canvas text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
@@ -483,7 +483,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                 <TableIcon className="w-4 h-4" />
                 <span className="hidden sm:inline">جدول</span>
               </button>
-              <button
+              <button type="button"
                 onClick={() => setViewMode('cards')}
                 className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   viewMode === 'cards' ? 'bg-canvas text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
@@ -500,7 +500,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         {/* Status Filters & Dropdowns */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-paper-alt">
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs w-full sm:w-auto">
-            <button
+            <button type="button"
               onClick={() => setStatusFilter('all')}
               className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                 statusFilter === 'all'
@@ -510,7 +510,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               الكل ({orders.length})
             </button>
-            <button
+            <button type="button"
               onClick={() => setStatusFilter('pending')}
               className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                 statusFilter === 'pending'
@@ -520,7 +520,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               معلّق ({pendingCount})
             </button>
-            <button
+            <button type="button"
               onClick={() => setStatusFilter('done')}
               className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                 statusFilter === 'done'
@@ -530,7 +530,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               تم التنفيذ ({doneCount})
             </button>
-            <button
+            <button type="button"
               onClick={() => setOnlyRemaining((v) => !v)}
               className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-1 ${
                 onlyRemaining
@@ -636,19 +636,19 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             محدد: {selectedIds.length} طلب
           </span>
           <div className="flex flex-wrap items-center gap-2">
-            <button
+            <button type="button"
               onClick={() => applyBulkStatus('done')}
               className="flex items-center gap-1 bg-done text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
               <Check className="w-3.5 h-3.5" strokeWidth={1.5} /> تعليم كـ تم
             </button>
-            <button
+            <button type="button"
               onClick={() => applyBulkStatus('pending')}
               className="flex items-center gap-1 bg-pending text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
               <Clock className="w-3.5 h-3.5" strokeWidth={1.5} /> إعادة كمعلّق
             </button>
-            <button
+            <button type="button"
               onClick={() =>
                 exportOrdersToCSV(filteredOrders.filter((o) => selectedSet.has(o.id)))
               }
@@ -656,7 +656,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               <FileSpreadsheet className="w-3.5 h-3.5" strokeWidth={1.5} /> تصدير المحدد
             </button>
-            <button
+            <button type="button"
               onClick={() =>
                 setPendingDelete({
                   ids: selectedIds,
@@ -667,7 +667,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /> حذف
             </button>
-            <button
+            <button type="button"
               onClick={() => setSelectedIds([])}
               className="p-2 rounded-lg hover:bg-canvas/10"
               title="إلغاء التحديد"
@@ -689,7 +689,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <p className="text-xs text-copy-muted mt-1 mb-4">
               ابدأ بتسجيل أول طلب لعميلك وسيظهر هنا مباشرة على كل أجهزتك
             </p>
-            <button
+            <button type="button"
               onClick={onOpenNewOrder}
               className="inline-flex items-center gap-1.5 bg-ink hover:bg-ink-light text-white px-4 py-2.5 rounded-[9px] text-sm font-bold"
             >
@@ -788,7 +788,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                       <td className="p-3 font-cairo font-bold text-ink">#{order.orderNumber}</td>
 
                       <td className="p-3">
-                        <button
+                        <button type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             onSelectCustomer(order.customerName);
@@ -805,7 +805,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                       </td>
 
                       <td className="p-3">
-                        <button
+                        <button type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             onSelectSupplier(order.supplierId);
@@ -886,7 +886,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                       <td className="p-3 text-left whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center justify-end gap-1">
-                          <button
+                          <button type="button"
                             onClick={() => onToggleStatus(order.id)}
                             className={`p-2.5 rounded-[7px] text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                               order.status === 'done'
@@ -913,7 +913,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                             </button>
                           )}
 
-                          <button
+                          <button type="button"
                             onClick={() => onEditOrder(order)}
                             className="p-2.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[7px] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
                             title="تعديل"
@@ -921,7 +921,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                             <Edit2 className="w-4 h-4" />
                           </button>
 
-                          <button
+                          <button type="button"
                             onClick={() =>
                               setPendingDelete({
                                 ids: [order.id],
@@ -967,7 +967,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
 
           <div className="flex items-center gap-1.5">
-            <button
+            <button type="button"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               className="p-2 rounded-lg border border-line bg-paper text-ink disabled:opacity-40"
@@ -978,7 +978,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <span className="font-bold font-cairo text-ink px-2">
               {currentPage} / {totalPages}
             </span>
-            <button
+            <button type="button"
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
               className="p-2 rounded-lg border border-line bg-paper text-ink disabled:opacity-40"
@@ -1009,13 +1009,13 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               سيتم حذف {pendingDelete.label} من الدفتر. يمكنك التراجع مباشرة بعد الحذف.
             </p>
             <div className="flex items-center gap-2 mt-4">
-              <button
+              <button type="button"
                 onClick={() => setPendingDelete(null)}
                 className="flex-1 py-2.5 rounded-[9px] border border-line bg-paper text-ink font-bold text-sm"
               >
                 إلغاء
               </button>
-              <button
+              <button type="button"
                 onClick={confirmDelete}
                 className="flex-1 py-2.5 rounded-[9px] bg-late text-white font-bold text-sm"
               >

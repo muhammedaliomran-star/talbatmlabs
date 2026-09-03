@@ -60,7 +60,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
               <p className="text-xs text-ink-muted">حفظ واستعادة سجلات الدفتر</p>
             </div>
           </div>
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-1.5 rounded-lg hover:bg-white/10 text-ink-muted hover:text-white transition-colors"
           >
@@ -86,7 +86,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
             <p className="text-xs text-copy-muted leading-relaxed">
               قم بتحميل نسخة من كل بيانات المحل وحفظها على هاتفك أو جهاز الكمبيوتر لضمان عدم ضياعها.
             </p>
-            <button
+            <button type="button"
               onClick={handleExport}
               className="w-full mt-2 py-2.5 bg-ink hover:bg-ink-light text-white font-bold rounded-[8px] text-xs transition-colors flex items-center justify-center gap-1.5"
             >
@@ -111,7 +111,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
               accept=".json"
               className="hidden"
             />
-            <button
+            <button type="button"
               onClick={() => fileInputRef.current?.click()}
               className="w-full mt-2 py-2.5 bg-paper-warm hover:bg-pending-soft text-brass border border-line-soft font-bold rounded-[8px] text-xs transition-colors flex items-center justify-center gap-1.5"
             >

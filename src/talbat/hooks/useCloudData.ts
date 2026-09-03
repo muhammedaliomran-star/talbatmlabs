@@ -121,15 +121,44 @@ export function useCloudData(userId?: string | null) {
     void load(userId);
   }, [userId, load]);
 
-  // Refresh when the tab regains focus so other devices' changes appear.
+  // Quiet refresh when tab becomes visible — debounced, no full-screen spinner.
   useEffect(() => {
     if (!userId) return;
-    const onFocus = () => {
-      if (ready.current) void load(userId);
+    let timer: number | null = null;
+    let lastRefresh = 0;
+    const quietRefresh = async () => {
+      if (!ready.current) return;
+      if (document.visibilityState !== 'visible' || !document.hasFocus()) return;
+      const now = Date.now();
+      if (now - lastRefresh < 30000) return; // at most once per 30s
+      lastRefresh = now;
+      try {
+        const [cloudOrders, cloudSuppliers, cloudCustomers, cloudReturns] = await Promise.all([
+          fetchCollection(ordersCollection, userId),
+          fetchCollection(suppliersCollection, userId),
+          fetchCollection(customersCollection, userId),
+          fetchCollection(returnsCollection, userId),
+        ]);
+        snap.current = { orders: cloudOrders, suppliers: cloudSuppliers, customers: cloudCustomers, returns: cloudReturns };
+        setOrders(cloudOrders);
+        setSuppliers(cloudSuppliers);
+        setCustomers(cloudCustomers);
+        setReturns(cloudReturns);
+        setSyncError(null);
+      } catch (e) {
+        console.error('Quiet refresh failed', e);
+      }
     };
-    window.addEventListener('focus', onFocus);
-    return () => window.removeEventListener('focus', onFocus);
-  }, [userId, load]);
+    const onVisible = () => {
+      if (timer) window.clearTimeout(timer);
+      timer = window.setTimeout(() => { void quietRefresh(); }, 800);
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      if (timer) window.clearTimeout(timer);
+    };
+  }, [userId]);
 
   const setterFor = useCallback(
     (key: keyof typeof snap.current) => {

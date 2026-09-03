@@ -67,7 +67,7 @@ export const SupplierModal: React.FC<SupplierModalProps> = ({
               <p className="text-xs text-ink-muted">بيانات المصنع أو محل الجملة</p>
             </div>
           </div>
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-1.5 rounded-lg hover:bg-white/10 text-ink-muted hover:text-white transition-colors"
           >

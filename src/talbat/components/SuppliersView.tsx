@@ -73,7 +73,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
           </div>
 
           {/* Island CTA - Button-in-Button */}
-          <button
+          <button type="button"
             onClick={onOpenNewSupplier}
             className="group inline-flex items-center gap-3 self-start rounded-full bg-ink-deep py-2 pl-6 pr-2 text-[13px] font-bold text-white shadow-[0_18px_60px_-28px_rgba(26,18,7,0.55)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98] lg:self-auto"
           >
@@ -111,7 +111,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                     const sPending = sOrders.filter((o) => o.status === 'pending').length;
                     const isSelected = s.id === activeSupplierId;
                     return (
-                      <button
+                      <button type="button"
                         key={s.id}
                         onClick={() => {
                           setActiveSupplierId(s.id);
@@ -165,7 +165,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
               <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.95),0_24px_80px_-40px_rgba(26,18,7,0.28)]">
                 {/* Mobile Back */}
                 <div className="mb-4 lg:hidden">
-                  <button
+                  <button type="button"
                     onClick={() => setMobileShowDetail(false)}
                     className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-4 py-2 text-xs font-bold text-white ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
                   >
@@ -212,14 +212,14 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <button
+                        <button type="button"
                           onClick={() => onEditSupplier(activeSupplier)}
                           className="group grid size-10 place-items-center rounded-full bg-canvas text-copy-muted ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-charcoal hover:ring-[#1A1207]/15 active:scale-[0.96]"
                           title="تعديل المورد"
                         >
                           <Edit2 className="size-4 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110" strokeWidth={1.5} />
                         </button>
-                        <button
+                        <button type="button"
                           onClick={() => onDeleteSupplier(activeSupplier.id)}
                           className="group grid size-10 place-items-center rounded-full bg-late/10 text-late ring-1 ring-[#B4463A]/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-late hover:text-white active:scale-[0.96]"
                           title="حذف المورد"
@@ -293,7 +293,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                                     {order.price !== undefined && (
                                       <span className="rounded-full bg-ink-deep px-3 py-1 font-[Fraunces] text-[12px] font-bold text-white">{formatCurrency(order.price)}</span>
                                     )}
-                                    <button
+                                    <button type="button"
                                       onClick={() => onToggleOrderStatus(order.id)}
                                       className={`rounded-full px-3.5 py-1.5 text-[12px] font-bold ring-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] ${order.status === 'done' ? 'bg-canvas text-copy-muted ring-line hover:bg-paper' : 'bg-done text-white ring-[#3F7A5D] hover:bg-[#35684F]'}`}
                                     >

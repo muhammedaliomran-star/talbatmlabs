@@ -78,11 +78,11 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           </div>
           <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50 shrink-0">
             <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-1.5 flex items-center gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-              <button onClick={() => exportReturnsToCSV(filteredReturns)} className="inline-flex items-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-ink border border-line px-5 py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
+              <button type="button" onClick={() => exportReturnsToCSV(filteredReturns)} className="inline-flex items-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-ink border border-line px-5 py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
                 <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} />
                 <span>تصدير Excel</span>
               </button>
-              <button onClick={onOpenNewReturn} className="group inline-flex items-center gap-2 rounded-full bg-late hover:bg-late/90 text-white pl-2 pr-4 py-2.5 text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
+              <button type="button" onClick={onOpenNewReturn} className="group inline-flex items-center gap-2 rounded-full bg-late hover:bg-late/90 text-white pl-2 pr-4 py-2.5 text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
                 <span>تسجيل مرتجع جديد</span>
                 <span className="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><Plus className="size-3.5" strokeWidth={1.8} /></span>
               </button>
@@ -193,8 +193,8 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                   <div className="flex items-center justify-between pt-3 border-t border-paper-alt gap-2">
                     <select value={ret.status} onChange={(e) => onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)} className="bg-paper border border-line rounded-full px-3 py-1.5 text-xs font-semibold text-ink flex-1 max-w-[170px] focus:outline-none focus:border-brass">{['pending_supplier','refunded','exchanged'].map(v=> <option key={v} value={v}>{v==='pending_supplier'?'معلق مع المورد':v==='refunded'?'تم استرداد القيمة':'تم الاستبدال'}</option>)}</select>
                     <div className="flex items-center gap-1 shrink-0">
-                      <button onClick={() => onEditReturn(ret)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-ink hover:bg-paper transition-colors" title="تعديل"><Edit2 className="w-4 h-4" strokeWidth={1.5} /></button>
-                      <button onClick={() => onDeleteReturn(ret.id)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-late hover:bg-late-soft transition-colors" title="حذف"><Trash2 className="w-4 h-4" strokeWidth={1.5} /></button>
+                      <button type="button" onClick={() => onEditReturn(ret)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-ink hover:bg-paper transition-colors" title="تعديل"><Edit2 className="w-4 h-4" strokeWidth={1.5} /></button>
+                      <button type="button" onClick={() => onDeleteReturn(ret.id)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-late hover:bg-late-soft transition-colors" title="حذف"><Trash2 className="w-4 h-4" strokeWidth={1.5} /></button>
                     </div>
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                         <td className="p-4 whitespace-nowrap text-copy-muted text-sm">{formatArabicDate(ret.returnDate)}</td>
                         <td className="p-4 whitespace-nowrap"><span className="font-cairo font-bold text-sm text-late">{formatCurrency(ret.price)}</span></td>
                         <td className="p-4 text-center whitespace-nowrap"><select value={ret.status} onChange={(e) => onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)} className="bg-canvas border border-line rounded-full px-3 py-1.5 text-xs font-semibold text-ink focus:outline-none focus:border-brass">{['pending_supplier','refunded','exchanged'].map(v=> <option key={v} value={v}>{v==='pending_supplier'?'معلق مع المورد':v==='refunded'?'تم استرداد القيمة':'تم الاستبدال'}</option>)}</select></td>
-                        <td className="p-4 text-left whitespace-nowrap"><div className="flex items-center justify-end gap-1"><button onClick={() => onEditReturn(ret)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-ink hover:bg-paper transition-colors" title="تعديل"><Edit2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button><button onClick={() => onDeleteReturn(ret.id)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-late hover:bg-late-soft transition-colors" title="حذف"><Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button></div></td>
+                        <td className="p-4 text-left whitespace-nowrap"><div className="flex items-center justify-end gap-1"><button type="button" onClick={() => onEditReturn(ret)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-ink hover:bg-paper transition-colors" title="تعديل"><Edit2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button><button type="button" onClick={() => onDeleteReturn(ret.id)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-late hover:bg-late-soft transition-colors" title="حذف"><Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button></div></td>
                       </tr>
                     ))}
                   </tbody>

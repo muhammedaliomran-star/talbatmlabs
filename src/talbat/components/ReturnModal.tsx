@@ -118,7 +118,7 @@ export const ReturnModal: React.FC<ReturnModalProps> = ({
               <p className="text-xs text-ink-muted">تسجيل بضاعة معيبة أو مرتجعة للمحاسبة</p>
             </div>
           </div>
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-1.5 rounded-lg hover:bg-white/10 text-ink-muted hover:text-white transition-colors"
           >

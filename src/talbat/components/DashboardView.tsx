@@ -84,7 +84,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <div className="mt-4">
                 <WalletQuickActions onOpenNewOrder={onOpenNewOrder} onOpenNewReturn={onOpenNewReturn} pendingCount={pendingOrders.length} />
               </div>
-              <button onClick={onOpenNewSupplier} className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink-deep py-2.5 text-xs font-bold text-on-ink ring-1 ring-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
+              <button type="button" onClick={onOpenNewSupplier} className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink-deep py-2.5 text-xs font-bold text-on-ink ring-1 ring-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
                 <span>مورد جديد</span>
                 <span className="grid size-6 place-items-center rounded-full bg-white/15"><ArrowUpLeft className="size-3" strokeWidth={1.8} /></span>
               </button>

@@ -87,7 +87,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           </div>
         </div>
 
-        <button
+        <button type="button"
           onClick={onViewAllOrders}
           className="text-xs font-bold text-brass hover:text-ink flex items-center gap-0.5 transition-colors"
         >
@@ -98,7 +98,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
 
       {/* Segmented Filter Pills (Dribbble Wallet Style) */}
       <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-2 pt-1">
-        <button
+        <button type="button"
           onClick={() => setFilter('all')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'all'
@@ -109,7 +109,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           الكل ({orders.length})
         </button>
 
-        <button
+        <button type="button"
           onClick={() => setFilter('pending')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'pending'
@@ -120,7 +120,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
           معلّق ({pendingOrders.length})
         </button>
 
-        <button
+        <button type="button"
           onClick={() => setFilter('done')}
           className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
             filter === 'done'
@@ -163,7 +163,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                   {/* Customer and Item Info */}
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <button
+                      <button type="button"
                         onClick={() => onSelectCustomer(order.customerName)}
                         className="font-bold text-xs sm:text-sm font-cairo text-ink hover:text-brass truncate text-right"
                       >
@@ -217,7 +217,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                   {/* Micro action row */}
                   <div className="flex items-center gap-1 mt-0.5">
                     {order.customerPhone && onOpenWhatsApp && (
-                      <button
+                      <button type="button"
                         onClick={() => onOpenWhatsApp(order)}
                         className="p-1 text-done hover:bg-done-soft rounded-md transition-colors"
                         title="مراسلة واتساب"
@@ -225,7 +225,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                         <MessageCircle className="w-3.5 h-3.5" />
                       </button>
                     )}
-                    <button
+                    <button type="button"
                       onClick={() => onToggleStatus(order.id)}
                       className={`p-1 rounded-md text-[11px] font-bold transition-colors ${
                         order.status === 'done'

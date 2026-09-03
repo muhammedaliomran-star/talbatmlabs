@@ -35,7 +35,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
           <div className="rounded-full bg-ink-deep px-3 py-1 text-xs font-bold text-on-ink">محفظة السيولة</div>
 
         {/* Privacy eye toggle */}
-        <button
+        <button type="button"
           onClick={() => setShowBalance(!showBalance)}
           className="flex items-center gap-1 text-xs text-copy-muted hover:text-ink bg-canvas/80 hover:bg-canvas px-2.5 py-1 rounded-full border border-line transition-colors"
           title={showBalance ? 'إخفاء الأرقام' : 'إظهار الأرقام'}

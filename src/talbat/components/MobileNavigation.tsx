@@ -62,7 +62,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           const isActive = activeTab === tab.id;
 
           return (
-            <button
+            <button type="button"
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 will-change-transform ${

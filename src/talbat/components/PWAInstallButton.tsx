@@ -40,7 +40,7 @@ export const PWAInstallButton: React.FC = () => {
 
       {/* Android / Chrome / Desktop Install Button */}
       {isInstallable && !isInstalled && (
-        <button
+        <button type="button"
           onClick={install}
           className="flex items-center gap-1.5 bg-brass hover:bg-brass text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-xs transition-all animate-pulse"
           title="تثبيت التطبيق على جهازك للعمل بدون إنترنت وبسرعة فائقة"
@@ -52,7 +52,7 @@ export const PWAInstallButton: React.FC = () => {
 
       {/* iOS Safari Guided Install Button */}
       {isIOS && !isInstalled && (
-        <button
+        <button type="button"
           onClick={() => setShowIOSGuide(true)}
           className="flex items-center gap-1.5 bg-paper-warm hover:bg-paper-alt text-ink border border-line px-2.5 py-1.5 rounded-lg text-xs font-bold shadow-2xs transition-all"
           title="طريقة تثبيت التطبيق على الآيفون"
@@ -71,7 +71,7 @@ export const PWAInstallButton: React.FC = () => {
                 <Smartphone className="w-5 h-5 text-brass" />
                 <span>تثبيت التطبيق على iPhone / iPad</span>
               </h3>
-              <button
+              <button type="button"
                 onClick={() => setShowIOSGuide(false)}
                 className="p-1 text-copy-muted hover:text-ink rounded-md"
               >
@@ -105,7 +105,7 @@ export const PWAInstallButton: React.FC = () => {
               </div>
             </div>
 
-            <button
+            <button type="button"
               onClick={() => setShowIOSGuide(false)}
               className="mt-5 w-full rounded-xl bg-ink py-2.5 text-xs font-bold text-white hover:bg-ink-light transition"
             >

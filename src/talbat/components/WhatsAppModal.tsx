@@ -80,7 +80,7 @@ export const WhatsAppModal: React.FC<WhatsAppModalProps> = ({
               </p>
             </div>
           </div>
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-1.5 rounded-lg hover:bg-white/10 text-white/80 hover:text-white transition-colors"
           >

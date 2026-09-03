@@ -266,17 +266,17 @@ export const AuthPortal: React.FC = () => {
               <>
                 <p>
                   ليس لديك حساب؟{' '}
-                  <button className="text-brass font-medium hover:underline" onClick={() => { setMode('register'); setError(null); }}>
+                  <button type="button" className="text-brass font-medium hover:underline" onClick={() => { setMode('register'); setError(null); }}>
                     أنشئ حسابك
                   </button>
                 </p>
-                <button className="text-copy-muted hover:text-charcoal hover:underline" onClick={() => { setMode('forgot'); setError(null); }}>
+                <button type="button" className="text-copy-muted hover:text-charcoal hover:underline" onClick={() => { setMode('forgot'); setError(null); }}>
                   نسيت كلمة السر؟
                 </button>
               </>
             )}
             {mode !== 'login' && (
-              <button
+              <button type="button"
                 className="inline-flex items-center gap-1.5 text-brass font-medium hover:underline"
                 onClick={() => { setMode('login'); setError(null); setNotice(null); }}
               >

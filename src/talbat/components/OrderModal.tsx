@@ -172,7 +172,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               </p>
             </div>
           </div>
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-1.5 rounded-lg hover:bg-white/10 text-ink-muted hover:text-white transition-colors"
           >

@@ -76,7 +76,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
 
         {activeCustomer && (
-          <button
+          <button type="button"
             onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
             className="group flex items-center gap-1.5 bg-brass hover:bg-brass/90 text-white pl-2 pr-4 py-2.5 rounded-full text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
           >
@@ -118,7 +118,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                 const cPending = cOrders.filter((o) => o.status === 'pending').length;
 
                 return (
-                  <button
+                  <button type="button"
                     key={c.id}
                     onClick={() => {
                       setActiveCustomerId(c.id);
@@ -163,7 +163,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         <div className={`lg:col-span-8 rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50 space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           {/* Mobile Back Button */}
           <div className="lg:hidden pb-2 border-b border-paper-alt mb-1">
-            <button
+            <button type="button"
               onClick={() => setMobileShowDetail(false)}
               className="inline-flex items-center gap-1.5 text-xs font-bold text-ink hover:text-brass bg-paper hover:bg-paper-alt px-3 py-1.5 rounded-lg transition-colors"
             >
@@ -253,7 +253,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                   <h3 className="font-bold font-cairo text-sm text-ink">
                     سجل طلبات العميل من كل الموردين ({customerOrders.length})
                   </h3>
-                  <button
+                  <button type="button"
                     onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
                     className="text-xs font-bold text-brass hover:underline flex items-center gap-1"
                   >
@@ -312,7 +312,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                                   باقي: {formatCurrency(remaining)}
                                 </span>
                               )}
-                              <button
+                              <button type="button"
                                 onClick={() => onToggleOrderStatus(order.id)}
                                 className="text-xs font-bold text-done hover:underline"
                               >

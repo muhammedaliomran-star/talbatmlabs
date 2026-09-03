@@ -186,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </Button>
 
             {/* Hamburger Morph - Mobile */}
-            <button
+            <button type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="grid md:hidden size-10 place-items-center rounded-full bg-white/10 text-on-ink hover:bg-white/15 transition-colors"
               aria-label="القائمة"
@@ -206,7 +206,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="fixed inset-0 z-50 flex flex-col bg-ink-deep/80 backdrop-blur-3xl md:hidden">
           <div className="flex h-16 items-center justify-between px-6 py-4">
             <span className="font-cairo font-extrabold text-lg text-on-ink">القائمة</span>
-            <button onClick={() => setIsMenuOpen(false)} className="grid size-10 place-items-center rounded-full bg-white/10 text-on-ink">
+            <button type="button" onClick={() => setIsMenuOpen(false)} className="grid size-10 place-items-center rounded-full bg-white/10 text-on-ink">
               <X className="w-5 h-5" strokeWidth={1.5} />
             </button>
           </div>
@@ -215,7 +215,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
               return (
-                <button
+                <button type="button"
                   key={tab.id}
                   onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }}
                   style={{ transitionDelay: `${100 + idx * 60}ms` }}
@@ -228,8 +228,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               );
             })}
             <div className="mt-6 flex gap-3">
-              <button onClick={onOpenNewOrder} className="flex-1 rounded-full bg-brass py-4 text-sm font-bold text-on-ink">طلب جديد</button>
-              <button onClick={onOpenBackup} className="rounded-full bg-white/10 px-6 py-4 text-sm font-bold text-on-ink ring-1 ring-white/10">نسخ احتياطي</button>
+              <button type="button" onClick={onOpenNewOrder} className="flex-1 rounded-full bg-brass py-4 text-sm font-bold text-on-ink">طلب جديد</button>
+              <button type="button" onClick={onOpenBackup} className="rounded-full bg-white/10 px-6 py-4 text-sm font-bold text-on-ink ring-1 ring-white/10">نسخ احتياطي</button>
             </div>
           </nav>
         </div>

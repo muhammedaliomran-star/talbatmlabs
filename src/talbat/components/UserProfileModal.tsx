@@ -138,7 +138,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
             </div>
           </div>
 
-          <button
+          <button type="button"
             onClick={onClose}
             className="p-1 rounded-lg text-ink-muted hover:text-white hover:bg-white/10 transition-colors"
           >
