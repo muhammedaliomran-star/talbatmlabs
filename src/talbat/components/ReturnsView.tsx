@@ -96,7 +96,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-canvas rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-ink">
             سجل المرتجعات وحسابات الموردين ({returns.length})
@@ -128,7 +128,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Supplier Breakdown Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-        <div className="bg-white rounded-[14px] p-4 border border-late-soft shadow-xs">
+        <div className="bg-canvas rounded-[14px] p-4 border border-late-soft shadow-xs">
           <div className="text-xs font-semibold text-copy-muted mb-1 flex items-center justify-between">
             <span>مرتجعات قيد التسوية (معلّقة)</span>
             <Clock className="w-4 h-4 text-late" />
@@ -141,7 +141,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           </div>
         </div>
 
-        <div className="bg-white rounded-[14px] p-4 border border-done-soft shadow-xs">
+        <div className="bg-canvas rounded-[14px] p-4 border border-done-soft shadow-xs">
           <div className="text-xs font-semibold text-copy-muted mb-1 flex items-center justify-between">
             <span>مرتجعات تم استردادها كاش</span>
             <CheckCircle2 className="w-4 h-4 text-done" />
@@ -152,7 +152,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           <div className="text-[11px] text-copy-muted mt-1">تمت تسويتها بنجاح</div>
         </div>
 
-        <div className="bg-white rounded-[14px] p-4 border border-line shadow-xs">
+        <div className="bg-canvas rounded-[14px] p-4 border border-line shadow-xs">
           <div className="text-xs font-semibold text-copy-muted mb-1 flex items-center justify-between">
             <span>إجمالي قيمة كافة المرتجعات</span>
             <DollarSign className="w-4 h-4 text-ink" />
@@ -168,7 +168,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Breakdown per Supplier (As emphasized in PRD) */}
       {supplierBreakdown.length > 0 && (
-        <div className="bg-white rounded-[14px] border border-line p-4 shadow-xs">
+        <div className="bg-canvas rounded-[14px] border border-line p-4 shadow-xs">
           <h2 className="text-sm font-bold font-cairo text-ink mb-3 flex items-center gap-1.5">
             <Store className="w-4 h-4 text-brass" />
             <span>كشف إجمالي المرتجعات لكل مورد للمحاسبة معه</span>
@@ -199,7 +199,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
       )}
 
       {/* Filter and Search */}
-      <div className="bg-white rounded-[14px] p-4 border border-line shadow-xs flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-canvas rounded-[14px] p-4 border border-line shadow-xs flex flex-wrap items-center justify-between gap-3">
         <div className="relative flex-1 min-w-[240px]">
           <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
           <input
@@ -207,7 +207,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="ابحث بالصنف، المورد، أو سبب الإرجاع..."
-            className="w-full pr-9 pl-4 py-2 text-xs sm:text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
+            className="w-full pr-9 pl-4 py-2 text-xs sm:text-sm rounded-[9px] border border-line bg-paper focus:bg-canvas focus:outline-none focus:border-brass"
           />
         </div>
 
@@ -240,7 +240,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Returns Table */}
       {filteredReturns.length === 0 ? (
-        <div className="bg-white rounded-[14px] p-10 text-center border border-line">
+        <div className="bg-canvas rounded-[14px] p-10 text-center border border-line">
           <div className="w-12 h-12 rounded-full bg-paper text-copy-muted mx-auto flex items-center justify-center mb-2">
             <RotateCcw className="w-5 h-5" />
           </div>
@@ -256,7 +256,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             {filteredReturns.map((ret) => (
               <div
                 key={ret.id}
-                className="bg-white rounded-[14px] border border-line p-4 shadow-xs space-y-3"
+                className="bg-canvas rounded-[14px] border border-line p-4 shadow-xs space-y-3"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div>
@@ -318,7 +318,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           </div>
 
           {/* Desktop Table View (>= md) */}
-          <div className="hidden md:block bg-white rounded-[14px] border border-line overflow-hidden shadow-xs">
+          <div className="hidden md:block bg-canvas rounded-[14px] border border-line overflow-hidden shadow-xs">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-xs">
                 <thead className="bg-ink text-white">
@@ -337,7 +337,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                     <tr
                       key={ret.id}
                       className={`hover:bg-paper-warm transition-colors ${
-                        idx % 2 === 0 ? 'bg-white' : 'bg-canvas-subtle'
+                        idx % 2 === 0 ? 'bg-canvas' : 'bg-canvas-subtle'
                       }`}
                     >
                       <td className="p-3">
@@ -377,7 +377,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                           onChange={(e) =>
                             onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)
                           }
-                          className="bg-white border border-line rounded-lg px-2 py-1 text-xs font-semibold text-ink"
+                          className="bg-canvas border border-line rounded-lg px-2 py-1 text-xs font-semibold text-ink"
                         >
                           <option value="pending_supplier">معلق مع المورد</option>
                           <option value="refunded">تم استرداد القيمة</option>

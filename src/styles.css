@@ -215,8 +215,8 @@
   --placeholder: oklch(0.63 0.018 250);
 }
 
-.dark .bg-white {
-  background-color: var(--canvas);
+.dark :is([class*="bg-white"]) {
+  background-color: var(--canvas) !important;
 }
 
 /* The editorial workspace uses a small, fixed light palette in a few views.
@@ -249,6 +249,39 @@
 .dark :is([class*="border-[#EDE1D2]"], [class*="border-[#EAE1D2]"], [class*="ring-[#EDE1D2]"], [class*="ring-[#DED8CC]"]) {
   border-color: var(--line) !important;
   --tw-ring-color: var(--line) !important;
+}
+
+/* Extended overrides for remaining hardcoded editorial palette */
+.dark :is([class*="bg-[#1A1207]"], [class*="bg-[#241A0F]"]) {
+  background-color: var(--ink-deep) !important;
+}
+.dark :is([class*="text-[#FDFBF7]"], [class*="text-white"]) {
+  color: var(--on-ink) !important;
+}
+.dark :is([class*="bg-[#B08948]"], [class*="bg-[#D3AE72]"]) {
+  background-color: var(--brass) !important;
+}
+.dark :is([class*="text-[#B08948]"], [class*="text-[#D3AE72]"]) {
+  color: var(--brass-light) !important;
+}
+.dark :is([class*="bg-[#3F7A5D]"]) {
+  background-color: var(--done) !important;
+}
+.dark :is([class*="text-[#3F7A5D]"]) {
+  color: var(--done) !important;
+}
+.dark :is([class*="bg-[#B4463A]"]) {
+  background-color: var(--late) !important;
+}
+.dark :is([class*="text-[#B4463A]"]) {
+  color: var(--late) !important;
+}
+.dark :is([class*="border-[#EAE1D2]"], [class*="ring-[#EAE1D2]"], [class*="border-white"], [class*="ring-white"]) {
+  border-color: var(--line) !important;
+  --tw-ring-color: var(--line) !important;
+}
+.dark :is([class*="bg-[#1A1207]/"], [class*="bg-[#B08948]/"], [class*="bg-[#3F7A5D]/"]) {
+  --tw-bg-opacity: 1;
 }
 
 @layer base {

@@ -62,7 +62,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Top Header */}
-      <div className="bg-white rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-canvas rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-ink">
             سجل العملاء والطلبات المجمعة
@@ -86,7 +86,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       {/* Main Grid: Left is Customer list, Right is Customer Dossier */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Customer Sidebar List (4 cols) */}
-        <div className={`lg:col-span-4 bg-white rounded-[14px] border border-line p-4 shadow-xs space-y-3 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-4 bg-canvas rounded-[14px] border border-line p-4 shadow-xs space-y-3 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           <div className="relative">
             <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
             <input
@@ -94,7 +94,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="ابحث باسم العميل أو هاتفه..."
-              className="w-full pr-9 pl-3 py-2 text-xs rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
+              className="w-full pr-9 pl-3 py-2 text-xs rounded-[9px] border border-line bg-paper focus:bg-canvas focus:outline-none focus:border-brass"
             />
           </div>
 
@@ -123,7 +123,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                     className={`w-full text-right p-3 rounded-[10px] border transition-all flex items-center justify-between ${
                       isSelected
                         ? 'bg-paper-warm border-brass ring-1 ring-brass'
-                        : 'bg-white border-paper-alt hover:bg-paper'
+                        : 'bg-canvas border-paper-alt hover:bg-paper'
                     }`}
                   >
                     <div>
@@ -155,7 +155,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
 
         {/* Customer Dossier / Profile (8 cols) */}
-        <div className={`lg:col-span-8 bg-white rounded-[14px] border border-line p-4 sm:p-5 shadow-xs space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-8 bg-canvas rounded-[14px] border border-line p-4 sm:p-5 shadow-xs space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           {/* Mobile Back Button */}
           <div className="lg:hidden pb-2 border-b border-paper-alt mb-1">
             <button
@@ -269,7 +269,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                       return (
                         <div
                           key={order.id}
-                          className="p-4 rounded-[12px] border transition-all bg-white border-paper-alt hover:border-line"
+                          className="p-4 rounded-[12px] border transition-all bg-canvas border-paper-alt hover:border-line"
                         >
                           <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                             <div>

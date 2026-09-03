@@ -110,7 +110,7 @@ export const AuthPortal: React.FC = () => {
           height={1600}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-deep/85 via-ink-deep/30 to-transparent" />
         <div className="absolute bottom-0 right-0 p-8 lg:p-12 max-w-lg">
           <span className="inline-block text-[11px] tracking-[0.22em] text-brass-light mb-4">
             دفتر ملابس
@@ -176,8 +176,8 @@ export const AuthPortal: React.FC = () => {
                       onClick={() => setRole(r.value)}
                       className={`rounded-xl border px-2 py-2.5 text-[13px] transition ${
                         role === r.value
-                          ? 'border-brass bg-brass/10 text-pending font-medium'
-                          : 'border-line bg-white text-copy-muted hover:border-line'
+                          ? 'border-pending bg-pending-soft text-pending font-medium'
+                          : 'border-line bg-canvas text-copy-muted hover:border-line'
                       }`}
                     >
                       {r.label}
@@ -226,7 +226,7 @@ export const AuthPortal: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-charcoal text-white py-3.5 text-[15px] font-medium hover:bg-ink transition disabled:opacity-60"
+              className="w-full rounded-xl bg-ink-deep text-on-ink py-3.5 text-[15px] font-medium hover:bg-ink transition disabled:opacity-60"
             >
               {loading
                 ? 'جارٍ التنفيذ…'
@@ -248,7 +248,7 @@ export const AuthPortal: React.FC = () => {
               <button
                 type="button"
                 onClick={googleSignIn}
-                className="w-full rounded-xl border border-line bg-white py-3.5 text-[15px] font-medium hover:border-line transition flex items-center justify-center gap-2.5"
+                className="w-full rounded-xl border border-line bg-canvas py-3.5 text-[15px] font-medium hover:border-line transition flex items-center justify-center gap-2.5"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" aria-hidden="true">
                   <path fill="var(--google-blue)" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.9z" />

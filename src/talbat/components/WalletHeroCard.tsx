@@ -32,7 +32,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
     <div className="relative w-full">
        {/* Wallet controls */}
       <div className="flex items-center justify-between mb-2.5 px-1">
-         <div className="rounded-full bg-ink px-3 py-1 text-xs font-bold text-on-ink">محفظة السيولة</div>
+          <div className="rounded-full bg-ink-deep px-3 py-1 text-xs font-bold text-on-ink">محفظة السيولة</div>
 
         {/* Privacy eye toggle */}
         <button
@@ -48,7 +48,7 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
       </div>
 
       {/* Main Luxury Wallet Card */}
-         <div onClick={onViewOrders} className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink to-ink-light text-on-ink p-5 sm:p-6 shadow-xl border border-brass-light/30 transition-all duration-700 motion-spring">
+          <div onClick={onViewOrders} className="relative overflow-hidden rounded-[24px] sm:rounded-[28px] bg-gradient-to-br from-ink-deep via-ink-deep to-ink text-on-ink p-5 sm:p-6 shadow-xl border border-brass-light/30 transition-all duration-700 motion-spring">
           {/* Subtle Decorative Background Shapes & Gold Shimmer */}
           <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-brass/15 blur-2xl pointer-events-none" />
           <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-ink-light/40 blur-2xl pointer-events-none" />

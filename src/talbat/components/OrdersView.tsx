@@ -407,56 +407,56 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const hasNoOrdersAtAll = orders.length === 0;
 
   return (
-    <div className="grain-overlay space-y-6 bg-[#F7F7F6] text-[#1A1207] antialiased">
+    <div className="grain-overlay space-y-6 bg-paper text-charcoal antialiased">
       {/* Editorial Split Header - Massive Left Typography / Right Actions */}
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 py-2">
         <div className="w-full lg:w-1/2 space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#1A1207] px-3.5 py-1.5 ring-1 ring-white/10">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#B08948] animate-pulse" />
+          <div className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-3.5 py-1.5 ring-1 ring-line/10">
+            <span className="h-1.5 w-1.5 rounded-full bg-brass animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FDFBF7]">Orders Ledger — All Requests</span>
           </div>
-          <h1 className="font-[Fraunces] text-[32px] font-[800] leading-[0.92] tracking-[-0.03em] text-[#1A1207] sm:text-[40px]">
-            سجل <span className="italic font-[700] text-[#B08948]">طلبات</span> العملاء
-            <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-[#B08948]/70">({filteredOrders.length.toLocaleString('en-US')})</span>
+          <h1 className="font-[Fraunces] text-[32px] font-[800] leading-[0.92] tracking-[-0.03em] text-charcoal sm:text-[40px]">
+            سجل <span className="italic font-[700] text-brass">طلبات</span> العملاء
+            <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-brass/70">({filteredOrders.length.toLocaleString('en-US')})</span>
           </h1>
-          <p className="max-w-[520px] text-[13px] leading-6 text-[#6C6A63]">متابعة الأصناف والأسعار وحالة كل طلب — أرشيف منظم بمسافات تنفس واسعة وظلال محيطة ناعمة.</p>
+          <p className="max-w-[520px] text-[13px] leading-6 text-copy-muted">متابعة الأصناف والأسعار وحالة كل طلب — أرشيف منظم بمسافات تنفس واسعة وظلال محيطة ناعمة.</p>
           <div className="flex flex-wrap gap-2 pt-1">
-            <span className="rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-[#1A1207] ring-1 ring-[#EDE1D2]">الإجمالي {totals.price ? formatCurrency(totals.price) : '—'}</span>
-            <span className="rounded-full bg-[#3F7A5D] px-3 py-1.5 text-[11px] font-bold text-white">المحصّل {formatCurrency(totals.deposit)}</span>
-            <span className="rounded-full bg-[#1A1207] px-3 py-1.5 text-[11px] font-bold text-white">المتبقي {formatCurrency(totals.remaining)}</span>
+            <span className="rounded-full bg-canvas px-3 py-1.5 text-[11px] font-bold text-charcoal ring-1 ring-line">الإجمالي {totals.price ? formatCurrency(totals.price) : '—'}</span>
+            <span className="rounded-full bg-done px-3 py-1.5 text-[11px] font-bold text-white">المحصّل {formatCurrency(totals.deposit)}</span>
+            <span className="rounded-full bg-ink-deep px-3 py-1.5 text-[11px] font-bold text-white">المتبقي {formatCurrency(totals.remaining)}</span>
           </div>
         </div>
 
         <div className="w-full lg:w-1/2 flex lg:justify-end">
-          <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-white p-1.5 ring-1 ring-[#EDE1D2] shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
-            <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-[#FDFBF7] px-4 py-2.5 text-xs font-bold text-[#1A1207] ring-1 ring-[#EDE1D2] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white">
-              <Printer className="w-4 h-4 text-[#B08948]" strokeWidth={1.4} />
+          <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
+            <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
+              <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
               <span>طباعة</span>
             </button>
-            <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-[#FDFBF7] px-4 py-2.5 text-xs font-bold text-[#1A1207] ring-1 ring-[#EDE1D2] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white">
-              <FileSpreadsheet className="w-4 h-4 text-[#3F7A5D]" strokeWidth={1.4} />
+            <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
+              <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.4} />
               <span>تصدير Excel</span>
             </button>
-            <button onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-[#1A1207] py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-white/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-[#241A0F] active:scale-[0.98]">
+            <button onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
               <span>طلب جديد</span>
-              <span className="grid size-7 place-items-center rounded-full bg-white text-[#1A1207] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-[1.04]"><Plus className="size-4" strokeWidth={1.7} /></span>
+              <span className="grid size-7 place-items-center rounded-full bg-canvas text-charcoal transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-[1.04]"><Plus className="size-4" strokeWidth={1.7} /></span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Filter and Search - Soft Structuralism Double-Bezel */}
-      <div className="rounded-[2rem] bg-white/60 p-2 ring-1 ring-[#EDE1D2] shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] backdrop-blur-sm">
-        <div className="rounded-[calc(2rem-0.5rem)] bg-white p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
+      <div className="rounded-[2rem] bg-canvas/60 p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] backdrop-blur-sm">
+        <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1 min-w-0">
-              <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-[#B08948]" strokeWidth={1.4} />
+              <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="ابحث بالاسم، هاتف العميل، المورد، أو تفاصيل الصنف..."
-                className="w-full pr-10 pl-10 py-3 text-xs sm:text-sm rounded-full border border-[#EDE1D2] bg-[#FDFBF7] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#B08948]/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                className="w-full pr-10 pl-10 py-3 text-xs sm:text-sm rounded-full border border-line bg-paper focus:bg-canvas focus:outline-none focus:ring-2 focus:ring-[#B08948]/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
               />
             {searchInput && (
               <button
@@ -476,7 +476,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <button
                 onClick={() => setViewMode('table')}
                 className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  viewMode === 'table' ? 'bg-white text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
+                  viewMode === 'table' ? 'bg-canvas text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
                 }`}
                 title="عرض جدول"
               >
@@ -486,7 +486,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <button
                 onClick={() => setViewMode('cards')}
                 className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
-                  viewMode === 'cards' ? 'bg-white text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
+                  viewMode === 'cards' ? 'bg-canvas text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
                 }`}
                 title="عرض بطاقات"
               >
@@ -631,7 +631,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
       {/* Bulk actions - Floating Glass Island */}
       {selectedIds.length > 0 && (
-        <div className="sticky top-[88px] z-20 bg-[#1A1207]/95 text-white rounded-full px-4 py-2 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)] ring-1 ring-white/10 backdrop-blur-2xl flex flex-wrap items-center gap-2 justify-between transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
+        <div className="sticky top-[88px] z-20 bg-ink-deep/95 text-white rounded-full px-4 py-2 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)] ring-1 ring-line/10 backdrop-blur-2xl flex flex-wrap items-center gap-2 justify-between transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]">
           <span className="text-xs sm:text-sm font-bold font-cairo">
             محدد: {selectedIds.length} طلب
           </span>
@@ -652,7 +652,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               onClick={() =>
                 exportOrdersToCSV(filteredOrders.filter((o) => selectedSet.has(o.id)))
               }
-              className="flex items-center gap-1 bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg text-xs font-bold"
+              className="flex items-center gap-1 bg-canvas/10 hover:bg-canvas/20 px-3 py-2 rounded-lg text-xs font-bold"
             >
               <FileSpreadsheet className="w-3.5 h-3.5" /> تصدير المحدد
             </button>
@@ -669,7 +669,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
             <button
               onClick={() => setSelectedIds([])}
-              className="p-2 rounded-lg hover:bg-white/10"
+              className="p-2 rounded-lg hover:bg-canvas/10"
               title="إلغاء التحديد"
             >
               <X className="w-4 h-4" />
@@ -681,7 +681,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       {/* Content */}
       {filteredOrders.length === 0 ? (
         hasNoOrdersAtAll ? (
-          <div className="bg-white rounded-[14px] p-12 text-center border border-line">
+          <div className="bg-canvas rounded-[14px] p-12 text-center border border-line">
             <div className="w-14 h-14 rounded-full bg-brass/10 text-brass mx-auto flex items-center justify-center mb-3">
               <Notebook className="w-7 h-7" />
             </div>
@@ -698,7 +698,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
           </div>
         ) : (
-          <div className="bg-white rounded-[14px] p-12 text-center border border-line">
+          <div className="bg-canvas rounded-[14px] p-12 text-center border border-line">
             <div className="w-12 h-12 rounded-full bg-paper text-copy-muted mx-auto flex items-center justify-center mb-3">
               <Search className="w-6 h-6" />
             </div>
@@ -713,7 +713,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       ) : effectiveViewMode === 'cards' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pageOrders.map((order) => (
-            <div key={order.id} className="rounded-[1.7rem] bg-white p-1 ring-1 ring-[#EDE1D2] shadow-[0_16px_50px_-30px_rgba(26,18,7,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-[0_20px_60px_-32px_rgba(26,18,7,0.26)] hover:translate-y-[-2px] will-change-transform">
+            <div key={order.id} className="rounded-[1.7rem] bg-canvas p-1 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.18)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:shadow-[0_20px_60px_-32px_rgba(26,18,7,0.26)] hover:translate-y-[-2px] will-change-transform">
               <OrderCard
                 order={order}
                 onToggleStatus={onToggleStatus}
@@ -733,8 +733,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           ))}
         </div>
       ) : (
-        <div className="rounded-[2rem] bg-white p-2 ring-1 ring-[#EDE1D2] shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] overflow-hidden">
-          <div className="overflow-x-auto max-h-[70vh] rounded-[calc(2rem-0.5rem)] bg-white ring-1 ring-[#EDE1D2]">
+        <div className="rounded-[2rem] bg-canvas p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] overflow-hidden">
+          <div className="overflow-x-auto max-h-[70vh] rounded-[calc(2rem-0.5rem)] bg-canvas ring-1 ring-line">
             <table className="w-full text-right text-xs">
               <thead className="sticky top-0 z-10 bg-paper-alt/95 backdrop-blur border-b-2 border-brass text-ink">
                 <tr>
@@ -771,7 +771,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         isSelected
                           ? 'bg-brass/10'
                           : idx % 2 === 0
-                            ? 'bg-white'
+                            ? 'bg-canvas'
                             : 'bg-canvas-subtle'
                       } ${remaining > 0 ? 'border-r-2 border-r-pending' : ''}`}
                     >
@@ -946,7 +946,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
       {/* Pagination - Floating Island */}
       {filteredOrders.length > 0 && (
-        <div className="rounded-full bg-[#1A1207] px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs ring-1 ring-white/10 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)]">
+        <div className="rounded-full bg-ink-deep px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs ring-1 ring-line/10 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)]">
           <div className="flex items-center gap-2 text-white/60">
             <span>
               عرض {(currentPage - 1) * pageSize + 1}–
@@ -997,7 +997,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           onClick={() => setPendingDelete(null)}
         >
           <div
-            className="bg-white rounded-[14px] border border-line shadow-lg w-full max-w-sm p-5 text-center"
+            className="bg-canvas rounded-[14px] border border-line shadow-lg w-full max-w-sm p-5 text-center"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-12 h-12 rounded-full bg-late-soft text-late mx-auto flex items-center justify-center mb-3">

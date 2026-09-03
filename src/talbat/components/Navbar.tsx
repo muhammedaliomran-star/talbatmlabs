@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-3 z-40 px-3 text-on-ink md:top-5">
-      <div className="mx-auto max-w-7xl rounded-full bg-ink/96 px-3 shadow-[0_18px_50px_-28px_var(--ink)] ring-1 ring-on-ink/10 backdrop-blur-2xl sm:px-4">
+      <div className="mx-auto max-w-7xl rounded-full bg-ink-deep/96 px-3 shadow-[0_18px_50px_-28px_var(--ink)] ring-1 ring-on-ink/10 backdrop-blur-2xl sm:px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo & Store Title */}
           <div className="flex items-center gap-3">
@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="font-cairo font-extrabold text-xl tracking-tight text-on-ink max-w-[180px] truncate">
                   {currentUser?.storeName || 'دَفْتَر'}
                 </span>
-                <span className="text-[11px] bg-ink-light text-brass-light font-semibold px-2 py-0.5 rounded-full border border-brass/30">
+                <span className="text-[11px] bg-brass text-on-ink font-semibold px-2 py-0.5 rounded-full border border-brass/30">
                   دَفْتَر
                 </span>
               </div>
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {tab.badge !== undefined && tab.badge > 0 && (
                     <span
                       className={`text-[11px] font-cairo font-bold px-1.5 py-0.2 rounded-full ${
-                        'bg-ink-light text-on-ink'
+                        'bg-brass text-on-ink'
                       }`}
                     >
                       {tab.badge}
@@ -108,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <Button
               onClick={onOpenBackup}
-              variant="ghost" size="icon" className="hidden size-9 bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink sm:inline-flex"
+              variant="ghost" size="icon" className="hidden size-9 bg-white/10 text-on-ink hover:bg-white/15 hover:text-white sm:inline-flex"
               title="نسخ احتياطي وتصدير"
             >
               <Download className="w-4 h-4" />
@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onToggleTheme}
               variant="ghost"
               size="icon"
-              className="relative hidden md:inline-flex size-9 rounded-full bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink transition-colors overflow-hidden"
+              className="relative hidden md:inline-flex size-9 rounded-full bg-white/10 text-on-ink hover:bg-white/15 hover:text-white transition-colors overflow-hidden"
               title={isDarkMode ? 'تفعيل الوضع النهاري ☀️' : 'تفعيل الوضع الليلي 🌙'}
               aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
             >
@@ -144,7 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       ? 'bg-brass'
                       : currentUser.role === 'buyer'
                       ? 'bg-done'
-                      : 'bg-ink-light'
+                      : 'bg-white/15'
                   }`}
                 >
                   {currentUser.name.charAt(0)}
@@ -176,7 +176,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onToggleTheme}
               variant="ghost"
               size="icon"
-              className="size-10 rounded-full bg-ink-light text-on-ink hover:bg-ink-light md:hidden"
+              className="size-10 rounded-full bg-white/10 text-on-ink hover:bg-white/15 md:hidden"
               title={isDarkMode ? 'تفعيل الوضع النهاري ☀️' : 'تفعيل الوضع الليلي 🌙'}
               aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
             >
