@@ -430,7 +430,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="w-full lg:w-1/2 flex lg:justify-end">
           <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
             <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
-              <Printer className="w-4 h-4 text-brass" strokeWidth={1.5} strokeWidth={1.4} />
+              <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
               <span>طباعة</span>
             </button>
             <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
