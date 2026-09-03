@@ -56,11 +56,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 pt-10 pb-8">
         {/* Eyebrow + Massive Heading - Editorial Luxury */}
         <div data-reveal className="reveal-section flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-3.5 py-1.5 ring-1 ring-line/10">
-              <span className="h-1.5 w-1.5 rounded-full bg-brass-light animate-pulse" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#FDFBF7]">Directory — Suppliers & Mills</span>
-            </div>
+          <div className="space-y-3">
             <div>
               <h1 className="font-palestine text-[32px] font-[400] leading-none tracking-[-0.03em] text-charcoal sm:text-[42px] lg:text-[48px]">
                 دليل <span className="font-palestine font-[400] not-italic text-brass">الموردين</span> والمصانع

@@ -65,11 +65,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
     <div className="space-y-8">
       {/* Header - Editorial Split + Double-Bezel */}
       <div data-reveal className="reveal-section">
-        <div className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-3.5 py-1.5 ring-1 ring-white/10">
-          <span className="h-1.5 w-1.5 rounded-full bg-late animate-pulse" />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-on-ink">Returns Ledger — Supplier Accounts</span>
-        </div>
-        <div className="mt-4 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
             <h1 className="font-palestine text-[32px] sm:text-[40px] lg:text-[48px] font-[400] leading-[0.9] tracking-[-0.03em] text-charcoal">
               سجل <span className="font-palestine font-[400] not-italic text-late">المرتجعات</span> وحسابات الموردين <span className="text-lg align-middle font-cairo font-bold text-copy-muted">({returns.length})</span>

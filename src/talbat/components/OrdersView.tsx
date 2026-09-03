@@ -410,11 +410,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
     <div className="grain-overlay space-y-8 bg-paper text-charcoal antialiased">
       {/* Editorial Split Header - Massive Left Typography / Right Actions */}
       <div data-reveal className="reveal-section flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 py-2">
-        <div className="w-full lg:w-1/2 space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-3.5 py-1.5 ring-1 ring-line/10">
-            <span className="h-1.5 w-1.5 rounded-full bg-brass animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FDFBF7]">Orders Ledger — All Requests</span>
-          </div>
+        <div className="w-full lg:w-1/2 space-y-2">
           <h1 className="font-palestine text-[32px] font-[400] leading-[0.92] tracking-[-0.03em] text-charcoal sm:text-[40px]">
             سجل <span className="font-palestine font-[400] not-italic text-brass">طلبات</span> العملاء
             <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-brass/70">({filteredOrders.length.toLocaleString('en-US')})</span>
