@@ -5,6 +5,8 @@ import {
   Truck,
   RotateCcw,
   Settings,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 
@@ -14,6 +16,8 @@ interface MobileNavigationProps {
   pendingCount: number;
   returnsCount: number;
   onOpenSettings: () => void;
+  isDarkMode?: boolean;
+  onToggleTheme?: () => void;
 }
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
@@ -22,6 +26,8 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   pendingCount,
   returnsCount,
   onOpenSettings,
+  isDarkMode,
+  onToggleTheme,
 }) => {
   const tabs = [
     {
@@ -99,6 +105,20 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             </button>
           );
         })}
+        {onToggleTheme && (
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-200 active:scale-95 hover:text-ink"
+            aria-label={isDarkMode ? 'الوضع النهاري' : 'الوضع الليلي'}
+            title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
+          >
+            {isDarkMode ? <Sun className="w-5 h-5 text-brass" /> : <Moon className="w-5 h-5" />}
+            <span className="text-[10px] mt-0.5 leading-tight font-medium">
+              {isDarkMode ? 'نهاري' : 'ليلي'}
+            </span>
+          </button>
+        )}
         <button
           type="button"
           onClick={onOpenSettings}

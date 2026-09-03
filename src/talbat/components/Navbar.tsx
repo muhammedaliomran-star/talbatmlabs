@@ -118,11 +118,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onToggleTheme}
               variant="ghost"
               size="icon"
-              className="hidden size-9 bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink lg:inline-flex"
-              title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
+              className="relative hidden md:inline-flex size-9 rounded-full bg-ink-light text-ink-muted hover:bg-ink-light hover:text-on-ink transition-colors overflow-hidden"
+              title={isDarkMode ? 'تفعيل الوضع النهاري ☀️' : 'تفعيل الوضع الليلي 🌙'}
               aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
             >
-              {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              <span className="relative flex items-center justify-center transition-transform duration-300">
+                {isDarkMode ? (
+                  <Sun className="w-4 h-4 animate-in spin-in-180 duration-300" />
+                ) : (
+                  <Moon className="w-4 h-4 animate-in zoom-in-50 duration-300" />
+                )}
+              </span>
             </Button>
 
             {/* User Profile Avatar Pill */}
@@ -170,8 +176,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={onToggleTheme}
               variant="ghost"
               size="icon"
-              className="size-10 bg-ink-light text-on-ink hover:bg-ink-light md:hidden"
-              title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
+              className="size-10 rounded-full bg-ink-light text-on-ink hover:bg-ink-light md:hidden"
+              title={isDarkMode ? 'تفعيل الوضع النهاري ☀️' : 'تفعيل الوضع الليلي 🌙'}
               aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
             >
               {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}

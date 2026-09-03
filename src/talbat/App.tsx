@@ -48,11 +48,16 @@ export default function App() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem('daftar_theme') === 'dark';
+    const stored = window.localStorage.getItem('daftar_theme');
+    if (stored === 'dark') return true;
+    if (stored === 'light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDarkMode);
+    const root = document.documentElement;
+    root.classList.toggle('dark', isDarkMode);
+    root.style.colorScheme = isDarkMode ? 'dark' : 'light';
     window.localStorage.setItem('daftar_theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
@@ -514,6 +519,8 @@ export default function App() {
         pendingCount={pendingCount}
         returnsCount={returnsCount}
         onOpenSettings={() => setIsProfileModalOpen(true)}
+        isDarkMode={isDarkMode}
+        onToggleTheme={() => setIsDarkMode((current) => !current)}
       />
 
       {/* Modals */}
