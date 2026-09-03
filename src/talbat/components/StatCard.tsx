@@ -54,9 +54,9 @@ export const StatCard: React.FC<StatCardProps> = ({
       >
       <div className="flex w-full flex-col">
       <div className="flex items-center justify-between gap-3 mb-3">
-        <span className="text-[10px] font-bold text-copy-muted uppercase">{title}</span>
+        <span className="text-[11px] font-bold tracking-wide text-copy-muted uppercase">{title}</span>
         {icon && (
-          <div className={`grid size-9 place-items-center rounded-full transition-transform duration-500 motion-spring group-hover:scale-105 ${colors.accent}`}>
+          <div className={`grid size-9 place-items-center rounded-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105 will-change-transform ${colors.accent}`}>
             {icon}
           </div>
         )}

@@ -57,7 +57,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
   const getStatusBadge = (order: Order) => {
     if (order.status === 'done') {
       return (
-        <span className="text-[10px] font-bold text-done bg-done-soft px-2 py-0.5 rounded-full">
+        <span className="text-[11px] font-bold text-done bg-done-soft px-2 py-0.5 rounded-full">
           تم الاستلام ✓
         </span>
       );
@@ -78,10 +78,10 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
             <Layers className="w-4 h-4" />
           </div>
           <div>
-            <span className="mb-1 block text-[10px] font-bold uppercase text-brass">آخر العمليات</span><h2 className="text-base sm:text-lg font-bold font-cairo text-ink">
+            <span className="mb-1 block text-[11px] font-bold uppercase tracking-wide text-brass">آخر العمليات</span><h2 className="text-base sm:text-lg font-bold font-cairo text-ink">
               النشاط المالي وسجل العمليات
             </h2>
-            <p className="text-[11px] text-copy-muted">
+            <p className="text-xs text-copy-muted">
               طلبيات الزبائن وتفاصيل الدفع والتوريد
             </p>
           </div>
@@ -169,7 +169,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                       >
                         {order.customerName}
                       </button>
-                      <span className="text-[10px] text-copy-muted font-cairo font-medium">
+                      <span className="text-[11px] text-copy-muted font-cairo font-medium">
                         #{order.orderNumber}
                       </span>
                     </div>
@@ -178,7 +178,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                       {order.description}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-1.5 mt-1 text-[10px]">
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1 text-[11px]">
                       {order.size && (
                         <span className="px-1.5 py-0.2 rounded-md bg-size-soft text-ink font-semibold">
                           {order.size}
@@ -201,15 +201,15 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                   </div>
 
                   {order.deposit !== undefined && order.deposit > 0 && remaining > 0 ? (
-                    <span className="text-[10px] text-pending font-semibold bg-pending-soft px-1.5 py-0.5 rounded">
+                    <span className="text-[11px] text-pending font-semibold bg-pending-soft px-1.5 py-0.5 rounded">
                       باقي: {formatCurrency(remaining)}
                     </span>
                   ) : order.status === 'done' ? (
-                    <span className="text-[10px] text-done font-semibold">
+                    <span className="text-[11px] text-done font-semibold">
                       تم السداد ✓
                     </span>
                   ) : (
-                    <span className="text-[10px] text-copy-muted">
+                    <span className="text-[11px] text-copy-muted">
                       مطلوب توريده
                     </span>
                   )}
@@ -227,7 +227,7 @@ export const WalletActivityFeed: React.FC<WalletActivityFeedProps> = ({
                     )}
                     <button
                       onClick={() => onToggleStatus(order.id)}
-                      className={`p-1 rounded-md text-[10px] font-bold transition-colors ${
+                      className={`p-1 rounded-md text-[11px] font-bold transition-colors ${
                         order.status === 'done'
                           ? 'text-pending hover:bg-pending-soft'
                           : 'text-done hover:bg-done-soft'
