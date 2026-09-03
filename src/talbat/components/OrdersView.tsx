@@ -429,10 +429,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
               <span>طباعة</span>
             </button>
-            <button type="button" onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
-              <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.4} />
-              <span>تصدير Excel</span>
-            </button>
+
             <button type="button" onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
               <span>طلب جديد</span>
               <span className="grid size-7 place-items-center rounded-full bg-canvas text-charcoal transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-[1.04]"><Plus className="size-4" strokeWidth={1.7} /></span>
@@ -526,18 +523,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               تم التنفيذ ({doneCount})
             </button>
-            <button type="button"
-              onClick={() => setOnlyRemaining((v) => !v)}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-1 ${
-                onlyRemaining
-                  ? 'bg-brass text-white shadow-xs'
-                  : 'bg-paper text-copy-muted hover:bg-paper-alt'
-              }`}
-              title="عرض الطلبات التي عليها مبلغ متبقٍ فقط"
-            >
-              <Wallet className="w-3.5 h-3.5" strokeWidth={1.5} />
-              عليه متبقٍ
-            </button>
+
           </div>
 
           <div className="grid grid-cols-1 gap-2 text-xs sm:flex sm:w-auto sm:items-center">
@@ -577,9 +563,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               <option value="orderDate:desc">الأحدث أولًا</option>
               <option value="orderDate:asc">الأقدم أولًا</option>
-              <option value="price:desc">السعر الأكبر</option>
-              <option value="price:asc">السعر الأقل</option>
-              <option value="remaining:desc">الأكثر متبقيًا</option>
               <option value="customer:asc">اسم العميل</option>
             </select>
           </div>
@@ -608,20 +591,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
         )}
 
-        {/* Totals for the current filter */}
-        {filteredOrders.length > 0 && (
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-2 border-t border-paper-alt text-[11px] sm:text-xs font-cairo">
-            <span className="text-copy-muted">
-              إجمالي الأسعار: <strong className="text-ink">{formatCurrency(totals.price)}</strong>
-            </span>
-            <span className="text-copy-muted">
-              العربون المحصّل: <strong className="text-done">{formatCurrency(totals.deposit)}</strong>
-            </span>
-            <span className="text-copy-muted">
-              المتبقي: <strong className="text-pending">{formatCurrency(totals.remaining)}</strong>
-            </span>
-          </div>
-        )}
+
         </div>
       </div>
 
@@ -748,8 +718,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   <SortHeader label="المورد" sortKeyName="supplier" />
                   <th className="p-3 font-cairo">تفاصيل الصنف والمقاس</th>
                   <SortHeader label="تاريخ الطلب" sortKeyName="orderDate" />
-                  <SortHeader label="السعر" sortKeyName="price" />
-                  <SortHeader label="المتبقي" sortKeyName="remaining" />
                   <SortHeader label="الحالة" sortKeyName="status" className="text-center" />
                   <th className="p-3 font-cairo text-left">إجراءات</th>
                 </tr>
@@ -862,18 +830,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         <div className="font-semibold text-ink">
                           {formatArabicDate(order.orderDate)}
                         </div>
-                      </td>
-
-                      <td className="p-3 whitespace-nowrap font-bold text-ink font-cairo">
-                        {formatCurrency(order.price)}
-                      </td>
-
-                      <td className="p-3 whitespace-nowrap font-cairo">
-                        {remaining > 0 ? (
-                          <span className="font-bold text-pending">{formatCurrency(remaining)}</span>
-                        ) : (
-                          <span className="text-copy-muted">مسدّد</span>
-                        )}
                       </td>
 
                       <td className="p-3 text-center whitespace-nowrap">
