@@ -56,7 +56,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
   return (
     <div className="md:hidden fixed bottom-2.5 left-2.5 right-2.5 z-40 pb-safe pointer-events-none">
-      <nav className="pointer-events-auto bg-canvas/95 backdrop-blur-md rounded-[22px] border border-line shadow-2xl px-1.5 py-1 flex items-center justify-around">
+      <nav className="pointer-events-auto bg-canvas/95 backdrop-blur-xl rounded-[22px] border border-line shadow-[0_24px_80px_-30px_rgba(26,18,7,0.18)] px-1.5 py-1 flex items-center justify-around">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -65,7 +65,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-200 active:scale-95 ${
+              className={`relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 will-change-transform ${
                 isActive
                   ? 'text-ink font-bold'
                   : 'text-copy-muted hover:text-ink'
@@ -78,7 +78,8 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
               <div className="relative">
                 <Icon
-                  className={`w-5 h-5 transition-transform ${
+                  strokeWidth={1.5}
+                  className={`w-5 h-5 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                     isActive ? 'text-brass scale-105' : 'text-copy-muted'
                   }`}
                 />
@@ -109,11 +110,11 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <button
             type="button"
             onClick={onToggleTheme}
-            className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-200 active:scale-95 hover:text-ink"
+            className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 hover:text-ink will-change-transform"
             aria-label={isDarkMode ? 'الوضع النهاري' : 'الوضع الليلي'}
             title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
           >
-            {isDarkMode ? <Sun className="w-5 h-5 text-brass" /> : <Moon className="w-5 h-5" />}
+            {isDarkMode ? <Sun className="w-5 h-5 text-brass" strokeWidth={1.5} /> : <Moon className="w-5 h-5" strokeWidth={1.5} />}
             <span className="text-[10px] mt-0.5 leading-tight font-medium">
               {isDarkMode ? 'نهاري' : 'ليلي'}
             </span>
@@ -122,10 +123,10 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         <button
           type="button"
           onClick={onOpenSettings}
-          className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-200 active:scale-95 hover:text-ink"
+          className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 hover:text-ink will-change-transform"
           aria-label="الإعدادات"
         >
-          <Settings className="w-5 h-5" />
+          <Settings className="w-5 h-5" strokeWidth={1.5} />
           <span className="text-[10px] mt-0.5 leading-tight font-medium">الإعدادات</span>
         </button>
       </nav>

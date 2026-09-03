@@ -3,6 +3,7 @@ import { Search, Phone, Plus, MessageCircle, Calendar } from 'lucide-react';
 import { Customer, Order } from '../types';
 import { formatArabicDate, formatCurrency, createWhatsAppUrl } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface CustomersViewProps {
   customers: Customer[];
@@ -24,6 +25,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
   onClearSelectedCustomer,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  useScrollReveal();
   const [mobileShowDetail, setMobileShowDetail] = useState(Boolean(selectedCustomerName));
   const [activeCustomerId, setActiveCustomerId] = useState<string | null>(() => {
     if (selectedCustomerName) {
@@ -60,14 +62,15 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
   const doneOrders = customerOrders.filter((o) => o.status === 'done');
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       {/* Top Header */}
-      <div className="bg-canvas rounded-[14px] p-4 sm:p-5 border border-line shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
+        <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-5 sm:p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold font-cairo text-ink">
+          <h1 className="font-[Fraunces] text-[32px] sm:text-[40px] font-[800] tracking-[-0.03em] text-charcoal">
             سجل العملاء والطلبات المجمعة
           </h1>
-          <p className="text-xs sm:text-sm text-copy-muted mt-0.5">
+          <p className="text-[15px] leading-7 text-copy-muted mt-2">
             عرض ملف كل عميل وكل طلباته المتفرقة من مختلف الموردين في مكان واحد
           </p>
         </div>
@@ -75,7 +78,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         {activeCustomer && (
           <button
             onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
-            className="flex items-center gap-1.5 bg-brass hover:bg-brass text-white px-3.5 py-2 rounded-[9px] text-xs sm:text-sm font-bold shadow-xs transition-all"
+            className="group flex items-center gap-1.5 bg-brass hover:bg-brass/90 text-white pl-2 pr-4 py-2.5 rounded-full text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
           >
             <Plus className="w-4 h-4" />
             <span>طلب جديد لـ {activeCustomer.name.split(' ')[0]}</span>
@@ -84,21 +87,21 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       </div>
 
       {/* Main Grid: Left is Customer list, Right is Customer Dossier */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
         {/* Customer Sidebar List (4 cols) */}
-        <div className={`lg:col-span-4 bg-canvas rounded-[14px] border border-line p-4 shadow-xs space-y-3 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-4 rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50 space-y-3 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           <div className="relative">
-            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" />
+            <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" strokeWidth={1.5} />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="ابحث باسم العميل أو هاتفه..."
-              className="w-full pr-9 pl-3 py-2 text-xs rounded-[9px] border border-line bg-paper focus:bg-canvas focus:outline-none focus:border-brass"
+              className="w-full pr-9 pl-3 py-2 text-xs rounded-full border border-line bg-paper focus:bg-canvas focus:outline-none focus:border-brass"
             />
           </div>
 
-          <div className="space-y-2 max-h-[600px] overflow-y-auto">
+          <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3"><div className="space-y-2 max-h-[600px] overflow-y-auto">
             {filteredCustomers.length === 0 ? (
               <div className="text-center py-6 text-xs text-copy-muted">
                 لا يوجد عملاء يطابقون البحث
@@ -155,7 +158,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
 
         {/* Customer Dossier / Profile (8 cols) */}
-        <div className={`lg:col-span-8 bg-canvas rounded-[14px] border border-line p-4 sm:p-5 shadow-xs space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
+        <div className={`lg:col-span-8 rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50 space-y-5 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
           {/* Mobile Back Button */}
           <div className="lg:hidden pb-2 border-b border-paper-alt mb-1">
             <button
@@ -196,14 +199,14 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                         rel="noopener noreferrer"
                         className="flex items-center gap-1.5 bg-done-soft text-done hover:bg-done-soft px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
                       >
-                        <MessageCircle className="w-4 h-4" />
+                        <MessageCircle className="w-4 h-4" strokeWidth={1.5} />
                         <span>مراسلة واتساب</span>
                       </a>
                       <a
                         href={`tel:${activeCustomer.phone}`}
                         className="flex items-center gap-1.5 bg-paper text-ink hover:bg-paper-alt px-3 py-1.5 rounded-lg text-xs font-bold transition-colors"
                       >
-                        <Phone className="w-4 h-4" />
+                        <Phone className="w-4 h-4" strokeWidth={1.5} />
                         <span dir="ltr">{activeCustomer.phone}</span>
                       </a>
                     </>
@@ -252,7 +255,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                     onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
                     className="text-xs font-bold text-brass hover:underline flex items-center gap-1"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-3.5 h-3.5" strokeWidth={1.5} />
                     <span>إضافة طلب جديد</span>
                   </button>
                 </div>
@@ -292,7 +295,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
 
                           <div className="flex flex-wrap items-center justify-between gap-2 text-xs pt-2 border-t border-paper-alt">
                             <div className="flex items-center gap-1.5 text-copy-muted">
-                              <Calendar className="w-3.5 h-3.5 text-brass" />
+                              <Calendar className="w-3.5 h-3.5 text-brass" strokeWidth={1.5} />
                               <span>تاريخ الطلب: {formatArabicDate(order.orderDate)}</span>
                             </div>
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Moon, Sun } from 'lucide-react';
+import React, { useState } from 'react';
+import { Plus, Download, Truck, RotateCcw, LayoutDashboard, ShoppingBag, Moon, Sun, Menu, X } from 'lucide-react';
 import { ActiveTab, User } from '../types';
 import { PWAInstallButton } from './PWAInstallButton';
 import { Button } from '@/components/ui/button';
@@ -37,6 +37,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'suppliers' as ActiveTab, label: 'الموردين', icon: Truck },
     { id: 'returns' as ActiveTab, label: 'المرتجعات', icon: RotateCcw },
   ];
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-3 z-40 px-3 text-on-ink md:top-5">
@@ -86,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'text-ink-muted hover:text-on-ink hover:bg-ink-light/50'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4" strokeWidth={1.5} />
                   <span>{tab.label}</span>
                   {tab.badge !== undefined && tab.badge > 0 && (
                     <span
@@ -111,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               variant="ghost" size="icon" className="hidden size-9 bg-white/10 text-on-ink hover:bg-white/15 hover:text-white sm:inline-flex"
               title="نسخ احتياطي وتصدير"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-4 h-4" strokeWidth={1.5} />
             </Button>
 
             <Button
@@ -169,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="group hidden h-10 bg-brass px-2 pr-3 text-xs font-bold text-on-ink hover:bg-brass/85 md:inline-flex md:px-2 md:pr-4 md:text-sm"
             >
               <span className="hidden xs:inline">طلب جديد</span>
-              <span className="grid size-7 place-items-center rounded-full bg-on-ink/15 transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105"><Plus className="size-4" /></span>
+              <span className="grid size-7 place-items-center rounded-full bg-on-ink/15 transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105"><Plus className="size-4" strokeWidth={1.7} /></span>
             </Button>
 
             <Button
@@ -180,11 +182,58 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={isDarkMode ? 'تفعيل الوضع النهاري ☀️' : 'تفعيل الوضع الليلي 🌙'}
               aria-label={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
             >
-              {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
+              {isDarkMode ? <Sun className="size-4" strokeWidth={1.5} /> : <Moon className="size-4" strokeWidth={1.5} />}
             </Button>
+
+            {/* Hamburger Morph - Mobile */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="grid md:hidden size-10 place-items-center rounded-full bg-white/10 text-on-ink hover:bg-white/15 transition-colors"
+              aria-label="القائمة"
+            >
+              <span className="relative flex flex-col items-center justify-center gap-1.5">
+                <span className={`block h-0.5 w-4 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                <span className={`block h-0.5 w-4 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100'}`} />
+                <span className={`block h-0.5 w-4 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              </span>
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Fluid Island Modal - Mobile */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-ink-deep/80 backdrop-blur-3xl md:hidden">
+          <div className="flex h-16 items-center justify-between px-6 py-4">
+            <span className="font-cairo font-extrabold text-lg text-on-ink">القائمة</span>
+            <button onClick={() => setIsMenuOpen(false)} className="grid size-10 place-items-center rounded-full bg-white/10 text-on-ink">
+              <X className="w-5 h-5" strokeWidth={1.5} />
+            </button>
+          </div>
+          <nav className="flex flex-1 flex-col justify-center gap-3 px-6 pb-12">
+            {tabs.map((tab, idx) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => { setActiveTab(tab.id); setIsMenuOpen(false); }}
+                  style={{ transitionDelay: `${100 + idx * 60}ms` }}
+                  className={`flex items-center gap-4 rounded-[1.5rem] px-6 py-5 text-lg font-bold transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform ${isActive ? 'bg-brass text-on-ink shadow-lg' : 'bg-white/5 text-on-ink/80 hover:bg-white/10 hover:text-on-ink'}`}
+                >
+                  <Icon className="w-6 h-6" strokeWidth={1.5} />
+                  <span>{tab.label}</span>
+                  {tab.badge !== undefined && tab.badge > 0 && <span className="ml-auto rounded-full bg-white/15 px-2.5 py-1 text-xs font-bold">{tab.badge}</span>}
+                </button>
+              );
+            })}
+            <div className="mt-6 flex gap-3">
+              <button onClick={onOpenNewOrder} className="flex-1 rounded-full bg-brass py-4 text-sm font-bold text-on-ink">طلب جديد</button>
+              <button onClick={onOpenBackup} className="rounded-full bg-white/10 px-6 py-4 text-sm font-bold text-on-ink ring-1 ring-white/10">نسخ احتياطي</button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

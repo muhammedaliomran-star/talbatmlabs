@@ -388,7 +388,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       <button
         type="button"
         onClick={() => handleSort(sortKeyName)}
-        className={`inline-flex items-center gap-1 font-cairo transition-colors ${
+        className={`inline-flex items-center gap-1 font-cairo transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           sortKey === sortKeyName ? 'text-brass' : 'text-ink hover:text-brass'
         }`}
         title="اضغط للترتيب"
@@ -396,9 +396,9 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <span>{label}</span>
         {sortKey === sortKeyName &&
           (sortDir === 'asc' ? (
-            <ArrowUp className="w-3 h-3" />
+            <ArrowUp className="w-3 h-3" strokeWidth={1.5} />
           ) : (
-            <ArrowDown className="w-3 h-3" />
+            <ArrowDown className="w-3 h-3" strokeWidth={1.5} />
           ))}
       </button>
     </th>
@@ -407,9 +407,9 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const hasNoOrdersAtAll = orders.length === 0;
 
   return (
-    <div className="grain-overlay space-y-6 bg-paper text-charcoal antialiased">
+    <div className="grain-overlay space-y-8 bg-paper text-charcoal antialiased">
       {/* Editorial Split Header - Massive Left Typography / Right Actions */}
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 py-2">
+      <div data-reveal className="reveal-section flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 py-2">
         <div className="w-full lg:w-1/2 space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-ink-deep px-3.5 py-1.5 ring-1 ring-line/10">
             <span className="h-1.5 w-1.5 rounded-full bg-brass animate-pulse" />
@@ -430,11 +430,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="w-full lg:w-1/2 flex lg:justify-end">
           <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
             <button onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
-              <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
+              <Printer className="w-4 h-4 text-brass" strokeWidth={1.5} strokeWidth={1.4} />
               <span>طباعة</span>
             </button>
             <button onClick={() => exportOrdersToCSV(filteredOrders)} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
-              <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.4} />
+              <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} strokeWidth={1.4} />
               <span>تصدير Excel</span>
             </button>
             <button onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
@@ -446,11 +446,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       </div>
 
       {/* Filter and Search - Soft Structuralism Double-Bezel */}
-      <div className="rounded-[2rem] bg-canvas/60 p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] backdrop-blur-sm">
+      <div data-reveal className="reveal-section rounded-[2rem] bg-canvas/60 p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] backdrop-blur-sm">
         <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1 min-w-0">
-              <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
+              <Search className="w-4 h-4" strokeWidth={1.5} absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
               <input
                 type="text"
                 value={searchInput}
@@ -466,7 +466,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                 title="مسح البحث"
                 aria-label="مسح البحث"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4" strokeWidth={1.5} />
               </button>
             )}
           </div>
@@ -475,7 +475,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <div className="flex items-center bg-paper p-1 rounded-lg border border-line">
               <button
                 onClick={() => setViewMode('table')}
-                className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
+                className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   viewMode === 'table' ? 'bg-canvas text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
                 }`}
                 title="عرض جدول"
@@ -485,7 +485,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               </button>
               <button
                 onClick={() => setViewMode('cards')}
-                className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors ${
+                className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                   viewMode === 'cards' ? 'bg-canvas text-ink shadow-xs' : 'text-copy-muted hover:text-ink'
                 }`}
                 title="عرض بطاقات"
@@ -502,7 +502,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs w-full sm:w-auto">
             <button
               onClick={() => setStatusFilter('all')}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-colors ${
+              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                 statusFilter === 'all'
                   ? 'bg-ink text-white shadow-xs'
                   : 'bg-paper text-copy-muted hover:bg-paper-alt'
@@ -512,7 +512,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
             <button
               onClick={() => setStatusFilter('pending')}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-colors ${
+              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                 statusFilter === 'pending'
                   ? 'bg-pending text-white shadow-xs'
                   : 'bg-pending-soft text-pending hover:bg-pending-soft'
@@ -522,7 +522,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
             <button
               onClick={() => setStatusFilter('done')}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-colors ${
+              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                 statusFilter === 'done'
                   ? 'bg-done text-white shadow-xs'
                   : 'bg-done-soft text-done hover:bg-done-soft'
@@ -532,14 +532,14 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
             <button
               onClick={() => setOnlyRemaining((v) => !v)}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-colors flex items-center gap-1 ${
+              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center gap-1 ${
                 onlyRemaining
                   ? 'bg-brass text-white shadow-xs'
                   : 'bg-paper text-copy-muted hover:bg-paper-alt'
               }`}
               title="عرض الطلبات التي عليها مبلغ متبقٍ فقط"
             >
-              <Wallet className="w-3.5 h-3.5" />
+              <Wallet className="w-3.5 h-3.5" strokeWidth={1.5} />
               عليه متبقٍ
             </button>
           </div>
@@ -640,13 +640,13 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               onClick={() => applyBulkStatus('done')}
               className="flex items-center gap-1 bg-done text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
-              <Check className="w-3.5 h-3.5" /> تعليم كـ تم
+              <Check className="w-3.5 h-3.5" strokeWidth={1.5} /> تعليم كـ تم
             </button>
             <button
               onClick={() => applyBulkStatus('pending')}
               className="flex items-center gap-1 bg-pending text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
-              <Clock className="w-3.5 h-3.5" /> إعادة كمعلّق
+              <Clock className="w-3.5 h-3.5" strokeWidth={1.5} /> إعادة كمعلّق
             </button>
             <button
               onClick={() =>
@@ -654,7 +654,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               }
               className="flex items-center gap-1 bg-canvas/10 hover:bg-canvas/20 px-3 py-2 rounded-lg text-xs font-bold"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5" /> تصدير المحدد
+              <FileSpreadsheet className="w-3.5 h-3.5" strokeWidth={1.5} /> تصدير المحدد
             </button>
             <button
               onClick={() =>
@@ -665,14 +665,14 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               }
               className="flex items-center gap-1 bg-late text-white px-3 py-2 rounded-lg text-xs font-bold"
             >
-              <Trash2 className="w-3.5 h-3.5" /> حذف
+              <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /> حذف
             </button>
             <button
               onClick={() => setSelectedIds([])}
               className="p-2 rounded-lg hover:bg-canvas/10"
               title="إلغاء التحديد"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -683,7 +683,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         hasNoOrdersAtAll ? (
           <div className="bg-canvas rounded-[14px] p-12 text-center border border-line">
             <div className="w-14 h-14 rounded-full bg-brass/10 text-brass mx-auto flex items-center justify-center mb-3">
-              <Notebook className="w-7 h-7" />
+              <Notebook className="w-7 h-7" strokeWidth={1.5} />
             </div>
             <h3 className="text-base font-bold font-cairo text-ink">دفترك جاهز — لم تسجّل أي طلب بعد</h3>
             <p className="text-xs text-copy-muted mt-1 mb-4">
@@ -700,7 +700,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         ) : (
           <div className="bg-canvas rounded-[14px] p-12 text-center border border-line">
             <div className="w-12 h-12 rounded-full bg-paper text-copy-muted mx-auto flex items-center justify-center mb-3">
-              <Search className="w-6 h-6" />
+              <Search className="w-6 h-6" strokeWidth={1.5} />
             </div>
             <h3 className="text-base font-bold font-cairo text-ink">
               لا توجد طلبات تطابق الفلترة المحددة
@@ -736,7 +736,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="rounded-[2rem] bg-canvas p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] overflow-hidden">
           <div className="overflow-x-auto max-h-[70vh] rounded-[calc(2rem-0.5rem)] bg-canvas ring-1 ring-line">
             <table className="w-full text-right text-xs">
-              <thead className="sticky top-0 z-10 bg-paper-alt/95 backdrop-blur border-b-2 border-brass text-ink">
+              <thead className="bg-paper-alt/80 backdrop-blur border-b border-line/50 text-ink">
                 <tr>
                   <th className="p-3 w-10">
                     <input
@@ -767,7 +767,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                     <tr
                       key={order.id}
                       onClick={() => onEditOrder(order)}
-                      className={`cursor-pointer transition-colors hover:bg-paper-warm ${
+                      className={`cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-paper-warm ${
                         isSelected
                           ? 'bg-brass/10'
                           : idx % 2 === 0
@@ -856,7 +856,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                               title={`ملاحظة: ${order.notes}`}
                               aria-label={`ملاحظة: ${order.notes}`}
                             >
-                              <StickyNote className="w-4 h-4" />
+                              <StickyNote className="w-4 h-4" strokeWidth={1.5} />
                             </span>
                           )}
                         </div>
@@ -888,7 +888,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => onToggleStatus(order.id)}
-                            className={`p-2.5 rounded-[7px] text-xs font-semibold flex items-center gap-1 transition-colors ${
+                            className={`p-2.5 rounded-[7px] text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                               order.status === 'done'
                                 ? 'bg-pending-soft text-pending hover:bg-pending-soft'
                                 : 'bg-done-soft text-done hover:bg-done-soft'
@@ -906,7 +906,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                             <button
                               type="button"
                               onClick={() => (onOpenWhatsApp ? onOpenWhatsApp(order) : undefined)}
-                              className="p-2.5 text-done hover:bg-done-soft rounded-[7px] transition-colors"
+                              className="p-2.5 text-done hover:bg-done-soft rounded-[7px] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
                               title="رسائل وقوالب واتساب"
                             >
                               <MessageCircle className="w-4 h-4" />
@@ -915,7 +915,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
                           <button
                             onClick={() => onEditOrder(order)}
-                            className="p-2.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[7px] transition-colors"
+                            className="p-2.5 text-copy-muted hover:text-ink hover:bg-paper rounded-[7px] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
                             title="تعديل"
                           >
                             <Edit2 className="w-4 h-4" />
@@ -928,7 +928,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                                 label: `طلب #${order.orderNumber} — ${order.customerName}`,
                               })
                             }
-                            className="p-2.5 text-copy-muted hover:text-late hover:bg-late-soft rounded-[7px] transition-colors"
+                            className="p-2.5 text-copy-muted hover:text-late hover:bg-late-soft rounded-[7px] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
                             title="حذف"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -946,7 +946,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
       {/* Pagination - Floating Island */}
       {filteredOrders.length > 0 && (
-        <div className="rounded-full bg-ink-deep px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs ring-1 ring-line/10 shadow-[0_16px_50px_-20px_rgba(26,18,7,0.5)]">
+        <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50"><div className="rounded-[calc(2rem-0.5rem)] bg-ink-deep px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
           <div className="flex items-center gap-2 text-white/60">
             <span>
               عرض {(currentPage - 1) * pageSize + 1}–
@@ -973,7 +973,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               className="p-2 rounded-lg border border-line bg-paper text-ink disabled:opacity-40"
               title="الصفحة السابقة"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
             </button>
             <span className="font-bold font-cairo text-ink px-2">
               {currentPage} / {totalPages}
@@ -984,7 +984,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               className="p-2 rounded-lg border border-line bg-paper text-ink disabled:opacity-40"
               title="الصفحة التالية"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -1001,7 +1001,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="w-12 h-12 rounded-full bg-late-soft text-late mx-auto flex items-center justify-center mb-3">
-              <Trash2 className="w-6 h-6" />
+              <Trash2 className="w-6 h-6" strokeWidth={1.5} />
             </div>
             <h3 className="font-bold font-cairo text-ink text-base">تأكيد الحذف</h3>
             <p className="text-xs text-copy-muted mt-1">
