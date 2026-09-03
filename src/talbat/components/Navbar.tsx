@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-cairo font-extrabold text-xl tracking-tight text-on-ink max-w-[180px] truncate">
+                <span className="font-palestine font-extrabold text-xl tracking-tight text-on-ink max-w-[180px] truncate">
                   {currentUser?.storeName || 'دَفْتَر'}
                 </span>
                 <span className="text-[11px] bg-brass text-on-ink font-semibold px-2 py-0.5 rounded-full border border-brass/30">

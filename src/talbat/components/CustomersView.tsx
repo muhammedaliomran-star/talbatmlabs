@@ -67,7 +67,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
       <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
         <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-5 sm:p-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-[Fraunces] text-[32px] sm:text-[40px] font-[800] tracking-[-0.03em] text-charcoal">
+          <h1 className="font-palestine text-[32px] sm:text-[40px] font-[400] tracking-[-0.03em] text-charcoal">
             سجل العملاء والطلبات المجمعة
           </h1>
           <p className="text-[15px] leading-7 text-copy-muted mt-2">

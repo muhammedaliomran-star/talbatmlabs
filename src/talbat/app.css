@@ -1,4 +1,13 @@
 
+@font-face {
+  font-family: 'Palestine';
+  src: url('/fonts/palestine-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+0660-0669, U+0020-007E;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,700;9..144,0,800;9..144,0,900;9..144,1,700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Cairo:wght@600;700;800&display=swap');
 
 @layer base {
@@ -40,6 +49,11 @@
 
 .font-tajawal {
   font-family: 'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-palestine {
+  font-family: 'Palestine', 'Cairo', system-ui, serif;
+  font-feature-settings: "locl" 0;
 }
 
 /* Custom garment hang-tag style from the Design System */

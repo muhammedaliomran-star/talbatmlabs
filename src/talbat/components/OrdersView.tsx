@@ -415,8 +415,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <span className="h-1.5 w-1.5 rounded-full bg-brass animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FDFBF7]">Orders Ledger — All Requests</span>
           </div>
-          <h1 className="font-[Fraunces] text-[32px] font-[800] leading-[0.92] tracking-[-0.03em] text-charcoal sm:text-[40px]">
-            سجل <span className="italic font-[700] text-brass">طلبات</span> العملاء
+          <h1 className="font-palestine text-[32px] font-[400] leading-[0.92] tracking-[-0.03em] text-charcoal sm:text-[40px]">
+            سجل <span className="font-[Fraunces] italic font-[700] text-brass">طلبات</span> العملاء
             <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-brass/70">({filteredOrders.length.toLocaleString('en-US')})</span>
           </h1>
           <p className="max-w-[520px] text-[13px] leading-6 text-copy-muted">متابعة الأصناف والأسعار وحالة كل طلب — أرشيف منظم بمسافات تنفس واسعة وظلال محيطة ناعمة.</p>
