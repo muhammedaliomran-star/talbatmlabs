@@ -988,6 +988,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </button>
           </div>
         </div>
+        </div>
       )}
 
       {/* Delete confirmation */}
