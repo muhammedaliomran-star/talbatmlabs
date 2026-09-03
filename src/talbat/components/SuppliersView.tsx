@@ -63,7 +63,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
             </div>
             <div>
               <h1 className="font-palestine text-[32px] font-[400] leading-none tracking-[-0.03em] text-charcoal sm:text-[42px] lg:text-[48px]">
-                دليل <span className="font-[Fraunces] font-[700] italic text-brass">الموردين</span> والمصانع
+                دليل <span className="font-palestine font-[400] not-italic text-brass">الموردين</span> والمصانع
                 <span className="ml-3 align-super text-[18px] font-medium tracking-[0.14em] text-brass/70 sm:text-[22px]">({suppliers.length.toLocaleString('en-US')})</span>
               </h1>
               <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted sm:text-[14px]">

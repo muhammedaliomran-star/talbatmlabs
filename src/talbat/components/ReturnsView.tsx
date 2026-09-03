@@ -72,7 +72,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
         <div className="mt-4 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
             <h1 className="font-palestine text-[32px] sm:text-[40px] lg:text-[48px] font-[400] leading-[0.9] tracking-[-0.03em] text-charcoal">
-              سجل <span className="font-[Fraunces] italic font-[700] text-late">المرتجعات</span> وحسابات الموردين <span className="text-lg align-middle font-cairo font-bold text-copy-muted">({returns.length})</span>
+              سجل <span className="font-palestine font-[400] not-italic text-late">المرتجعات</span> وحسابات الموردين <span className="text-lg align-middle font-cairo font-bold text-copy-muted">({returns.length})</span>
             </h1>
             <p className="mt-3 max-w-[560px] text-[15px] leading-7 text-copy-muted">توثيق البضائع المعيبة والمرتجعة لتسويتها وخصمها من حسابات الموردين — طبقة ورقية فوق دفترك.</p>
           </div>

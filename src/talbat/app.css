@@ -52,6 +52,7 @@
 .font-palestine {
   font-family: 'Palestine', 'Cairo', system-ui, serif;
   font-feature-settings: "locl" 0;
+  font-synthesis: none;
 }
 
 /* Custom garment hang-tag style from the Design System */

@@ -56,7 +56,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-on-ink">Atelier Dashboard — Live Ledger</span>
         </div>
         <h1 className="mt-4 font-palestine text-[32px] font-[400] leading-[0.9] tracking-[-0.03em] text-charcoal sm:text-[42px] lg:text-[52px]">
-          نظرة <span className="font-[Fraunces] italic font-[700] text-brass">اليوم</span> على الدفتر
+          نظرة <span className="font-palestine font-[400] not-italic text-brass">اليوم</span> على الدفتر
         </h1>
         <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted">
           محفظة حيّة، مؤشرات متراكبة، ونشاط لحظي — كل شيء مصمم كطبقات ورقية فوق بعضها.
