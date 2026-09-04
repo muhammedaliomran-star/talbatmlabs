@@ -74,9 +74,10 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
           </div>
           <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50 shrink-0">
             <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-1.5 flex items-center gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-              <button type="button" onClick={() => exportReturnsToCSV(filteredReturns)} className="inline-flex items-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-ink border border-line px-5 py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
+              <button type="button" onClick={() => exportReturnsToCSV(filteredReturns)} className="group inline-flex items-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-ink ring-1 ring-line px-5 py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
                 <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} />
                 <span>تصدير Excel</span>
+                <span className="grid size-7 place-items-center rounded-full bg-ink-deep text-white transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><ArrowUpLeft className="size-3.5" strokeWidth={1.8} /></span>
               </button>
               <button type="button" onClick={onOpenNewReturn} className="group inline-flex items-center gap-2 rounded-full bg-late hover:bg-late/90 text-white pl-2 pr-4 py-2.5 text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
                 <span>تسجيل مرتجع جديد</span>
@@ -131,7 +132,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
               {supplierBreakdown.map((item) => (
-                <div key={item.supplierId} onClick={() => setSupplierFilter(item.supplierId)} className={`p-4 rounded-[1.2rem] border cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${supplierFilter === item.supplierId ? 'bg-paper-warm border-brass ring-1 ring-brass shadow-xs' : 'bg-paper/60 border-paper-alt hover:bg-paper-warm hover:border-line'}`}>
+                <div key={item.supplierId} onClick={() => setSupplierFilter(item.supplierId)} className={`p-4 rounded-[1.2rem] ring-1 cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${supplierFilter === item.supplierId ? 'bg-paper-warm ring-brass shadow-xs' : 'bg-paper/60 ring-line/50 hover:bg-paper-warm hover:ring-line'}`}>
                   <div className="font-bold text-sm text-ink line-clamp-1">{item.name}</div>
                   <div className="flex items-center justify-between mt-3 pt-3 border-t border-paper-alt">
                     <span className="text-xs text-copy-muted">{item.count} أصناف</span>
@@ -201,7 +202,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             <div className="rounded-[calc(2rem-0.5rem)] bg-canvas overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
               <div className="overflow-x-auto">
                 <table className="w-full text-right text-sm">
-                  <thead className="bg-paper-alt/80 backdrop-blur">
+                  <thead className="bg-paper-alt/90">
                     <tr className="border-b border-line/50">
                       <th className="p-4 font-cairo font-bold text-charcoal">الصنف المرتجع</th>
                       <th className="p-4 font-cairo font-bold text-charcoal">المورد</th>

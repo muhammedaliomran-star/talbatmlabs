@@ -97,7 +97,7 @@ export const AuthPortal: React.FC = () => {
   };
 
   const field =
-    'w-full bg-canvas border border-line rounded-xl py-3 pr-11 pl-4 text-[15px] text-charcoal placeholder:text-placeholder outline-none focus:border-brass focus:ring-2 focus:ring-brass/15 transition';
+    'w-full bg-canvas ring-1 ring-line rounded-full py-3 pr-11 pl-4 text-[15px] text-charcoal placeholder:text-placeholder outline-none focus:ring-2 focus:ring-brass/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]';
 
   return (
     <div className="min-h-screen bg-paper text-charcoal flex flex-col lg:flex-row-reverse">
@@ -121,14 +121,15 @@ export const AuthPortal: React.FC = () => {
         </div>
       </div>
 
-      {/* Form */}
+      {/* Form - Paper Atelier Double-Bezel */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 lg:py-16">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
+          <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-6 sm:p-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.18)]">
           <div className="mb-9">
             <div className="w-11 h-11 rounded-xl bg-brass flex items-center justify-center mb-6">
-              <Store className="w-5 h-5 text-white" />
+              <Store className="w-5 h-5 text-white" strokeWidth={1.5} />
             </div>
-            <h1 className="text-[30px] leading-tight font-semibold tracking-tight">
+            <h1 className="font-palestine text-[30px] leading-tight font-[400] tracking-tight">
               {mode === 'login' && 'أهلاً بعودتك'}
               {mode === 'register' && 'ابدأ دفترك'}
               {mode === 'forgot' && 'استعادة كلمة السر'}
@@ -157,15 +158,15 @@ export const AuthPortal: React.FC = () => {
             {mode === 'register' && (
               <>
                 <div className="relative">
-                  <UserIcon className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
+                  <UserIcon className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" strokeWidth={1.5} />
                   <input className={field} placeholder="اسمك" value={name} maxLength={80} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div className="relative">
-                  <Store className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
+                  <Store className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" strokeWidth={1.5} />
                   <input className={field} placeholder="اسم المتجر" value={storeName} maxLength={80} onChange={(e) => setStoreName(e.target.value)} />
                 </div>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
+                  <Phone className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" strokeWidth={1.5} />
                   <input className={field} placeholder="رقم الهاتف (اختياري)" value={phone} maxLength={20} onChange={(e) => setPhone(e.target.value)} />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -174,10 +175,10 @@ export const AuthPortal: React.FC = () => {
                       type="button"
                       key={r.value}
                       onClick={() => setRole(r.value)}
-                      className={`rounded-xl border px-2 py-2.5 text-[13px] transition ${
+                      className={`rounded-full ring-1 px-2 py-2.5 text-[13px] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
                         role === r.value
-                          ? 'border-pending bg-pending-soft text-pending font-medium'
-                          : 'border-line bg-canvas text-copy-muted hover:border-line'
+                          ? 'ring-pending bg-pending-soft text-pending font-medium'
+                          : 'ring-line bg-canvas text-copy-muted hover:ring-line'
                       }`}
                     >
                       {r.label}
@@ -188,7 +189,7 @@ export const AuthPortal: React.FC = () => {
             )}
 
             <div className="relative">
-              <Mail className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
+              <Mail className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" strokeWidth={1.5} />
               <input
                 type="email"
                 autoComplete="email"
@@ -202,7 +203,7 @@ export const AuthPortal: React.FC = () => {
 
             {mode !== 'forgot' && (
               <div className="relative">
-                <Lock className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" />
+                <Lock className="w-4 h-4 text-placeholder absolute top-1/2 -translate-y-1/2 right-4" strokeWidth={1.5} />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
@@ -218,7 +219,7 @@ export const AuthPortal: React.FC = () => {
                   className="absolute top-1/2 -translate-y-1/2 left-4 text-placeholder hover:text-copy-muted"
                   aria-label="إظهار كلمة السر"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? <EyeOff className="w-4 h-4" strokeWidth={1.5} /> : <Eye className="w-4 h-4" strokeWidth={1.5} />}
                 </button>
               </div>
             )}
@@ -235,6 +236,7 @@ export const AuthPortal: React.FC = () => {
                 : mode === 'register'
                 ? 'إنشاء الحساب'
                 : 'إرسال الرابط'}
+              <span className="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
             </button>
           </form>
 
@@ -248,7 +250,7 @@ export const AuthPortal: React.FC = () => {
               <button
                 type="button"
                 onClick={googleSignIn}
-                className="w-full rounded-xl border border-line bg-canvas py-3.5 text-[15px] font-medium hover:border-line transition flex items-center justify-center gap-2.5"
+                className="w-full rounded-full ring-1 ring-line bg-canvas py-3.5 text-[15px] font-medium hover:ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] flex items-center justify-center gap-2.5"
               >
                 <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" aria-hidden="true">
                   <path fill="var(--google-blue)" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.9z" />
@@ -284,6 +286,7 @@ export const AuthPortal: React.FC = () => {
                 العودة لتسجيل الدخول
               </button>
             )}
+          </div>
           </div>
         </div>
       </div>
