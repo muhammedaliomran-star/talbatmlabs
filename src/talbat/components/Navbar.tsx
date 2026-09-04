@@ -185,10 +185,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               {isDarkMode ? <Sun className="size-4" strokeWidth={1.5} /> : <Moon className="size-4" strokeWidth={1.5} />}
             </Button>
 
-            {/* Hamburger Morph - Mobile */}
+            {/* Hamburger Morph - Mobile - hidden, use bottom nav instead */}
             <button type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="grid md:hidden size-10 place-items-center rounded-full bg-white/10 text-on-ink hover:bg-white/15 transition-colors"
+              className="hidden size-10 place-items-center rounded-full bg-white/10 text-on-ink hover:bg-white/15 transition-colors"
               aria-label="القائمة"
             >
               <span className="relative flex flex-col items-center justify-center gap-1.5">

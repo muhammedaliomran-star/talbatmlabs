@@ -19,6 +19,7 @@ import {
   ChevronLeft,
   Wallet,
   Notebook,
+  Filter,
 } from 'lucide-react';
 import { Order, Supplier } from '../types';
 import { formatArabicDate, formatCurrency } from '../utils/helpers';
@@ -151,6 +152,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [pendingDelete, setPendingDelete] = useState<{ ids: string[]; label: string } | null>(null);
+  const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
   // Debounced search
   useEffect(() => {
@@ -524,7 +526,10 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
           </div>
 
-          <div className="grid grid-cols-1 gap-2 text-xs sm:flex sm:w-auto sm:items-center">
+          <button type="button" onClick={() => setIsFilterDrawerOpen(true)} className="sm:hidden inline-flex items-center gap-1.5 rounded-full bg-ink-deep text-white px-4 py-2.5 text-xs font-bold">
+            <Filter className="w-3.5 h-3.5" strokeWidth={1.5} /> فلتر
+          </button>
+          <div className="hidden sm:flex sm:w-auto sm:items-center gap-2 text-xs">
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value as DateRange)}
@@ -611,6 +616,40 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         </div>
       </div>
 
+      {isFilterDrawerOpen && (
+        <div className="fixed inset-0 z-50 bg-ink/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-4" onClick={() => setIsFilterDrawerOpen(false)}>
+          <div className="bg-canvas rounded-[1.5rem] p-4 w-full max-w-sm space-y-3" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold font-cairo text-ink">فلتر الطلبات</h3>
+              <button type="button" onClick={() => setIsFilterDrawerOpen(false)} className="grid size-8 place-items-center rounded-full hover:bg-paper text-copy-muted"><X className="w-4 h-4" strokeWidth={1.5} /></button>
+            </div>
+            <select value={dateRange} onChange={(e) => setDateRange(e.target.value as DateRange)} className="w-full bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink focus:bg-canvas">
+              {(Object.keys(DATE_LABELS) as DateRange[]).map((key) => (
+                <option key={key} value={key}>{DATE_LABELS[key]}</option>
+              ))}
+            </select>
+            <select value={supplierFilter} onChange={(e) => setSupplierFilter(e.target.value)} className="w-full bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink focus:bg-canvas">
+              <option value="all">كل الموردين</option>
+              {suppliers.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+            </select>
+            <select value={`${sortKey}:${sortDir}`} onChange={(e) => { const [key, dir] = e.target.value.split(':'); setSortKey(key as SortKey); setSortDir(dir as SortDir); }} className="w-full bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink focus:bg-canvas">
+              <option value="orderDate:desc">الأحدث أولًا</option>
+              <option value="orderDate:asc">الأقدم أولًا</option>
+              <option value="price:desc">السعر الأكبر</option>
+              <option value="price:asc">السعر الأقل</option>
+              <option value="remaining:desc">الأكثر متبقيًا</option>
+              <option value="customer:asc">اسم العميل</option>
+            </select>
+            {dateRange === 'custom' && (
+              <div className="grid grid-cols-2 gap-2">
+                <label className="flex flex-col gap-1 text-xs font-semibold text-copy-muted">من تاريخ<input type="date" value={customFrom} onChange={(e) => setCustomFrom(e.target.value)} className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink" /></label>
+                <label className="flex flex-col gap-1 text-xs font-semibold text-copy-muted">إلى تاريخ<input type="date" value={customTo} onChange={(e) => setCustomTo(e.target.value)} className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink" /></label>
+              </div>
+            )}
+            <button type="button" onClick={() => setIsFilterDrawerOpen(false)} className="w-full rounded-full bg-ink-deep text-white py-3 text-sm font-bold">تطبيق الفلتر</button>
+          </div>
+        </div>
+      )}
 
 
       {/* Bulk actions - Floating Glass Island */}
@@ -927,7 +966,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       )}
 
       {/* Pagination - Floating Island */}
-      {filteredOrders.length > 0 && (
+      {filteredOrders.length > 0 && totalPages > 1 && (
         <div className="rounded-[2rem] bg-ink-deep px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-xs ring-1 ring-line/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_16px_50px_-20px_rgba(26,18,7,0.22)]">
           <div className="flex items-center gap-2 text-white/60">
             <span>

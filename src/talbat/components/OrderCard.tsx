@@ -66,10 +66,12 @@ export const OrderCard: React.FC<OrderCardProps> = ({
         </div>
       </div>
 
-      {/* Description */}
-      <div className="text-sm text-charcoal bg-paper/60 p-2.5 rounded-[9px] mb-2.5 leading-relaxed border border-paper-alt">
-        {order.description}
-      </div>
+      {/* Description - hide if empty or single char */}
+      {order.description?.trim().length > 1 && (
+        <div className="text-sm text-charcoal bg-paper/60 p-2.5 rounded-[9px] mb-2.5 leading-relaxed border border-paper-alt">
+          {order.description}
+        </div>
+      )}
 
       {/* Specifications Chips: Size, Color, Alternative Color, Quantity */}
       {(order.size || order.color || order.alternativeColor || (order.quantity && order.quantity > 1)) && (
