@@ -326,5 +326,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
       </div>
     </div>
+    </div>
+
   );
 };
