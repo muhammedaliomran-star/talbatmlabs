@@ -4,6 +4,7 @@ import { ReturnItem, ReturnStatus, Supplier } from '../types';
 import { formatArabicDate, formatCurrency } from '../utils/helpers';
 import { exportReturnsToCSV } from '../utils/exportToCsv';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface ReturnsViewProps {
   returns: ReturnItem[];
@@ -157,16 +158,22 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="ابحث بالصنف، المورد، أو سبب الإرجاع..." className="w-full pr-9 pl-4 py-2.5 text-sm rounded-full border border-line bg-paper focus:bg-canvas focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" />
           </div>
           <div className="flex items-center gap-2">
-            <select value={supplierFilter} onChange={(e) => setSupplierFilter(e.target.value)} className="bg-paper border border-line rounded-full px-4 py-2.5 text-sm font-medium text-ink focus:outline-none focus:border-brass transition-colors">
-              <option value="all">كل الموردين</option>
-              {suppliers.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-            </select>
-            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="bg-paper border border-line rounded-full px-4 py-2.5 text-sm font-medium text-ink focus:outline-none focus:border-brass transition-colors">
-              <option value="all">كل الحالات</option>
-              <option value="pending_supplier">معلق مع المورد</option>
-              <option value="refunded">تم استرداد القيمة</option>
-              <option value="exchanged">تم الاستبدال</option>
-            </select>
+            <Select value={supplierFilter} onValueChange={(v) => setSupplierFilter(v)}>
+              <SelectTrigger className="w-[140px]"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الموردين</SelectItem>
+                {suppliers.map((s) => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v)}>
+              <SelectTrigger className="w-[140px]"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الحالات</SelectItem>
+                <SelectItem value="pending_supplier">معلق مع المورد</SelectItem>
+                <SelectItem value="refunded">تم استرداد القيمة</SelectItem>
+                <SelectItem value="exchanged">تم الاستبدال</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>
@@ -192,7 +199,14 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                   </div>
                   {ret.reason && <div className="text-xs text-copy-muted bg-paper-warm p-3 rounded-xl border border-line-soft leading-6">السبب: {ret.reason}</div>}
                   <div className="flex items-center justify-between pt-3 border-t border-paper-alt gap-2">
-                    <select value={ret.status} onChange={(e) => onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)} className="bg-paper border border-line rounded-full px-3 py-1.5 text-xs font-semibold text-ink flex-1 max-w-[170px] focus:outline-none focus:border-brass">{['pending_supplier','refunded','exchanged'].map(v=> <option key={v} value={v}>{v==='pending_supplier'?'معلق مع المورد':v==='refunded'?'تم استرداد القيمة':'تم الاستبدال'}</option>)}</select>
+                    <Select value={ret.status} onValueChange={(v) => onUpdateReturnStatus(ret.id, v as ReturnStatus)}>
+                      <SelectTrigger className="flex-1 max-w-[170px] h-8 text-xs"><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pending_supplier">معلق مع المورد</SelectItem>
+                        <SelectItem value="refunded">تم استرداد القيمة</SelectItem>
+                        <SelectItem value="exchanged">تم الاستبدال</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <div className="flex items-center gap-1 shrink-0">
                       <button type="button" onClick={() => onEditReturn(ret)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-ink hover:bg-paper transition-colors" title="تعديل"><Edit2 className="w-4 h-4" strokeWidth={1.5} /></button>
                       <button type="button" onClick={() => onDeleteReturn(ret.id)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-late hover:bg-late-soft transition-colors" title="حذف"><Trash2 className="w-4 h-4" strokeWidth={1.5} /></button>
@@ -225,7 +239,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                         <td className="p-4 max-w-xs text-copy-muted text-sm">{ret.reason || '—'}</td>
                         <td className="p-4 whitespace-nowrap text-copy-muted text-sm">{formatArabicDate(ret.returnDate)}</td>
                         <td className="p-4 whitespace-nowrap"><span className="font-cairo font-bold text-sm text-late">{formatCurrency(ret.price)}</span></td>
-                        <td className="p-4 text-center whitespace-nowrap"><select value={ret.status} onChange={(e) => onUpdateReturnStatus(ret.id, e.target.value as ReturnStatus)} className="bg-canvas border border-line rounded-full px-3 py-1.5 text-xs font-semibold text-ink focus:outline-none focus:border-brass">{['pending_supplier','refunded','exchanged'].map(v=> <option key={v} value={v}>{v==='pending_supplier'?'معلق مع المورد':v==='refunded'?'تم استرداد القيمة':'تم الاستبدال'}</option>)}</select></td>
+                        <td className="p-4 text-center whitespace-nowrap"><Select value={ret.status} onValueChange={(v) => onUpdateReturnStatus(ret.id, v as ReturnStatus)}><SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="pending_supplier">معلق مع المورد</SelectItem><SelectItem value="refunded">تم استرداد القيمة</SelectItem><SelectItem value="exchanged">تم الاستبدال</SelectItem></SelectContent></Select></td>
                         <td className="p-4 text-left whitespace-nowrap"><div className="flex items-center justify-end gap-1"><button type="button" onClick={() => onEditReturn(ret)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-ink hover:bg-paper transition-colors" title="تعديل"><Edit2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button><button type="button" onClick={() => onDeleteReturn(ret.id)} className="grid size-8 place-items-center rounded-full text-copy-muted hover:text-late hover:bg-late-soft transition-colors" title="حذف"><Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} /></button></div></td>
                       </tr>
                     ))}

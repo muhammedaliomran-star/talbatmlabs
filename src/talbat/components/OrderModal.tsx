@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, User, Phone, Store, Calendar, FileText, CheckCircle2, Layers, Palette, Hash } from 'lucide-react';
 import { Customer, Order, OrderStatus, Supplier } from '../types';
 import { getTodayDateString, normalizeToEnglishDigits } from '../utils/helpers';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -297,19 +298,14 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               </div>
             ) : null}
 
-            <select
-              value={supplierId}
-              onChange={(e) => setSupplierId(e.target.value)}
-              required
-              className="w-full px-3 py-2 text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass"
-            >
-              <option value="">-- اختر المورد المطلوب الشراء منه --</option>
-              {suppliers.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name} {s.address ? `(${s.address})` : ''}
-                </option>
-              ))}
-            </select>
+            <Select value={supplierId} onValueChange={setSupplierId} required>
+              <SelectTrigger><SelectValue placeholder="-- اختر المورد المطلوب الشراء منه --" /></SelectTrigger>
+              <SelectContent>
+                {suppliers.map((s) => (
+                  <SelectItem key={s.id} value={s.id}>{s.name} {s.address ? `(${s.address})` : ''}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Description (Items, details) */}

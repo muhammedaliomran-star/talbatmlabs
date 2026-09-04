@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, RotateCcw, DollarSign, Store, Tag, FileText, Calendar } from 'lucide-react';
 import { Order, ReturnItem, ReturnStatus, Supplier } from '../types';
 import { getTodayDateString, normalizeToEnglishDigits } from '../utils/helpers';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface ReturnModalProps {
   isOpen: boolean;
@@ -134,18 +135,15 @@ export const ReturnModal: React.FC<ReturnModalProps> = ({
               <span>مرتبط بطلب عميل سابق؟</span>
               <span className="text-[10px] text-copy-muted font-normal">(اختياري)</span>
             </label>
-            <select
-              value={orderId}
-              onChange={(e) => handleOrderSelect(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-[9px] border border-line bg-paper"
-            >
-              <option value="">-- مرتجع عام (غير مرتبط بطلب معين) --</option>
-              {orders.map((o) => (
-                <option key={o.id} value={o.id}>
-                  #{o.orderNumber} - {o.customerName} ({o.description.substring(0, 30)}...)
-                </option>
-              ))}
-            </select>
+            <Select value={orderId || "none"} onValueChange={(v) => handleOrderSelect(v === "none" ? "" : v)}>
+              <SelectTrigger><SelectValue placeholder="-- مرتجع عام (غير مرتبط بطلب معين) --" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">-- مرتجع عام --</SelectItem>
+                {orders.map((o) => (
+                  <SelectItem key={o.id} value={o.id}>#{o.orderNumber} - {o.customerName} ({o.description.substring(0, 30)}...)</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Product Name */}
@@ -185,19 +183,14 @@ export const ReturnModal: React.FC<ReturnModalProps> = ({
               <label className="block text-xs font-bold text-ink mb-1.5">
                 المورد (هيترجع لمين) <span className="text-red-500">*</span>
               </label>
-              <select
-                value={supplierId}
-                onChange={(e) => setSupplierId(e.target.value)}
-                required
-                className="w-full px-3 py-2 text-xs rounded-[9px] border border-line bg-paper"
-              >
-                <option value="">-- اختر المورد --</option>
-                {suppliers.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
+              <Select value={supplierId} onValueChange={setSupplierId} required>
+                <SelectTrigger><SelectValue placeholder="-- اختر المورد --" /></SelectTrigger>
+                <SelectContent>
+                  {suppliers.map((s) => (
+                    <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -236,15 +229,14 @@ export const ReturnModal: React.FC<ReturnModalProps> = ({
               <label className="block text-xs font-bold text-ink mb-1.5">
                 حالة المرتجع مع المورد
               </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value as ReturnStatus)}
-                className="w-full px-3 py-2 text-xs rounded-[9px] border border-line bg-paper"
-              >
-                <option value="pending_supplier">معلق (لم يُسلَم للمورد بعد)</option>
-                <option value="refunded">تم استرداد المبلغ كاش / خصم من الحساب</option>
-                <option value="exchanged">تم الاستبدال بقطعة سليمة</option>
-              </select>
+              <Select value={status} onValueChange={(v) => setStatus(v as ReturnStatus)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pending_supplier">معلق (لم يُسلَم للمورد بعد)</SelectItem>
+                  <SelectItem value="refunded">تم استرداد المبلغ كاش / خصم من الحساب</SelectItem>
+                  <SelectItem value="exchanged">تم الاستبدال بقطعة سليمة</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 

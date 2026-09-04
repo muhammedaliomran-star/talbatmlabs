@@ -28,6 +28,7 @@ import { printOrders } from '../utils/printOrders';
 import { StatusBadge } from './StatusBadge';
 import { OrderCard } from './OrderCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type StatusFilter = 'all' | 'pending' | 'done';
 type DateRange = 'all' | 'today' | 'week' | 'month' | 'custom';
@@ -530,47 +531,36 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <Filter className="w-3.5 h-3.5" strokeWidth={1.5} /> فلتر
           </button>
           <div className="hidden sm:flex sm:w-auto sm:items-center gap-2 text-xs">
-            <select
-              value={dateRange}
-              onChange={(e) => setDateRange(e.target.value as DateRange)}
-              className="bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink w-full focus:bg-canvas"
-            >
-              {(Object.keys(DATE_LABELS) as DateRange[]).map((key) => (
-                <option key={key} value={key}>
-                  {DATE_LABELS[key]}
-                </option>
-              ))}
-            </select>
+            <Select value={dateRange} onValueChange={(v) => setDateRange(v as DateRange)}>
+              <SelectTrigger className="w-[140px]"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {(Object.keys(DATE_LABELS) as DateRange[]).map((key) => (
+                  <SelectItem key={key} value={key}>{DATE_LABELS[key]}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            <select
-              value={supplierFilter}
-              onChange={(e) => setSupplierFilter(e.target.value)}
-              className="bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink w-full focus:bg-canvas"
-            >
-              <option value="all">كل الموردين</option>
-              {suppliers.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
+            <Select value={supplierFilter} onValueChange={(v) => setSupplierFilter(v)}>
+              <SelectTrigger className="w-[150px]"><SelectValue placeholder="كل الموردين" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الموردين</SelectItem>
+                {suppliers.map((s) => (
+                  <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-            <select
-              value={`${sortKey}:${sortDir}`}
-              onChange={(e) => {
-                const [key, dir] = e.target.value.split(':');
-                setSortKey(key as SortKey);
-                setSortDir(dir as SortDir);
-              }}
-              className="bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink w-full focus:bg-canvas"
-            >
-              <option value="orderDate:desc">الأحدث أولًا</option>
-              <option value="orderDate:asc">الأقدم أولًا</option>
-              <option value="price:desc">السعر الأكبر</option>
-              <option value="price:asc">السعر الأقل</option>
-              <option value="remaining:desc">الأكثر متبقيًا</option>
-              <option value="customer:asc">اسم العميل</option>
-            </select>
+            <Select value={`${sortKey}:${sortDir}`} onValueChange={(v) => { const [key, dir] = v.split(':'); setSortKey(key as SortKey); setSortDir(dir as SortDir); }}>
+              <SelectTrigger className="w-[150px]"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="orderDate:desc">الأحدث أولًا</SelectItem>
+                <SelectItem value="orderDate:asc">الأقدم أولًا</SelectItem>
+                <SelectItem value="price:desc">السعر الأكبر</SelectItem>
+                <SelectItem value="price:asc">السعر الأقل</SelectItem>
+                <SelectItem value="remaining:desc">الأكثر متبقيًا</SelectItem>
+                <SelectItem value="customer:asc">اسم العميل</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -623,23 +613,32 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <h3 className="font-bold font-cairo text-ink">فلتر الطلبات</h3>
               <button type="button" onClick={() => setIsFilterDrawerOpen(false)} className="grid size-8 place-items-center rounded-full hover:bg-paper text-copy-muted"><X className="w-4 h-4" strokeWidth={1.5} /></button>
             </div>
-            <select value={dateRange} onChange={(e) => setDateRange(e.target.value as DateRange)} className="w-full bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink focus:bg-canvas">
-              {(Object.keys(DATE_LABELS) as DateRange[]).map((key) => (
-                <option key={key} value={key}>{DATE_LABELS[key]}</option>
-              ))}
-            </select>
-            <select value={supplierFilter} onChange={(e) => setSupplierFilter(e.target.value)} className="w-full bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink focus:bg-canvas">
-              <option value="all">كل الموردين</option>
-              {suppliers.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-            </select>
-            <select value={`${sortKey}:${sortDir}`} onChange={(e) => { const [key, dir] = e.target.value.split(':'); setSortKey(key as SortKey); setSortDir(dir as SortDir); }} className="w-full bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink focus:bg-canvas">
-              <option value="orderDate:desc">الأحدث أولًا</option>
-              <option value="orderDate:asc">الأقدم أولًا</option>
-              <option value="price:desc">السعر الأكبر</option>
-              <option value="price:asc">السعر الأقل</option>
-              <option value="remaining:desc">الأكثر متبقيًا</option>
-              <option value="customer:asc">اسم العميل</option>
-            </select>
+            <Select value={dateRange} onValueChange={(v) => setDateRange(v as DateRange)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {(Object.keys(DATE_LABELS) as DateRange[]).map((key) => (
+                  <SelectItem key={key} value={key}>{DATE_LABELS[key]}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={supplierFilter} onValueChange={(v) => setSupplierFilter(v)}>
+              <SelectTrigger><SelectValue placeholder="كل الموردين" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الموردين</SelectItem>
+                {suppliers.map((s) => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
+              </SelectContent>
+            </Select>
+            <Select value={`${sortKey}:${sortDir}`} onValueChange={(v) => { const [key, dir] = v.split(':'); setSortKey(key as SortKey); setSortDir(dir as SortDir); }}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="orderDate:desc">الأحدث أولًا</SelectItem>
+                <SelectItem value="orderDate:asc">الأقدم أولًا</SelectItem>
+                <SelectItem value="price:desc">السعر الأكبر</SelectItem>
+                <SelectItem value="price:asc">السعر الأقل</SelectItem>
+                <SelectItem value="remaining:desc">الأكثر متبقيًا</SelectItem>
+                <SelectItem value="customer:asc">اسم العميل</SelectItem>
+              </SelectContent>
+            </Select>
             {dateRange === 'custom' && (
               <div className="grid grid-cols-2 gap-2">
                 <label className="flex flex-col gap-1 text-xs font-semibold text-copy-muted">من تاريخ<input type="date" value={customFrom} onChange={(e) => setCustomFrom(e.target.value)} className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink" /></label>
@@ -973,18 +972,16 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               عرض {(currentPage - 1) * pageSize + 1}–
               {Math.min(currentPage * pageSize, filteredOrders.length)} من {filteredOrders.length}
             </span>
-            <select
-              value={pageSize}
-              onChange={(e) => setPageSize(Number(e.target.value))}
-              className="bg-paper border border-line rounded-lg px-2 py-1.5 font-medium text-ink"
-              title="عدد الصفوف في الصفحة"
-            >
+            <Select value={String(pageSize)} onValueChange={(v) => setPageSize(Number(v))}>
+              <SelectTrigger className="w-[110px] bg-paper border-0 ring-1 ring-line text-ink"><SelectValue /></SelectTrigger>
+              <SelectContent>
               {[25, 50, 100].map((n) => (
-                <option key={n} value={n}>
+                <SelectItem key={n} value={String(n)}>
                   {n} / صفحة
-                </option>
+                </SelectItem>
               ))}
-            </select>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="flex items-center gap-1.5">
