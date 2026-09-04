@@ -220,12 +220,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                     </div>
 
                     <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي المشتريات</div>
-                          <div className="mt-1 font-[Fraunces] text-[22px] sm:text-[24px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{formatCurrency(totalSpent)}</div>
-                          <div className="mt-1 text-[11px] font-medium text-copy-muted">{customerOrders.length} طلب</div>
-                        </div>
+                      <div className="rounded-[1.6rem] bg-canvas px-4 py-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي المشتريات</div>
+                        <div className="mt-1 font-[Fraunces] text-[22px] sm:text-[24px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{formatCurrency(totalSpent)}</div>
+                        <div className="mt-1 text-[11px] font-medium text-copy-muted">{customerOrders.length} طلب</div>
                       </div>
+
                       <div className="rounded-[1.6rem] bg-done/10 p-1.5 ring-1 ring-done/15">
                         <div className="rounded-[calc(1.6rem-0.375rem)] bg-paper px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-done">العربين المدفوعة</div>
