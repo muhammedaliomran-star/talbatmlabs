@@ -77,7 +77,9 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted sm:text-[14px]">
                 عرض ملف كل عميل وكل طلباته المتفرقة من مختلف الموردين في مكان واحد — دفتر خزنة زمني متسلسل.
               </p>
+            </div>
           </div>
+
           {activeCustomer && (
             <button type="button"
               onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
