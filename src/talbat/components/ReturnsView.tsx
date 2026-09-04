@@ -222,7 +222,9 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                   </tbody>
                 </table>
               </div>
+            </div>
           </div>
+
         </>
       )}
     </div>
