@@ -49,6 +49,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   // Suggestions for customers
   const [suggestions, setSuggestions] = useState<Customer[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [showPhoneField, setShowPhoneField] = useState(false);
+  const [showNotesField, setShowNotesField] = useState(false);
+  const [showAllSizes, setShowAllSizes] = useState(false);
+  const [showAllColors, setShowAllColors] = useState(false);
 
   useEffect(() => {
     if (initialOrder) {
@@ -63,6 +67,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       setOrderDate(initialOrder.orderDate || getTodayDateString());
       setStatus(initialOrder.status || 'pending');
       setNotes(initialOrder.notes || '');
+      setShowPhoneField(!!initialOrder.customerPhone);
+      setShowNotesField(!!initialOrder.notes);
     } else {
       // New order defaults
       setCustomerName('');
@@ -83,6 +89,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
         if (found) {
           setCustomerName(found.name);
           setCustomerPhone(found.phone || '');
+          if (found.phone) setShowPhoneField(true);
         }
       }
     }
@@ -245,21 +252,31 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               )}
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
-                <Phone className="w-3.5 h-3.5 text-brass" />
-                <span>رقم هاتف العميل</span>
-                <span className="text-[10px] text-copy-muted font-normal">(اختياري)</span>
-              </label>
-              <input
-                type="tel"
-                value={customerPhone}
-                onChange={(e) => setCustomerPhone(normalizeToEnglishDigits(e.target.value))}
-                placeholder="010XXXXXXXX"
-                dir="ltr"
-                className="w-full px-3 py-2 text-sm rounded-[9px] border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass text-right font-cairo font-semibold"
-              />
-            </div>
+            {showPhoneField ? (
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-bold text-ink flex items-center gap-1">
+                    <Phone className="w-3.5 h-3.5 text-brass" />
+                    <span>رقم هاتف العميل</span>
+                  </label>
+                  <button type="button" onClick={() => { setShowPhoneField(false); setCustomerPhone(''); }} className="text-[11px] text-copy-muted hover:text-ink">إخفاء</button>
+                </div>
+                <input
+                  type="tel"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(normalizeToEnglishDigits(e.target.value))}
+                  placeholder="010XXXXXXXX"
+                  dir="ltr"
+                  className="w-full px-3 py-3 text-sm rounded-full border-0 ring-1 ring-line bg-paper focus:bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 text-right font-cairo font-semibold min-h-[44px]"
+                />
+              </div>
+            ) : (
+              <div className="flex items-end">
+                <button type="button" onClick={() => setShowPhoneField(true)} className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-ink ring-1 ring-line hover:bg-canvas transition-colors min-h-[44px]">
+                  <Phone className="w-3.5 h-3.5 text-brass" /> + إضافة هاتف
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Supplier Selection */}
@@ -335,28 +352,33 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   <Layers className="w-3.5 h-3.5 text-brass" />
                   <span>المقاس (Size)</span>
                 </label>
-                <div className="flex flex-wrap gap-1 mb-1.5">
-                  {COMMON_SIZES.map((s) => (
+                <div className="flex flex-wrap gap-1.5 mb-1.5">
+                  {(showAllSizes ? COMMON_SIZES : COMMON_SIZES.slice(0, 6)).map((s) => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setSize(s)}
-                      className={`px-2 py-0.5 text-[11px] font-semibold rounded-md border transition-colors ${
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
                         size === s
-                          ? 'bg-ink text-white border-ink'
-                          : 'bg-white text-ink border-line hover:bg-pending-soft'
+                          ? 'bg-ink text-white ring-ink'
+                          : 'bg-white text-ink ring-line hover:bg-pending-soft'
                       }`}
                     >
                       {s}
                     </button>
                   ))}
+                  {COMMON_SIZES.length > 6 && (
+                    <button type="button" onClick={() => setShowAllSizes(!showAllSizes)} className="px-2.5 py-1 text-[11px] font-bold rounded-full bg-paper ring-1 ring-line hover:bg-canvas">
+                      {showAllSizes ? 'أقل' : `+${COMMON_SIZES.length - 6} المزيد`}
+                    </button>
+                  )}
                 </div>
                 <input
                   type="text"
                   value={size}
                   onChange={(e) => setSize(e.target.value)}
                   placeholder="أو اكتب المقاس هنا (مثال: 42 أو 8 سنوات)"
-                  className="w-full px-3 py-1.5 text-xs rounded-[8px] border border-line bg-white focus:outline-none focus:border-brass"
+                  className="w-full px-3 py-2.5 text-xs rounded-full border-0 ring-1 ring-line bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]"
                 />
               </div>
 
@@ -370,7 +392,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="w-8 h-8 rounded-lg border border-line bg-white hover:bg-paper font-bold text-ink flex items-center justify-center text-base"
+                    className="w-11 h-11 rounded-full border-0 ring-1 ring-line bg-white hover:bg-paper font-bold text-ink flex items-center justify-center text-lg min-h-[44px] min-w-[44px]"
                   >
                     -
                   </button>
@@ -379,12 +401,12 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                     min="1"
                     value={quantity}
                     onChange={(e) => setQuantity(Math.max(1, parseInt(normalizeToEnglishDigits(e.target.value)) || 1))}
-                    className="w-16 h-8 text-center text-sm font-cairo font-bold rounded-lg border border-line bg-white focus:outline-none focus:border-brass"
+                    className="w-16 h-11 text-center text-sm font-cairo font-bold rounded-full border-0 ring-1 ring-line bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]"
                   />
                   <button
                     type="button"
                     onClick={() => setQuantity((q) => q + 1)}
-                    className="w-8 h-8 rounded-lg border border-line bg-white hover:bg-paper font-bold text-ink flex items-center justify-center text-base"
+                    className="w-11 h-11 rounded-full border-0 ring-1 ring-line bg-white hover:bg-paper font-bold text-ink flex items-center justify-center text-lg min-h-[44px] min-w-[44px]"
                   >
                     +
                   </button>
@@ -407,10 +429,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                       key={c}
                       type="button"
                       onClick={() => setColor(c)}
-                      className={`px-2 py-0.5 text-[11px] font-semibold rounded-md border transition-colors ${
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
                         color === c
-                          ? 'bg-ink text-white border-ink'
-                          : 'bg-white text-ink border-line hover:bg-pending-soft'
+                          ? 'bg-ink text-white ring-ink'
+                          : 'bg-white text-ink ring-line hover:bg-pending-soft'
                       }`}
                     >
                       {c}
@@ -426,7 +448,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                 />
               </div>
 
-              {/* Alternative Color */}
+              {/* Alternative Color - conditional */}
+              {color.trim() && (
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label className="text-xs font-bold text-ink flex items-center gap-1">
@@ -441,10 +464,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                       key={c}
                       type="button"
                       onClick={() => setAlternativeColor(c)}
-                      className={`px-2 py-0.5 text-[11px] font-semibold rounded-md border transition-colors ${
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
                         alternativeColor === c
-                          ? 'bg-brass text-white border-brass'
-                          : 'bg-white text-ink border-line hover:bg-pending-soft'
+                          ? 'bg-brass text-white ring-brass'
+                          : 'bg-white text-ink ring-line hover:bg-pending-soft'
                       }`}
                     >
                       {c}
@@ -456,9 +479,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   value={alternativeColor}
                   onChange={(e) => setAlternativeColor(e.target.value)}
                   placeholder="مثال: رمادي أو بني (اختياري)"
-                  className="w-full px-3 py-1.5 text-xs rounded-[8px] border border-line bg-white focus:outline-none focus:border-brass"
+                  className="w-full px-3 py-2.5 text-xs rounded-full border-0 ring-1 ring-line bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]"
                 />
               </div>
+              )}
             </div>
           </div>
 
@@ -510,19 +534,29 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </div>
           </div>
 
-          {/* Notes */}
-          <div>
-            <label className="block text-xs font-bold text-ink mb-1">
-              ملاحظات إضافية
-            </label>
-            <input
-              type="text"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="مثال: يرجى التأكد من الخامة، العميل مستعجل"
-              className="w-full px-3 py-1.5 text-xs rounded-[9px] border border-line bg-paper"
-            />
-          </div>
+          {/* Notes - collapsible */}
+          {showNotesField ? (
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-bold text-ink flex items-center gap-1">
+                  <FileText className="w-3.5 h-3.5 text-brass" />
+                  <span>ملاحظات إضافية</span>
+                </label>
+                <button type="button" onClick={() => { setShowNotesField(false); setNotes(''); }} className="text-[11px] text-copy-muted hover:text-ink">إخفاء</button>
+              </div>
+              <input
+                type="text"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="مثال: يرجى التأكد من الخامة، العميل مستعجل"
+                className="w-full px-3 py-3 text-xs rounded-full border-0 ring-1 ring-line bg-paper focus:bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]"
+              />
+            </div>
+          ) : (
+            <button type="button" onClick={() => setShowNotesField(true)} className="inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-ink ring-1 ring-line hover:bg-canvas transition-colors min-h-[44px]">
+              <FileText className="w-3.5 h-3.5 text-brass" /> + إضافة ملاحظة
+            </button>
+          )}
 
           {/* Submit Actions */}
           <div className="sticky bottom-0 -mx-4 mt-2 flex items-center justify-end gap-2 border-t border-line bg-white px-4 pt-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:-mx-5 sm:px-5">
