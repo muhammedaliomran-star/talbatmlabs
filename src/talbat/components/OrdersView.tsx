@@ -434,8 +434,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       </div>
 
       {/* Filter and Search - Soft Structuralism Double-Bezel */}
-      <div data-reveal className="reveal-section rounded-[2rem] bg-canvas/60 p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] backdrop-blur-sm">
-        <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
+      <div data-reveal className="reveal-section rounded-[2rem] bg-canvas p-4 sm:p-6 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1 min-w-0">
               <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
@@ -694,8 +693,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           ))}
         </div>
       ) : (
-        <div className="rounded-[2rem] bg-canvas p-2 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] overflow-hidden">
-          <div className="overflow-x-auto max-h-[70vh] rounded-[calc(2rem-0.5rem)] bg-canvas ring-1 ring-line">
+        <div className="rounded-[2rem] bg-canvas ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden">
+          <div className="overflow-x-auto max-h-[70vh]">
             <table className="w-full text-right text-xs">
               <thead className="bg-paper-alt/80 backdrop-blur border-b border-line/50 text-ink">
                 <tr>
@@ -893,7 +892,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
 
       {/* Pagination - Floating Island */}
       {filteredOrders.length > 0 && (
-        <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50"><div className="rounded-[calc(2rem-0.5rem)] bg-ink-deep px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+        <div className="rounded-[2rem] bg-ink-deep px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-xs ring-1 ring-line/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_16px_50px_-20px_rgba(26,18,7,0.22)]">
           <div className="flex items-center gap-2 text-white/60">
             <span>
               عرض {(currentPage - 1) * pageSize + 1}–
@@ -934,7 +933,6 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
             </button>
           </div>
-        </div>
         </div>
       )}
 
