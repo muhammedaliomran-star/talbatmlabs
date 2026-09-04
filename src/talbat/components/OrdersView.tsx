@@ -407,11 +407,11 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
   const hasNoOrdersAtAll = orders.length === 0;
 
   return (
-    <div className="grain-overlay space-y-8 bg-paper text-charcoal antialiased">
+    <div className="space-y-8 bg-paper text-charcoal antialiased">
       {/* Editorial Split Header - Massive Left Typography / Right Actions */}
-      <div data-reveal className="reveal-section flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 py-2">
-        <div className="w-full lg:w-1/2 space-y-2">
-          <h1 className="font-palestine text-[32px] font-[400] leading-[0.92] tracking-[-0.03em] text-charcoal sm:text-[40px]">
+      <div data-reveal className="reveal-section flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 pt-4 pb-2 overflow-visible">
+        <div className="w-full lg:w-1/2 space-y-3">
+          <h1 className="font-palestine text-[32px] font-[400] leading-[1.05] tracking-[-0.03em] text-charcoal sm:text-[40px] overflow-visible pb-1">
             سجل <span className="font-palestine font-[400] not-italic text-brass">طلبات</span> العملاء
             <span className="ml-2 align-super text-[16px] font-semibold tracking-[0.14em] text-brass/70">({filteredOrders.length.toLocaleString('en-US')})</span>
           </h1>
@@ -419,7 +419,10 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         </div>
 
         <div className="w-full lg:w-1/2 flex lg:justify-end">
-          <div className="flex w-full lg:w-auto items-center gap-2 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
+          <div className="flex w-full lg:w-auto items-center gap-1.5 overflow-x-auto no-scrollbar rounded-[2rem] bg-canvas p-1.5 ring-1 ring-line shadow-[0_16px_50px_-30px_rgba(26,18,7,0.22)]">
+            <button type="button" onClick={() => exportOrdersToCSV(filteredOrders)} className="grid size-9 place-items-center rounded-full bg-paper ring-1 ring-line hover:bg-canvas text-done transition-colors" title="تصدير Excel">
+              <FileSpreadsheet className="w-4 h-4" strokeWidth={1.4} />
+            </button>
             <button type="button" onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
               <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
               <span>طباعة</span>
@@ -434,7 +437,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       </div>
 
       {/* Filter and Search - Soft Structuralism Double-Bezel */}
-      <div data-reveal className="reveal-section rounded-[2rem] bg-canvas p-4 sm:p-6 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
+      <div data-reveal className="reveal-section rounded-[2rem] bg-canvas p-4 sm:p-6 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),0_12px_32px_-16px_rgba(26,18,7,0.12),inset_0_1px_1px_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(26,18,7,0.04)] space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1 min-w-0">
               <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
@@ -557,6 +560,9 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             >
               <option value="orderDate:desc">الأحدث أولًا</option>
               <option value="orderDate:asc">الأقدم أولًا</option>
+              <option value="price:desc">السعر الأكبر</option>
+              <option value="price:asc">السعر الأقل</option>
+              <option value="remaining:desc">الأكثر متبقيًا</option>
               <option value="customer:asc">اسم العميل</option>
             </select>
           </div>
@@ -585,6 +591,22 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
         )}
 
+        {filteredOrders.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="rounded-[1.2rem] bg-canvas px-4 py-3 ring-1 ring-line shadow-[0_12px_30px_-20px_rgba(26,18,7,0.16),inset_0_1px_1px_rgba(255,255,255,0.9)] flex items-center justify-between">
+              <span className="text-[11px] font-bold text-copy-muted">الإجمالي</span>
+              <span className="text-sm font-bold font-cairo text-ink">{formatCurrency(totals.price)}</span>
+            </div>
+            <div className="rounded-[1.2rem] bg-done-soft/60 px-4 py-3 ring-1 ring-done/20 shadow-[0_12px_30px_-20px_rgba(26,18,7,0.12)] flex items-center justify-between">
+              <span className="text-[11px] font-bold text-done">المحصّل</span>
+              <span className="text-sm font-bold font-cairo text-done">{formatCurrency(totals.deposit)}</span>
+            </div>
+            <div className="rounded-[1.2rem] bg-pending-soft/50 px-4 py-3 ring-1 ring-brass/20 shadow-[0_12px_30px_-20px_rgba(26,18,7,0.12)] flex items-center justify-between">
+              <span className="text-[11px] font-bold text-pending">المتبقي</span>
+              <span className="text-sm font-bold font-cairo text-pending">{formatCurrency(totals.remaining)}</span>
+            </div>
+          </div>
+        )}
       </div>
 
 
@@ -695,7 +717,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="rounded-[2rem] bg-canvas ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden">
           <div className="overflow-x-auto max-h-[70vh]">
             <table className="w-full text-right text-xs">
-              <thead className="bg-transparent border-b border-line/30 text-ink">
+              <thead className="bg-paper-alt/60 backdrop-blur-sm border-b border-line/40 text-ink sticky top-0 z-10">
                 <tr>
                   <th className="p-3 w-10">
                     <input
@@ -711,6 +733,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                   <SortHeader label="المورد" sortKeyName="supplier" />
                   <th className="p-3 font-cairo">تفاصيل الصنف والمقاس</th>
                   <SortHeader label="تاريخ الطلب" sortKeyName="orderDate" />
+                  <SortHeader label="السعر" sortKeyName="price" className="hidden xl:table-cell" />
+                  <SortHeader label="المتبقي" sortKeyName="remaining" className="hidden xl:table-cell" />
                   <SortHeader label="الحالة" sortKeyName="status" className="text-center" />
                   <th className="p-3 font-cairo text-left">إجراءات</th>
                 </tr>
@@ -724,8 +748,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                     <tr
                       key={order.id}
                       onClick={() => onEditOrder(order)}
-                      className={`cursor-pointer transition-colors hover:bg-paper-warm ${
-                        isSelected ? 'bg-brass/10' : 'bg-transparent'
+                      className={`cursor-pointer transition-colors hover:bg-paper-warm/70 ${
+                        isSelected ? 'bg-brass/10' : idx % 2 === 0 ? 'bg-transparent' : 'bg-canvas-subtle/40'
                       } ${remaining > 0 ? 'border-r-2 border-r-pending' : ''}`}
                     >
                       <td className="p-3" onClick={(e) => e.stopPropagation()}>
@@ -819,6 +843,18 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                         <div className="font-semibold text-ink">
                           {formatArabicDate(order.orderDate)}
                         </div>
+                      </td>
+
+                      <td className="p-3 whitespace-nowrap font-bold text-ink font-cairo hidden xl:table-cell">
+                        {formatCurrency(order.price)}
+                      </td>
+
+                      <td className="p-3 whitespace-nowrap font-cairo hidden xl:table-cell">
+                        {remaining > 0 ? (
+                          <span className="font-bold text-pending">{formatCurrency(remaining)}</span>
+                        ) : (
+                          <span className="text-copy-muted">مسدّد</span>
+                        )}
                       </td>
 
                       <td className="p-3 text-center whitespace-nowrap">
