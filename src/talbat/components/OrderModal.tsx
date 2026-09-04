@@ -53,6 +53,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   const [showNotesField, setShowNotesField] = useState(false);
   const [showAllSizes, setShowAllSizes] = useState(false);
   const [showAllColors, setShowAllColors] = useState(false);
+  const [showSpecs, setShowSpecs] = useState(false);
 
   useEffect(() => {
     if (initialOrder) {
@@ -69,6 +70,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       setNotes(initialOrder.notes || '');
       setShowPhoneField(!!initialOrder.customerPhone);
       setShowNotesField(!!initialOrder.notes);
+      setShowSpecs(!!(initialOrder.size || initialOrder.color || initialOrder.alternativeColor || (initialOrder.quantity && initialOrder.quantity !== 1)));
     } else {
       // New order defaults
       setCustomerName('');
@@ -83,6 +85,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
       
       setStatus('pending');
       setNotes('');
+      setShowSpecs(typeof window !== 'undefined' ? window.innerWidth >= 640 : false);
 
       if (initialCustomerId) {
         const found = customers.find((c) => c.id === initialCustomerId);
@@ -342,8 +345,13 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             />
           </div>
 
-          {/* Quick Specifications: Size, Quantity, Colors */}
-          <div className="p-3 bg-canvas-subtle rounded-[11px] border border-line-soft space-y-3">
+          {/* Quick Specifications Toggle - Phone */}
+          <button type="button" onClick={() => setShowSpecs(!showSpecs)} className="sm:hidden w-full flex items-center justify-between rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-ink ring-1 ring-line min-h-[44px]">
+            <span className="flex items-center gap-1.5"><Layers className="w-3.5 h-3.5 text-brass" /> تفاصيل المقاس واللون والكمية (اختياري)</span>
+            <span className="text-brass">{showSpecs ? 'إخفاء' : 'إظهار'}</span>
+          </button>
+          <div className={`${showSpecs ? 'block' : 'hidden'} sm:block`}>
+            <div className="p-3 bg-canvas-subtle rounded-[11px] border border-line-soft space-y-3">
             {/* Size & Quantity Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* Size */}
