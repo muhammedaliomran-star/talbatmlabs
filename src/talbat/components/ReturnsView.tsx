@@ -111,9 +111,9 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             </div>
             <div className="text-3xl sm:text-[36px] font-extrabold font-cairo tracking-tight text-ink leading-none">{formatCurrency(totalValue)}</div>
             <div className="text-xs text-copy-muted mt-2">منذ بداية التسجيل في الدفتر</div>
-          </div>
         </div>
       </div>
+
 
       {/* Breakdown per Supplier */}
       {supplierBreakdown.length > 0 && (
