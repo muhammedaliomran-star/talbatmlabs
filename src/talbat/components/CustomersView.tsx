@@ -77,7 +77,9 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted sm:text-[14px]">
                 عرض ملف كل عميل وكل طلباته المتفرقة من مختلف الموردين في مكان واحد — دفتر خزنة زمني متسلسل.
               </p>
+            </div>
           </div>
+
           {activeCustomer && (
             <button type="button"
               onClick={() => onOpenNewOrderForCustomer(activeCustomer)}
@@ -161,7 +163,10 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                   <span className="inline-flex items-center gap-1.5"><Sparkles className="size-3 text-brass" strokeWidth={1.5} /> خزنة محمية لحظياً</span>
                   <span>{customers.length} عميل</span>
                 </div>
+              </div>
+            </div>
           </div>
+
 
           {/* Customer Dossier / Profile (8 cols) - Vault */}
           <div className={`lg:col-span-8 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
@@ -220,12 +225,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                     </div>
 
                     <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي المشتريات</div>
-                          <div className="mt-1 font-[Fraunces] text-[22px] sm:text-[24px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{formatCurrency(totalSpent)}</div>
-                          <div className="mt-1 text-[11px] font-medium text-copy-muted">{customerOrders.length} طلب</div>
-                        </div>
+                      <div className="rounded-[1.6rem] bg-canvas px-4 py-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي المشتريات</div>
+                        <div className="mt-1 font-[Fraunces] text-[22px] sm:text-[24px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{formatCurrency(totalSpent)}</div>
+                        <div className="mt-1 text-[11px] font-medium text-copy-muted">{customerOrders.length} طلب</div>
                       </div>
+
                       <div className="rounded-[1.6rem] bg-done/10 p-1.5 ring-1 ring-done/15">
                         <div className="rounded-[calc(1.6rem-0.375rem)] bg-paper px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-done">العربين المدفوعة</div>
@@ -240,12 +245,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                           <div className="mt-1 text-[11px] font-medium text-brass">ذمة</div>
                         </div>
                       </div>
-                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">الطلبات المعلّقة</div>
-                          <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{pendingOrders.length.toLocaleString('en-US')}<span className="text-[14px] font-bold text-copy-muted">/{customerOrders.length.toLocaleString('en-US')}</span></div>
-                          <div className="mt-1 text-[11px] font-medium text-copy-muted">قيد التوريد</div>
-                        </div>
+                      <div className="rounded-[1.6rem] bg-canvas px-4 py-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">الطلبات المعلّقة</div>
+                        <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{pendingOrders.length.toLocaleString('en-US')}<span className="text-[14px] font-bold text-copy-muted">/{customerOrders.length.toLocaleString('en-US')}</span></div>
+                        <div className="mt-1 text-[11px] font-medium text-copy-muted">قيد التوريد</div>
                       </div>
+
                     </div>
 
                     <div className="mt-6">
@@ -321,5 +326,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         </div>
       </div>
     </div>
+    </div>
+
   );
 };
