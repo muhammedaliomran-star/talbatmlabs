@@ -72,8 +72,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
             </h1>
             <p className="mt-3 max-w-[560px] text-[15px] leading-7 text-copy-muted">توثيق البضائع المعيبة والمرتجعة لتسويتها وخصمها من حسابات الموردين — طبقة ورقية فوق دفترك.</p>
           </div>
-          <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50 shrink-0">
-            <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-1.5 flex items-center gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+          <div className="rounded-[2rem] bg-canvas p-1.5 flex items-center gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)]">
               <button type="button" onClick={() => exportReturnsToCSV(filteredReturns)} className="group inline-flex items-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-ink ring-1 ring-line px-5 py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
                 <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} />
                 <span>تصدير Excel</span>
@@ -84,34 +83,28 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                 <span className="grid size-7 place-items-center rounded-full bg-white/15 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><Plus className="size-3.5" strokeWidth={1.8} /></span>
               </button>
             </div>
-          </div>
         </div>
       </div>
 
       {/* Summary Cards - Asymmetrical Bento with Double-Bezel */}
       <div data-reveal className="reveal-section grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5" style={{ transitionDelay: '80ms' } as any}>
-        <div className="rounded-[2rem] bg-late/10 p-1.5 ring-1 ring-late/15 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] will-change-transform">
-          <div className="rounded-[calc(2rem-0.375rem)] bg-canvas p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.12)] h-full">
+        <div className="rounded-[2rem] bg-canvas p-4 sm:p-5 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-copy-muted">مرتجعات قيد التسوية (معلّقة)</span>
               <span className="grid size-8 place-items-center rounded-full bg-late-soft text-late"><Clock className="w-4 h-4" strokeWidth={1.5} /></span>
             </div>
             <div className="text-3xl sm:text-[36px] font-extrabold font-cairo tracking-tight text-late leading-none">{formatCurrency(pendingValue)}</div>
             <div className="text-xs text-copy-muted mt-2">مطلوب تسويتها مع الموردين</div>
-          </div>
         </div>
-        <div className="rounded-[2rem] bg-done/10 p-1.5 ring-1 ring-done/15 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] will-change-transform">
-          <div className="rounded-[calc(2rem-0.375rem)] bg-canvas p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.12)] h-full">
+        <div className="rounded-[2rem] bg-canvas p-4 sm:p-5 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-copy-muted">مرتجعات تم استردادها كاش</span>
               <span className="grid size-8 place-items-center rounded-full bg-done-soft text-done"><CheckCircle2 className="w-4 h-4" strokeWidth={1.5} /></span>
             </div>
             <div className="text-3xl sm:text-[36px] font-extrabold font-cairo tracking-tight text-done leading-none">{formatCurrency(refundedValue)}</div>
             <div className="text-xs text-copy-muted mt-2">تمت تسويتها بنجاح</div>
-          </div>
         </div>
-        <div className="rounded-[2rem] bg-ink/[0.06] p-1.5 ring-1 ring-line/50 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] will-change-transform">
-          <div className="rounded-[calc(2rem-0.375rem)] bg-canvas p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.12)] h-full">
+        <div className="rounded-[2rem] bg-canvas p-4 sm:p-5 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-copy-muted">إجمالي قيمة كافة المرتجعات</span>
               <span className="grid size-8 place-items-center rounded-full bg-paper-warm text-ink"><DollarSign className="w-4 h-4" strokeWidth={1.5} /></span>
@@ -124,7 +117,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Breakdown per Supplier */}
       {supplierBreakdown.length > 0 && (
-        <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50" style={{ transitionDelay: '120ms' } as any}>
+        <div data-reveal className="reveal-section rounded-[2rem] bg-transparent p-0" style={{ transitionDelay: '120ms' } as any}>
           <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <h2 className="text-sm font-bold font-cairo text-ink mb-4 flex items-center gap-2">
               <span className="grid size-7 place-items-center rounded-full bg-brass/10 text-brass"><Store className="w-4 h-4" strokeWidth={1.5} /></span>
@@ -140,13 +133,12 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                   </div>
                 </div>
               ))}
-            </div>
           </div>
         </div>
       )}
 
       {/* Filter and Search - Double-Bezel Island */}
-      <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50" style={{ transitionDelay: '160ms' } as any}>
+      <div data-reveal className="reveal-section rounded-[2rem] bg-transparent p-0" style={{ transitionDelay: '160ms' } as any}>
         <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-3 sm:p-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_16px_50px_-30px_rgba(26,18,7,0.08)] flex flex-wrap items-center justify-between gap-3">
           <div className="relative flex-1 min-w-[240px]">
             <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-copy-muted" strokeWidth={1.5} />
@@ -169,7 +161,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
 
       {/* Returns Table */}
       {filteredReturns.length === 0 ? (
-        <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50" style={{ transitionDelay: '200ms' } as any}>
+        <div data-reveal className="reveal-section rounded-[2rem] bg-transparent p-0" style={{ transitionDelay: '200ms' } as any}>
           <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-10 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <div className="w-14 h-14 rounded-full bg-paper text-copy-muted mx-auto flex items-center justify-center mb-3 ring-1 ring-line/50"><RotateCcw className="w-6 h-6" strokeWidth={1.5} /></div>
             <h3 className="text-lg font-bold font-cairo text-ink">لا توجد مرتجعات مسجلة</h3>
@@ -198,7 +190,7 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
               </div>
             ))}
           </div>
-          <div data-reveal className="reveal-section hidden md:block rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50" style={{ transitionDelay: '200ms' } as any}>
+          <div data-reveal className="reveal-section hidden md:block rounded-[2rem] bg-transparent p-0" style={{ transitionDelay: '200ms' } as any}>
             <div className="rounded-[calc(2rem-0.5rem)] bg-canvas overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
               <div className="overflow-x-auto">
                 <table className="w-full text-right text-sm">
@@ -228,7 +220,6 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                   </tbody>
                 </table>
               </div>
-            </div>
           </div>
         </>
       )}

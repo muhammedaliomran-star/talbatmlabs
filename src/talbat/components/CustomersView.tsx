@@ -77,7 +77,6 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
               <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted sm:text-[14px]">
                 عرض ملف كل عميل وكل طلباته المتفرقة من مختلف الموردين في مكان واحد — دفتر خزنة زمني متسلسل.
               </p>
-            </div>
           </div>
           {activeCustomer && (
             <button type="button"
@@ -96,7 +95,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
           {/* Customer Sidebar List (4 cols) - Vault Pills */}
           <div className={`lg:col-span-4 ${mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
-            <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-[#1A1207]/5" style={{ transitionDelay: '90ms' } as any}>
+            <div data-reveal className="reveal-section rounded-[2rem] bg-transparent p-0" style={{ transitionDelay: '90ms' } as any}>
               <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.28)]">
                 <div className="rounded-full bg-paper p-1.5 ring-1 ring-line">
                   <div className="relative flex items-center">
@@ -162,13 +161,11 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                   <span className="inline-flex items-center gap-1.5"><Sparkles className="size-3 text-brass" strokeWidth={1.5} /> خزنة محمية لحظياً</span>
                   <span>{customers.length} عميل</span>
                 </div>
-              </div>
-            </div>
           </div>
 
           {/* Customer Dossier / Profile (8 cols) - Vault */}
           <div className={`lg:col-span-8 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
-            <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-[#1A1207]/5" style={{ transitionDelay: '150ms' } as any}>
+            <div data-reveal className="reveal-section rounded-[2rem] bg-transparent p-0" style={{ transitionDelay: '150ms' } as any}>
               <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.95),0_24px_80px_-40px_rgba(26,18,7,0.28)]">
                 <div className="mb-4 lg:hidden">
                   <button type="button"
@@ -223,8 +220,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                     </div>
 
                     <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                      <div className="rounded-[1.6rem] bg-ink/[0.06] p-1.5 ring-1 ring-[#1A1207]/5">
-                        <div className="rounded-[calc(1.6rem-0.375rem)] bg-canvas px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي المشتريات</div>
                           <div className="mt-1 font-[Fraunces] text-[22px] sm:text-[24px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{formatCurrency(totalSpent)}</div>
                           <div className="mt-1 text-[11px] font-medium text-copy-muted">{customerOrders.length} طلب</div>
@@ -244,8 +240,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                           <div className="mt-1 text-[11px] font-medium text-brass">ذمة</div>
                         </div>
                       </div>
-                      <div className="rounded-[1.6rem] bg-ink/[0.06] p-1.5 ring-1 ring-[#1A1207]/5">
-                        <div className="rounded-[calc(1.6rem-0.375rem)] bg-canvas px-4 py-4">
+                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">الطلبات المعلّقة</div>
                           <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{pendingOrders.length.toLocaleString('en-US')}<span className="text-[14px] font-bold text-copy-muted">/{customerOrders.length.toLocaleString('en-US')}</span></div>
                           <div className="mt-1 text-[11px] font-medium text-copy-muted">قيد التوريد</div>
@@ -321,7 +316,6 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                 ) : (
                   <div className="text-center py-12 text-copy-muted">اختر عميلاً من القائمة لعرض تفاصيل طلباته</div>
                 )}
-              </div>
             </div>
           </div>
         </div>

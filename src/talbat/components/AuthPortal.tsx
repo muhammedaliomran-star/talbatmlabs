@@ -123,7 +123,7 @@ export const AuthPortal: React.FC = () => {
 
       {/* Form - Paper Atelier Double-Bezel */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 lg:py-16">
-        <div className="w-full max-w-md rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
+        <div className="w-full max-w-md rounded-[2rem] bg-transparent p-0">
           <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-6 sm:p-8 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.18)]">
           <div className="mb-9">
             <div className="w-11 h-11 rounded-xl bg-brass flex items-center justify-center mb-6">

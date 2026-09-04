@@ -68,7 +68,6 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
               <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted sm:text-[14px]">
                 إدارة بيانات الموردين وطلباتهم ومتابعة المرتجعات — أرشيف حيّ مربوط بكل طلب ومرتجع لحظياً.
               </p>
-            </div>
           </div>
 
           {/* Island CTA - Button-in-Button */}
@@ -87,8 +86,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-6">
           {/* LEFT: Directory - col-span-4 */}
           <div data-reveal className="reveal-section lg:col-span-4" style={{ transitionDelay: '90ms' }}>
-            <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-[#1A1207]/5">
-              <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.28)] sm:p-5">
+            <div className="rounded-[2rem] bg-canvas p-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_24px_80px_-40px_rgba(26,18,7,0.28)] sm:p-5 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Search - Double-Bezel Pill */}
                 <div className="rounded-full bg-paper p-1.5 ring-1 ring-line">
                   <div className="relative flex items-center">
@@ -155,13 +153,11 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                   <span>{suppliers.length} مورد</span>
                 </div>
               </div>
-            </div>
           </div>
 
           {/* RIGHT: Dossier - col-span-8 (The Hero Bento) */}
           <div data-reveal className={`reveal-section lg:col-span-8 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`} style={{ transitionDelay: '150ms' }}>
-            <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-[#1A1207]/5">
-              <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.95),0_24px_80px_-40px_rgba(26,18,7,0.28)]">
+            <div className="rounded-[2rem] bg-canvas p-4 sm:p-6 lg:p-7 shadow-[inset_0_1px_1px_rgba(255,255,255,0.95),0_24px_80px_-40px_rgba(26,18,7,0.28)] ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)]">
                 {/* Mobile Back */}
                 <div className="mb-4 lg:hidden">
                   <button type="button"
@@ -230,22 +226,19 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
                     {/* Stats - Three Mini Bentos */}
                     <div className="grid grid-cols-3 gap-3">
-                      <div className="rounded-[1.6rem] bg-ink/[0.06] p-1.5 ring-1 ring-[#1A1207]/5">
-                        <div className="rounded-[calc(1.6rem-0.375rem)] bg-canvas px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي الطلبات</div>
                           <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{activeSupplierOrders.length.toLocaleString('en-US')}</div>
                           <div className="mt-1 text-[11px] font-medium text-copy-muted">طلب مرتبط</div>
                         </div>
                       </div>
-                      <div className="rounded-[1.6rem] bg-brass/15 p-1.5 ring-1 ring-[#B08948]/20">
-                        <div className="rounded-[calc(1.6rem-0.375rem)] bg-paper-warm px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                      <div className="rounded-[1.6rem] bg-canvas p-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-pending">مطلوب شراؤها</div>
                           <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-pending">{pendingOrders.length.toLocaleString('en-US')}</div>
                           <div className="mt-1 text-[11px] font-medium text-brass">معلّق للتوريد</div>
                         </div>
                       </div>
-                      <div className="rounded-[1.6rem] bg-ink/[0.06] p-1.5 ring-1 ring-[#1A1207]/5">
-                        <div className="rounded-[calc(1.6rem-0.375rem)] bg-canvas px-4 py-4">
+                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4">
                           <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">مرتجعات للتسوية</div>
                           <div className="mt-1 font-[Fraunces] text-[22px] font-[800] leading-none tracking-[-0.03em] text-brass sm:text-[24px]">{formatCurrency(activeSupplierReturns.reduce((s, r) => s + (r.price || 0), 0))}</div>
                           <div className="mt-1 text-[11px] font-medium text-copy-muted">{activeSupplierReturns.length} صنف</div>
@@ -337,9 +330,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                     <p className="mt-1 text-xs text-copy-muted">الأرشيف يظهر تفاصيل الطلبات والمرتجعات لحظياً</p>
                   </div>
                 )}
-              </div>
             </div>
-          </div>
         </div>
       </div>
 
