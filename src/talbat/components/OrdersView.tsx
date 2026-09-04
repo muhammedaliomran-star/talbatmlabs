@@ -459,7 +459,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
 
           <div className="hidden sm:flex items-center gap-2 self-end sm:self-auto">
-            <div className="flex items-center bg-paper p-1 rounded-lg border border-line">
+            <div className="flex items-center bg-paper-alt/60 p-1 rounded-full ring-1 ring-line/30">
               <button type="button"
                 onClick={() => setViewMode('table')}
                 className={`px-2 py-2 rounded-md text-xs font-semibold flex items-center gap-1 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
