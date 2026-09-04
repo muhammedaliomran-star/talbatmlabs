@@ -591,7 +591,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           </div>
         )}
 
-        {filteredOrders.length > 0 && (
+        {filteredOrders.length > 0 && totals.price > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="rounded-[1.2rem] bg-canvas px-4 py-3 ring-1 ring-line shadow-[0_12px_30px_-20px_rgba(26,18,7,0.16),inset_0_1px_1px_rgba(255,255,255,0.9)] flex items-center justify-between">
               <span className="text-[11px] font-bold text-copy-muted">الإجمالي</span>
