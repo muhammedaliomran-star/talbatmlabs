@@ -336,5 +336,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
 
     </div>
+    </div>
+
   );
 };
