@@ -240,12 +240,12 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                           <div className="mt-1 text-[11px] font-medium text-brass">ذمة</div>
                         </div>
                       </div>
-                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">الطلبات المعلّقة</div>
-                          <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{pendingOrders.length.toLocaleString('en-US')}<span className="text-[14px] font-bold text-copy-muted">/{customerOrders.length.toLocaleString('en-US')}</span></div>
-                          <div className="mt-1 text-[11px] font-medium text-copy-muted">قيد التوريد</div>
-                        </div>
+                      <div className="rounded-[1.6rem] bg-canvas px-4 py-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">الطلبات المعلّقة</div>
+                        <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{pendingOrders.length.toLocaleString('en-US')}<span className="text-[14px] font-bold text-copy-muted">/{customerOrders.length.toLocaleString('en-US')}</span></div>
+                        <div className="mt-1 text-[11px] font-medium text-copy-muted">قيد التوريد</div>
                       </div>
+
                     </div>
 
                     <div className="mt-6">
