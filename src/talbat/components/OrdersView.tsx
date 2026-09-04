@@ -608,8 +608,9 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </div>
           </div>
         )}
-
+        </div>
       </div>
+
 
 
       {/* Bulk actions - Floating Glass Island */}
