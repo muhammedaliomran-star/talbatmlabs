@@ -607,8 +607,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <span className="text-sm font-bold font-cairo text-pending">{formatCurrency(totals.remaining)}</span>
             </div>
           </div>
-        </div>
         )}
+
       </div>
 
 
