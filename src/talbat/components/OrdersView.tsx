@@ -437,7 +437,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
       </div>
 
       {/* Filter and Search - Soft Structuralism Double-Bezel */}
-      <div data-reveal className="reveal-section rounded-[2rem] bg-canvas p-4 sm:p-6 ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),0_12px_32px_-16px_rgba(26,18,7,0.12),inset_0_1px_1px_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(26,18,7,0.04)] space-y-3">
+      <div data-reveal className="reveal-section rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
+        <div className="rounded-[calc(2rem-0.5rem)] bg-canvas p-4 sm:p-5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div className="relative flex-1 min-w-0">
               <Search className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-brass" strokeWidth={1.4} />
@@ -606,6 +607,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
               <span className="text-sm font-bold font-cairo text-pending">{formatCurrency(totals.remaining)}</span>
             </div>
           </div>
+        </div>
         )}
       </div>
 
@@ -714,8 +716,9 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           ))}
         </div>
       ) : (
-        <div className="rounded-[2rem] bg-canvas ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden">
-          <div className="overflow-x-auto max-h-[70vh]">
+        <div className="rounded-[2rem] bg-ink/[0.06] p-2 ring-1 ring-line/50">
+          <div className="rounded-[calc(2rem-0.5rem)] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden">
+            <div className="overflow-x-auto max-h-[70vh]">
             <table className="w-full text-right text-xs">
               <thead className="bg-paper-alt/60 backdrop-blur-sm border-b border-line/40 text-ink sticky top-0 z-10">
                 <tr>
@@ -917,6 +920,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                 })}
               </tbody>
             </table>
+            </div>
           </div>
         </div>
       )}
