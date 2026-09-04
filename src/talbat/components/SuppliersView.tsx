@@ -331,6 +331,8 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
             </div>
         </div>
       </div>
+      </div>
+
 
 
     </div>
