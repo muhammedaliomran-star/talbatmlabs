@@ -163,7 +163,10 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                   <span className="inline-flex items-center gap-1.5"><Sparkles className="size-3 text-brass" strokeWidth={1.5} /> خزنة محمية لحظياً</span>
                   <span>{customers.length} عميل</span>
                 </div>
+              </div>
+            </div>
           </div>
+
 
           {/* Customer Dossier / Profile (8 cols) - Vault */}
           <div className={`lg:col-span-8 ${!mobileShowDetail ? 'hidden lg:block' : 'block'}`}>
