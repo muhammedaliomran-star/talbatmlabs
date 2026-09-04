@@ -443,7 +443,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="ابحث بالاسم، هاتف العميل، المورد، أو تفاصيل الصنف..."
-                className="w-full pr-10 pl-10 py-3 text-xs sm:text-sm rounded-full border border-line bg-paper focus:bg-canvas focus:outline-none focus:ring-2 focus:ring-[#B08948]/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                className="w-full pr-10 pl-10 py-3 text-xs sm:text-sm rounded-full border border-line/60 bg-canvas-subtle focus:bg-canvas focus:outline-none focus:ring-2 focus:ring-[#B08948]/15 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
               />
             {searchInput && (
               <button
@@ -489,10 +489,10 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs w-full sm:w-auto">
             <button type="button"
               onClick={() => setStatusFilter('all')}
-              className={`px-3 py-2 rounded-lg font-bold shrink-0 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+              className={`px-3 py-2 rounded-full font-bold shrink-0 transition-colors ${
                 statusFilter === 'all'
                   ? 'bg-ink text-white shadow-xs'
-                  : 'bg-paper text-copy-muted hover:bg-paper-alt'
+                  : 'bg-transparent border border-line/40 text-copy-muted hover:bg-paper-alt'
               }`}
             >
               الكل ({orders.length})
@@ -524,7 +524,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value as DateRange)}
-              className="bg-paper border border-line rounded-lg px-2.5 py-2.5 font-medium text-ink w-full"
+              className="bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink w-full focus:bg-canvas"
             >
               {(Object.keys(DATE_LABELS) as DateRange[]).map((key) => (
                 <option key={key} value={key}>
@@ -536,7 +536,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <select
               value={supplierFilter}
               onChange={(e) => setSupplierFilter(e.target.value)}
-              className="bg-paper border border-line rounded-lg px-2.5 py-2.5 font-medium text-ink w-full"
+              className="bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink w-full focus:bg-canvas"
             >
               <option value="all">كل الموردين</option>
               {suppliers.map((s) => (
@@ -553,7 +553,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                 setSortKey(key as SortKey);
                 setSortDir(dir as SortDir);
               }}
-              className="bg-paper border border-line rounded-lg px-2.5 py-2.5 font-medium text-ink w-full"
+              className="bg-canvas-subtle border border-line/50 rounded-full px-3 py-2.5 font-medium text-ink w-full focus:bg-canvas"
             >
               <option value="orderDate:desc">الأحدث أولًا</option>
               <option value="orderDate:asc">الأقدم أولًا</option>
@@ -695,7 +695,7 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
         <div className="rounded-[2rem] bg-canvas ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] overflow-hidden">
           <div className="overflow-x-auto max-h-[70vh]">
             <table className="w-full text-right text-xs">
-              <thead className="bg-paper-alt/80 backdrop-blur border-b border-line/50 text-ink">
+              <thead className="bg-transparent border-b border-line/30 text-ink">
                 <tr>
                   <th className="p-3 w-10">
                     <input
@@ -724,12 +724,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
                     <tr
                       key={order.id}
                       onClick={() => onEditOrder(order)}
-                      className={`cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-paper-warm ${
-                        isSelected
-                          ? 'bg-brass/10'
-                          : idx % 2 === 0
-                            ? 'bg-canvas'
-                            : 'bg-canvas-subtle'
+                      className={`cursor-pointer transition-colors hover:bg-paper-warm ${
+                        isSelected ? 'bg-brass/10' : 'bg-transparent'
                       } ${remaining > 0 ? 'border-r-2 border-r-pending' : ''}`}
                     >
                       <td className="p-3" onClick={(e) => e.stopPropagation()}>
