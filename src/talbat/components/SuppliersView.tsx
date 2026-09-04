@@ -226,25 +226,23 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
 
                     {/* Stats - Three Mini Bentos */}
                     <div className="grid grid-cols-3 gap-3">
-                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي الطلبات</div>
-                          <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{activeSupplierOrders.length.toLocaleString('en-US')}</div>
-                          <div className="mt-1 text-[11px] font-medium text-copy-muted">طلب مرتبط</div>
-                        </div>
+                      <div className="rounded-[1.6rem] bg-canvas px-4 py-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">إجمالي الطلبات</div>
+                        <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-charcoal">{activeSupplierOrders.length.toLocaleString('en-US')}</div>
+                        <div className="mt-1 text-[11px] font-medium text-copy-muted">طلب مرتبط</div>
                       </div>
                       <div className="rounded-[1.6rem] bg-canvas p-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-pending">مطلوب شراؤها</div>
-                          <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-pending">{pendingOrders.length.toLocaleString('en-US')}</div>
-                          <div className="mt-1 text-[11px] font-medium text-brass">معلّق للتوريد</div>
-                        </div>
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-pending">مطلوب شراؤها</div>
+                        <div className="mt-1 font-[Fraunces] text-[28px] font-[800] leading-none tracking-[-0.03em] text-pending">{pendingOrders.length.toLocaleString('en-US')}</div>
+                        <div className="mt-1 text-[11px] font-medium text-brass">معلّق للتوريد</div>
                       </div>
-                      <div className="rounded-[1.6rem] bg-canvas ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]" px-4 py-4">
-                          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">مرتجعات للتسوية</div>
-                          <div className="mt-1 font-[Fraunces] text-[22px] font-[800] leading-none tracking-[-0.03em] text-brass sm:text-[24px]">{formatCurrency(activeSupplierReturns.reduce((s, r) => s + (r.price || 0), 0))}</div>
-                          <div className="mt-1 text-[11px] font-medium text-copy-muted">{activeSupplierReturns.length} صنف</div>
-                        </div>
+                      <div className="rounded-[1.6rem] bg-canvas px-4 py-4 ring-1 ring-line shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+                        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-copy-muted">مرتجعات للتسوية</div>
+                        <div className="mt-1 font-[Fraunces] text-[22px] font-[800] leading-none tracking-[-0.03em] text-brass sm:text-[24px]">{formatCurrency(activeSupplierReturns.reduce((s, r) => s + (r.price || 0), 0))}</div>
+                        <div className="mt-1 text-[11px] font-medium text-copy-muted">{activeSupplierReturns.length} صنف</div>
                       </div>
                     </div>
+
 
                     {/* Orders Section */}
                     <div>
