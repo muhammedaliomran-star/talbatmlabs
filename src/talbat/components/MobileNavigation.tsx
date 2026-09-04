@@ -106,20 +106,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             </button>
           );
         })}
-        {onToggleTheme && (
-          <button
-            type="button"
-            onClick={onToggleTheme}
-            className="relative flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-copy-muted transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-95 hover:text-ink will-change-transform"
-            aria-label={isDarkMode ? 'الوضع النهاري' : 'الوضع الليلي'}
-            title={isDarkMode ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'}
-          >
-            {isDarkMode ? <Sun className="w-5 h-5 text-brass" strokeWidth={1.5} /> : <Moon className="w-5 h-5" strokeWidth={1.5} />}
-            <span className="text-[10px] mt-0.5 leading-tight font-medium">
-              {isDarkMode ? 'نهاري' : 'ليلي'}
-            </span>
-          </button>
-        )}
         <button
           type="button"
           onClick={onOpenSettings}
