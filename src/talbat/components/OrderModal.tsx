@@ -3,6 +3,7 @@ import { X, User, Phone, Store, Calendar, FileText, CheckCircle2, Layers, Palett
 import { Customer, Order, OrderStatus, Supplier } from '../types';
 import { getTodayDateString, normalizeToEnglishDigits } from '../utils/helpers';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { DatePicker } from './DatePicker';
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -527,21 +528,13 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </div>
           </div>
 
-          {/* Order Date */}
+          {/* Order Date - Premium Picker */}
           <div>
-            <div>
-              <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-brass" />
-                <span>تاريخ الطلب</span>
-              </label>
-              <input
-                type="date"
-                value={orderDate}
-                onChange={(e) => setOrderDate(e.target.value)}
-                className="w-full px-4 py-3 text-sm rounded-full border-0 ring-1 ring-line bg-paper focus:bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]"
-              />
-            </div>
-
+            <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5 text-brass" />
+              <span>تاريخ الطلب</span>
+            </label>
+            <DatePicker value={orderDate} onChange={setOrderDate} />
           </div>
 
           {/* Notes - collapsible */}

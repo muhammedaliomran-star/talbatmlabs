@@ -3,6 +3,7 @@ import { X, RotateCcw, DollarSign, Store, Tag, FileText, Calendar } from 'lucide
 import { Order, ReturnItem, ReturnStatus, Supplier } from '../types';
 import { getTodayDateString, normalizeToEnglishDigits } from '../utils/helpers';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { DatePicker } from './DatePicker';
 
 interface ReturnModalProps {
   isOpen: boolean;
@@ -214,15 +215,10 @@ export const ReturnModal: React.FC<ReturnModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-copy-muted" />
+                <Calendar className="w-3.5 h-3.5 text-brass" />
                 <span>تاريخ الإرجاع</span>
               </label>
-              <input
-                type="date"
-                value={returnDate}
-                onChange={(e) => setReturnDate(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-[9px] border border-line bg-paper"
-              />
+              <DatePicker value={returnDate} onChange={setReturnDate} />
             </div>
 
             <div>
