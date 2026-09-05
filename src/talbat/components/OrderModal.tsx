@@ -369,7 +369,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                       onClick={() => setSize(s)}
                       className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
                         size === s
-                          ? 'bg-ink text-white ring-ink'
+                          ? 'bg-ink-deep text-white ring-ink-deep'
                           : 'bg-white text-ink ring-line hover:bg-pending-soft'
                       }`}
                     >
@@ -440,7 +440,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                       onClick={() => setColor(c)}
                       className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
                         color === c
-                          ? 'bg-ink text-white ring-ink'
+                          ? 'bg-ink-deep text-white ring-ink-deep'
                           : 'bg-white text-ink ring-line hover:bg-pending-soft'
                       }`}
                     >
@@ -572,7 +572,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </button>
             <button
               type="submit"
-              className="min-h-11 px-5 py-2.5 bg-ink hover:bg-ink-light text-white text-xs sm:px-6 sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
+              className="min-h-11 px-5 py-2.5 bg-ink-deep hover:bg-ink text-white text-xs sm:px-6 sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-4 h-4 text-brass-light" />
               <span>{initialOrder ? 'حفظ التعديلات' : 'تسجيل الطلب'}</span>

@@ -198,8 +198,8 @@
   --paper-warm: oklch(0.23 0.027 255);
   --charcoal: oklch(0.93 0.01 88);
   --copy-muted: oklch(0.73 0.018 250);
-  --line: oklch(0.37 0.029 255);
-  --line-soft: oklch(0.31 0.027 255);
+  --line: oklch(0.42 0.029 255);
+  --line-soft: oklch(0.36 0.027 255);
   --done: oklch(0.7 0.12 157);
   --done-soft: oklch(0.28 0.047 157);
   --pending: oklch(0.77 0.112 77);
@@ -207,12 +207,21 @@
   --late: oklch(0.74 0.145 29);
   --late-soft: oklch(0.31 0.06 29);
   --canvas: oklch(0.17 0.027 255);
-  --canvas-subtle: oklch(0.22 0.025 255);
+  --canvas-subtle: oklch(0.26 0.025 255);
   --on-ink: oklch(0.96 0.006 88);
   --ink-muted: oklch(0.67 0.025 250);
   --size-soft: oklch(0.3 0.031 255);
   --color-soft: oklch(0.32 0.048 78);
   --placeholder: oklch(0.63 0.018 250);
+}
+
+.dark .bg-ink {
+  background-color: var(--ink-deep) !important;
+  color: var(--on-ink) !important;
+}
+.dark .bg-ink-deep {
+  background-color: var(--ink-deep) !important;
+  color: var(--on-ink) !important;
 }
 
 .dark :is([class*="bg-white"]) {
