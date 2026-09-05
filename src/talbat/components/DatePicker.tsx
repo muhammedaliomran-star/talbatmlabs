@@ -47,7 +47,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({ value, onChange, placeho
               setOpen(false);
             }
           }}
-          captionLayout="dropdown"
+          captionLayout="label"
           className="p-3"
         />
       </PopoverContent>
