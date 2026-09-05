@@ -561,8 +561,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             </button>
           )}
 
-          {/* Submit Actions */}
-          <div className="sticky bottom-0 -mx-4 mt-2 flex items-center justify-end gap-2 border-t border-line bg-white px-4 pt-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:-mx-5 sm:px-5">
+          {/* Submit Actions - not sticky on phone */}
+          <div className="relative sm:sticky sm:bottom-0 -mx-4 mt-2 flex items-center justify-end gap-2 border-t border-line bg-white px-4 pt-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:-mx-5 sm:px-5">
             <button
               type="button"
               onClick={onClose}
