@@ -493,6 +493,8 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               )}
             </div>
           </div>
+          </div>
+
 
           {/* Order Date */}
           <div>
