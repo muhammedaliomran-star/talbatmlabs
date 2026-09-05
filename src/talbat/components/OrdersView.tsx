@@ -569,15 +569,12 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
           <div className="grid grid-cols-2 gap-2 text-xs pt-1">
             <label className="flex flex-col gap-1 font-semibold text-copy-muted">
               من تاريخ
-              <DatePicker value={customFrom} onChange={setCustomFrom} /> setCustomFrom(e.target.value)}
-                className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink"
-              />
+              <DatePicker value={customFrom} onChange={setCustomFrom} />
             </label>
             <label className="flex flex-col gap-1 font-semibold text-copy-muted">
               إلى تاريخ
-              <DatePicker value={customTo} onChange={setCustomTo} /> setCustomTo(e.target.value)}
-                className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink"
-              />
+              <DatePicker value={customTo} onChange={setCustomTo} />
+
             </label>
           </div>
         )}
