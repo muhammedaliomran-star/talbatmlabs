@@ -34,7 +34,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({ value, onChange, placeho
             </span>
             <span>{display}</span>
           </span>
-          <CalendarIcon className="w-4 h-4 text-copy-muted opacity-70" strokeWidth={1.5} />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 rounded-[1.5rem] bg-canvas ring-1 ring-line shadow-[0_24px_80px_-40px_rgba(26,18,7,0.18)] overflow-hidden border-0" align="start">

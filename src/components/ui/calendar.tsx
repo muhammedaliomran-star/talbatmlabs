@@ -45,12 +45,12 @@ function Calendar({
         ),
         button_previous: cn(
           buttonVariants({ variant: buttonVariant }),
-          "h-(--cell-size) w-(--cell-size) select-none p-0 aria-disabled:opacity-50",
+          "h-(--cell-size) w-(--cell-size) select-none p-0 aria-disabled:opacity-50 rounded-full bg-paper ring-1 ring-line hover:bg-canvas",
           defaultClassNames.button_previous,
         ),
         button_next: cn(
           buttonVariants({ variant: buttonVariant }),
-          "h-(--cell-size) w-(--cell-size) select-none p-0 aria-disabled:opacity-50",
+          "h-(--cell-size) w-(--cell-size) select-none p-0 aria-disabled:opacity-50 rounded-full bg-paper ring-1 ring-line hover:bg-canvas",
           defaultClassNames.button_next,
         ),
         month_caption: cn(
@@ -62,15 +62,15 @@ function Calendar({
           defaultClassNames.dropdowns,
         ),
         dropdown_root: cn(
-          "has-focus:border-ring border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] relative rounded-md border",
+          "has-focus:ring-2 has-focus:ring-brass/20 relative rounded-full bg-canvas-subtle ring-1 ring-line shadow-sm border-0",
           defaultClassNames.dropdown_root,
         ),
-        dropdown: cn("bg-popover absolute inset-0 opacity-0", defaultClassNames.dropdown),
+        dropdown: cn("bg-transparent absolute inset-0 opacity-0 cursor-pointer", defaultClassNames.dropdown),
         caption_label: cn(
           "select-none font-medium",
           captionLayout === "label"
-            ? "text-sm"
-            : "[&>svg]:text-muted-foreground flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm [&>svg]:size-3.5",
+            ? "text-sm font-bold font-cairo text-ink"
+            : "[&>svg]:text-brass flex h-9 items-center gap-1.5 rounded-full bg-paper px-3 py-1.5 text-sm font-medium text-ink ring-1 ring-line shadow-sm [&>svg]:size-3.5",
           defaultClassNames.caption_label,
         ),
         table: "w-full border-collapse",
