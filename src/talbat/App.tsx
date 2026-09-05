@@ -69,8 +69,32 @@ export default function App() {
     void updateProfile(updatedUser);
   };
 
-  // Tab state
-  const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
+  // Tab state — persisted so reload returns to same place
+  const [activeTab, setActiveTab] = useState<ActiveTab>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = window.localStorage.getItem('daftar_active_tab') as ActiveTab | null;
+      if (saved && ['dashboard', 'orders', 'suppliers', 'returns'].includes(saved)) return saved;
+    }
+    return 'dashboard';
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem('daftar_active_tab', activeTab);
+  }, [activeTab]);
+
+  // Keep scroll position per tab so reload feels seamless — wait for data
+  useEffect(() => {
+    if (dataLoading) return;
+    const key = `daftar_scroll_${activeTab}`;
+    const saved = window.sessionStorage.getItem(key);
+    if (saved) {
+      const y = parseInt(saved, 10);
+      if (!Number.isNaN(y)) requestAnimationFrame(() => window.scrollTo(0, y));
+    }
+    const onScroll = () => window.sessionStorage.setItem(key, String(window.scrollY));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [activeTab, dataLoading]);
 
   // Navigation targets
   const [targetCustomerName, setTargetCustomerName] = useState<string | null>(null);
