@@ -297,7 +297,7 @@ export const CustomersView: React.FC<CustomersViewProps> = ({
                                       </div>
                                       <div className="mt-3 rounded-[0.9rem] bg-canvas px-3.5 py-3 text-[13px] leading-6 text-charcoal ring-1 ring-line">{order.description}</div>
                                       <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-3">
-                                        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-copy-muted"><Calendar className="w-3.5 h-3.5 text-brass" strokeWidth={1.5} />{formatArabicDate(order.orderDate)}</span>
+                                        <span className="inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 text-xs font-medium text-ink ring-1 ring-line/50"><span className="grid size-4 place-items-center rounded-full bg-brass/10 text-brass"><Calendar className="w-3 h-3" strokeWidth={1.5} /></span>{formatArabicDate(order.orderDate)}</span>
                                         <div className="flex items-center gap-2">
                                           {order.price !== undefined && <span className="rounded-full bg-ink-deep px-3 py-1 font-[Fraunces] text-[12px] font-bold text-white">{formatCurrency(order.price)}</span>}
                                           {remaining > 0 && <span className="text-[11px] font-bold text-pending">باقي: {formatCurrency(remaining)}</span>}

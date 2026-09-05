@@ -496,23 +496,6 @@ export const OrderModal: React.FC<OrderModalProps> = ({
           </div>
 
 
-          {/* Order Date */}
-          <div>
-            <div>
-              <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-copy-muted" />
-                <span>تاريخ الطلب</span>
-              </label>
-              <input
-                type="date"
-                value={orderDate}
-                onChange={(e) => setOrderDate(e.target.value)}
-                className="w-full px-3 py-2 text-sm rounded-[9px] border border-line bg-paper"
-              />
-            </div>
-
-          </div>
-
           {/* Status Selection */}
           <div>
             <label className="block text-xs font-bold text-ink mb-1.5">
@@ -522,10 +505,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               <button
                 type="button"
                 onClick={() => setStatus('pending')}
-                className={`py-2 px-3 text-xs font-bold rounded-[8px] border transition-all ${
+                className={`py-2 px-3 text-xs font-bold rounded-full border-0 ring-1 transition-all min-h-[44px] ${
                   status === 'pending'
-                    ? 'bg-pending-soft border-pending text-pending ring-1 ring-pending'
-                    : 'bg-white border-line text-copy-muted hover:bg-paper'
+                    ? 'bg-pending-soft ring-pending text-pending'
+                    : 'bg-white ring-line text-copy-muted hover:bg-paper'
                 }`}
               >
                 قيد الانتظار (معلّق)
@@ -533,15 +516,32 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               <button
                 type="button"
                 onClick={() => setStatus('done')}
-                className={`py-2 px-3 text-xs font-bold rounded-[8px] border transition-all ${
+                className={`py-2 px-3 text-xs font-bold rounded-full border-0 ring-1 transition-all min-h-[44px] ${
                   status === 'done'
-                    ? 'bg-done-soft border-done text-done ring-1 ring-done'
-                    : 'bg-white border-line text-copy-muted hover:bg-paper'
+                    ? 'bg-done-soft ring-done text-done'
+                    : 'bg-white ring-line text-copy-muted hover:bg-paper'
                 }`}
               >
                 تم التنفيذ والاستلام
               </button>
             </div>
+          </div>
+
+          {/* Order Date */}
+          <div>
+            <div>
+              <label className="block text-xs font-bold text-ink mb-1.5 flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-brass" />
+                <span>تاريخ الطلب</span>
+              </label>
+              <input
+                type="date"
+                value={orderDate}
+                onChange={(e) => setOrderDate(e.target.value)}
+                className="w-full px-4 py-3 text-sm rounded-full border-0 ring-1 ring-line bg-paper focus:bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]"
+              />
+            </div>
+
           </div>
 
           {/* Notes - collapsible */}

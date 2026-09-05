@@ -641,8 +641,8 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             </Select>
             {dateRange === 'custom' && (
               <div className="grid grid-cols-2 gap-2">
-                <label className="flex flex-col gap-1 text-xs font-semibold text-copy-muted">من تاريخ<input type="date" value={customFrom} onChange={(e) => setCustomFrom(e.target.value)} className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink" /></label>
-                <label className="flex flex-col gap-1 text-xs font-semibold text-copy-muted">إلى تاريخ<input type="date" value={customTo} onChange={(e) => setCustomTo(e.target.value)} className="bg-paper border border-line rounded-lg px-2.5 py-2 text-ink" /></label>
+                <label className="flex flex-col gap-1.5 text-xs font-semibold text-copy-muted">من تاريخ<div className="relative"><Calendar className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-brass pointer-events-none" /><input type="date" value={customFrom} onChange={(e) => setCustomFrom(e.target.value)} className="w-full pr-10 pl-4 py-2.5 text-sm rounded-full border-0 ring-1 ring-line bg-paper focus:bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]" /></div></label>
+                <label className="flex flex-col gap-1.5 text-xs font-semibold text-copy-muted">إلى تاريخ<div className="relative"><Calendar className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-brass pointer-events-none" /><input type="date" value={customTo} onChange={(e) => setCustomTo(e.target.value)} className="w-full pr-10 pl-4 py-2.5 text-sm rounded-full border-0 ring-1 ring-line bg-paper focus:bg-white focus:outline-none focus:ring-2 focus:ring-brass/20 min-h-[44px]" /></div></label>
               </div>
             )}
             <button type="button" onClick={() => setIsFilterDrawerOpen(false)} className="w-full rounded-full bg-ink-deep text-white py-3 text-sm font-bold">تطبيق الفلتر</button>

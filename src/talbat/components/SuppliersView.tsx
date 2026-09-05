@@ -287,7 +287,7 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                                 <div className="mt-3 rounded-[0.9rem] bg-canvas px-3.5 py-3 text-[13px] leading-6 text-charcoal ring-1 ring-line">{order.description}</div>
 
                                 <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-3">
-                                  <span className="text-[11px] font-medium text-copy-muted">{formatArabicDate(order.orderDate)}</span>
+                                  <span className="inline-flex items-center gap-1 rounded-full bg-paper px-2.5 py-1 text-[11px] font-medium text-ink ring-1 ring-line/50"><Calendar className="w-3 h-3 text-brass" />{formatArabicDate(order.orderDate)}</span>
                                   <div className="flex items-center gap-3">
                                     {order.price !== undefined && (
                                       <span className="rounded-full bg-ink-deep px-3 py-1 font-[Fraunces] text-[12px] font-bold text-white">{formatCurrency(order.price)}</span>
