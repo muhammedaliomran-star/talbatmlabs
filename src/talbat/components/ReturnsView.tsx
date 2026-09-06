@@ -81,9 +81,8 @@ export const ReturnsView: React.FC<ReturnsViewProps> = ({
                 <span className="hidden sm:inline">تصدير Excel</span>
                 <span className="hidden sm:grid size-7 place-items-center rounded-full bg-ink-deep text-white transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><ArrowUpLeft className="size-3.5" strokeWidth={1.8} /></span>
               </button>
-              <button type="button" onClick={() => printReturns(filteredReturns)} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-charcoal ring-1 ring-line size-11 sm:size-auto sm:px-5 sm:py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" title="طباعة" aria-label="طباعة">
+              <button type="button" onClick={() => printReturns(filteredReturns)} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-charcoal ring-1 ring-line size-11 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]" title="طباعة" aria-label="طباعة">
                 <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
-                <span className="hidden sm:inline">طباعة</span>
               </button>
               <button type="button" onClick={onOpenNewReturn} className="group inline-flex min-w-0 flex-1 sm:flex-none items-center justify-center gap-2 rounded-full bg-late hover:bg-late/90 text-white h-11 pl-2 pr-4 text-[13.5px] sm:text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]">
                 <span className="truncate">تسجيل مرتجع جديد</span>
