@@ -87,6 +87,16 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
                 <span className="hidden sm:inline">تصدير Excel</span>
                 <span className="hidden sm:grid size-7 place-items-center rounded-full bg-ink-deep text-white transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><ArrowUpLeft className="size-3.5" strokeWidth={1.8} /></span>
               </button>
+              {/* Symbol-only export for supplier accounts */}
+              <button
+                type="button"
+                onClick={() => exportSupplierAccountsToCSV(filteredSuppliers, orders, returns)}
+                className="group inline-flex shrink-0 items-center justify-center rounded-full bg-paper hover:bg-paper-alt text-ink ring-1 ring-line size-11 sm:size-auto sm:px-5 sm:py-2.5 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+                title="تصدير حسابات الموردين"
+                aria-label="تصدير حسابات الموردين"
+              >
+                <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} />
+              </button>
               <button
                 type="button"
                 onClick={() => printSuppliers(filteredSuppliers, orders, returns)}

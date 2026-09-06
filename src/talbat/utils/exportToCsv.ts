@@ -112,6 +112,46 @@ export function exportReturnsToCSV(returns: ReturnItem[], filename = 'دفتر_�
 }
 
 /**
+ * Exports supplier account ledger to Excel/CSV with balance and transaction summary.
+ */
+export function exportSupplierAccountsToCSV(suppliers: Supplier[], orders: Order[], returns: ReturnItem[], filename = 'حسابات_الموردين_المحلة.csv') {
+  const headers = [
+    'اسم المورد',
+    'العنوان',
+    'الهاتف',
+    'الرصيد المستحق',
+    'إجمالي المشتريات',
+    'إجمالي المرتجعات',
+    'صافي الرصيد',
+    'ملاحظات',
+  ];
+
+  const escapeCSV = (val: unknown) => {
+    if (val === undefined || val === null) return '""';
+    return `"${String(val).replace(/"/g, '""')}"';
+  };
+
+  const rows = suppliers.map((s) => {
+    const sOrders = orders.filter((o) => o.supplierId === s.id);
+    const sReturns = returns.filter((r) => r.supplierId === s.id);
+    const totalPurchases = sOrders.reduce((sum, o) => sum + (o.price || 0), 0);
+    const totalReturns = sReturns.reduce((sum, r) => sum + (r.price || 0), 0);
+    const balance = totalPurchases - totalReturns;
+    return [
+      escapeCSV(s.name),
+      escapeCSV(s.address || '-'),
+      escapeCSV(s.phone || '-'),
+      escapeCSV(totalPurchases),
+      escapeCSV(totalReturns),
+      escapeCSV(balance),
+      escapeCSV(s.notes || ''),
+    ].join(',');
+  });
+
+  downloadCSV([headers.join(','), ...rows].join('\r\n'), filename);
+}
+
+/**
  * Exports the supplier directory with order/return totals.
  */
 export function exportSuppliersToCSV(
