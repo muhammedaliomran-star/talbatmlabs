@@ -113,41 +113,45 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-xs font-tajawal animate-in fade-in duration-200 sm:items-center sm:p-4">
-      <div className="flex max-h-[94dvh] w-full max-w-md flex-col overflow-hidden rounded-t-[22px] border border-line bg-white text-right shadow-2xl sm:max-h-[calc(100dvh-2rem)] sm:rounded-[22px]">
+      <div className="flex max-h-[94dvh] w-full max-w-md flex-col overflow-hidden rounded-t-[26px] border border-line bg-white text-right shadow-2xl sm:max-h-[calc(100dvh-2rem)] sm:rounded-[22px]">
+        {/* Grab handle (mobile sheet) */}
+        <div className="sm:hidden bg-ink pt-2.5 pb-1 flex justify-center">
+          <span className="h-1 w-10 rounded-full bg-white/25" />
+        </div>
         {/* Header */}
-        <div className="bg-ink text-white px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-white font-cairo font-bold text-base shadow-sm ${
-                currentUser.role === 'owner'
-                  ? 'bg-brass'
-                  : currentUser.role === 'buyer'
-                  ? 'bg-done'
-                  : 'bg-ink-light'
-              }`}
-            >
-              {currentUser.name.charAt(0)}
-            </div>
-            <div>
-              <h3 className="font-bold font-cairo text-sm text-white">
-                الملف التعريفي وحساب المتجر
-              </h3>
-              <p className="text-[11px] text-ink-muted">
-                {currentUser.storeName}
-              </p>
-            </div>
+        <div className="bg-ink text-white px-4 sm:px-5 py-3.5 sm:py-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5">
+          <div
+            className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center text-white font-cairo font-bold text-base shadow-sm ${
+              currentUser.role === 'owner'
+                ? 'bg-brass'
+                : currentUser.role === 'buyer'
+                ? 'bg-done'
+                : 'bg-ink-light'
+            }`}
+          >
+            {currentUser.name.charAt(0)}
+          </div>
+          <div className="min-w-0">
+            <h3 className="font-bold font-cairo text-[13.5px] sm:text-sm text-white truncate">
+              الملف التعريفي وحساب المتجر
+            </h3>
+            <p className="text-[11px] text-ink-muted truncate">
+              {currentUser.storeName}
+            </p>
           </div>
 
           <button type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-ink-muted hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="إغلاق"
+            className="grid size-10 -mr-1.5 shrink-0 place-items-center rounded-full text-ink-muted hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" strokeWidth={1.5} />
           </button>
         </div>
 
         {/* Content */}
-        <form onSubmit={handleSave} className="space-y-4 overflow-y-auto p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-5">
+        <form onSubmit={handleSave} className="space-y-4 overflow-y-auto p-4 pb-4 sm:p-5">
+
           {errorMsg && (
             <div className="p-3 bg-late-soft border border-late-soft rounded-xl text-xs text-late flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -163,33 +167,35 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
           )}
 
           <div>
-            <label className="block text-xs font-bold text-ink mb-1">
+            <label className="block text-xs font-bold text-ink mb-1.5">
               اسم المستخدم / المسؤول
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
+              className="w-full px-3.5 h-11 sm:h-auto sm:py-2 text-base sm:text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/20 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-ink mb-1">
+            <label className="block text-xs font-bold text-ink mb-1.5">
               اسم المتجر / البوتيك
             </label>
             <input
               type="text"
               value={storeName}
               onChange={(e) => setStoreName(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
+              className="w-full px-3.5 h-11 sm:h-auto sm:py-2 text-base sm:text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/20 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
             />
           </div>
 
+
           {/* هوية المتجر */}
-          <div className="rounded-2xl border border-line bg-paper-warm/60 p-3 space-y-3">
+          <div className="rounded-[1.4rem] bg-ink/[0.05] p-1.5 ring-1 ring-line/60">
+            <div className="rounded-[calc(1.4rem-0.375rem)] bg-paper-warm/70 p-3.5 space-y-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <div className="flex items-center gap-1.5">
-              <ImageIcon className="w-3.5 h-3.5 text-brass" />
+              <ImageIcon className="w-3.5 h-3.5 text-brass" strokeWidth={1.5} />
               <span className="text-xs font-bold text-ink">هوية المتجر</span>
             </div>
 
@@ -198,7 +204,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 <label className="block text-[11px] font-bold text-copy-muted">
                   صورة العلامة
                 </label>
-                <label className="flex h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-line bg-white/70 text-[11px] text-copy-muted hover:border-brass">
+                <label className="flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-line bg-white/70 text-[11px] text-copy-muted transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass active:scale-[0.98]">
                   {brandPreview ? (
                     <img src={brandPreview} alt="صورة العلامة" className="h-full w-full object-cover" />
                   ) : (
@@ -217,7 +223,7 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 <label className="block text-[11px] font-bold text-copy-muted">
                   شعار صغير (الزاوية)
                 </label>
-                <label className="flex h-20 cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-line bg-white/70 text-[11px] text-copy-muted hover:border-brass">
+                <label className="flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-line bg-white/70 text-[11px] text-copy-muted transition-colors duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-brass active:scale-[0.98]">
                   {logoPreview ? (
                     <img src={logoPreview} alt="شعار المتجر" className="h-14 w-14 rounded-full object-cover" />
                   ) : (
@@ -232,56 +238,62 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 </label>
               </div>
             </div>
-            <p className="text-[10px] text-copy-muted">
+            <p className="text-[10.5px] leading-5 text-copy-muted">
               يظهر الشعار في زاوية الشريط العلوي، وتظهر صورة العلامة في ملف المتجر.
             </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-2">
             <div>
-              <label className="block text-xs font-bold text-ink mb-1">
+              <label className="block text-xs font-bold text-ink mb-1.5">
                 رقم الهاتف
               </label>
               <input
                 type="tel"
+                inputMode="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass"
+                className="w-full px-3.5 h-11 sm:h-auto sm:py-2 text-base sm:text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/20 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-ink mb-1">
+              <label className="block text-xs font-bold text-ink mb-1.5">
                 رمز PIN السريع (4 أرقام)
               </label>
               <input
                 type="text"
+                inputMode="numeric"
                 maxLength={4}
                 value={pinCode}
                 onChange={(e) => setPinCode(e.target.value.replace(/\D/g, ''))}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-1 focus:ring-brass text-center font-bold dir-ltr"
+                className="w-full px-3.5 h-11 sm:h-auto sm:py-2 text-base sm:text-xs rounded-xl border border-line bg-paper focus:bg-white focus:outline-none focus:border-brass focus:ring-2 focus:ring-brass/20 text-center font-bold tracking-[0.4em] dir-ltr transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-ink mb-1">
+            <label className="block text-xs font-bold text-ink mb-1.5">
               البريد الإلكتروني (ثابت)
             </label>
             <input
               type="email"
               disabled
               value={currentUser.email}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-line-soft bg-paper-alt/50 text-copy-muted cursor-not-allowed dir-ltr text-right"
+              className="w-full px-3.5 h-11 sm:h-auto sm:py-2 text-base sm:text-xs rounded-xl border border-line-soft bg-paper-alt/50 text-copy-muted cursor-not-allowed dir-ltr text-right"
             />
           </div>
 
-          <section className="rounded-2xl border border-line bg-paper-warm/60 p-3">
+
+          <section className="rounded-[1.4rem] bg-ink/[0.05] p-1.5 ring-1 ring-line/60">
+            <div className="rounded-[calc(1.4rem-0.375rem)] bg-paper-warm/70 p-3.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
             <div className="flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-start gap-2">
                 <span className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-brass/15 text-brass">
-                  <HardDriveDownload className="size-4" />
+                  <HardDriveDownload className="size-4" strokeWidth={1.5} />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h4 className="text-xs font-bold text-ink">النسخ الاحتياطي والبيانات</h4>
                   <p className="mt-0.5 text-[11px] leading-relaxed text-copy-muted">
                     احفظ نسخة من سجلات الدفتر أو استرجع نسخة سابقة.
@@ -294,25 +306,26 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   onClose();
                   onOpenBackup();
                 }}
-                className="shrink-0 rounded-xl bg-ink px-3 py-2 text-[11px] font-bold text-white transition-colors hover:bg-ink-light"
+                className="h-10 shrink-0 rounded-xl bg-ink px-4 text-[12px] font-bold text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink-light active:scale-[0.97]"
               >
                 فتح
               </button>
             </div>
+            </div>
           </section>
 
           {/* Quick lock & logout buttons */}
-          <div className="pt-2 border-t border-paper-alt flex items-center justify-between gap-2">
+          <div className="pt-2 border-t border-paper-alt grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => {
                 onClose();
                 onLockScreen();
               }}
-              className="px-3 py-2 rounded-xl border border-line bg-paper-warm hover:bg-paper-alt text-xs font-bold text-ink flex items-center gap-1.5 transition-colors"
+              className="h-11 px-3 rounded-xl border border-line bg-paper-warm hover:bg-paper-alt text-[12px] font-bold text-ink flex items-center justify-center gap-1.5 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97]"
             >
-              <Lock className="w-3.5 h-3.5 text-brass" />
-              <span>قفل الشاشة مؤقتاً</span>
+              <Lock className="w-3.5 h-3.5 shrink-0 text-brass" strokeWidth={1.5} />
+              <span className="truncate">قفل الشاشة مؤقتاً</span>
             </button>
 
             <button
@@ -321,29 +334,30 @@ export const UserProfileModal: React.FC<UserProfileModalProps> = ({
                 onClose();
                 onLogout();
               }}
-              className="px-3 py-2 rounded-xl border border-late-soft bg-late-soft hover:bg-late-soft text-xs font-bold text-late flex items-center gap-1.5 transition-colors"
+              className="h-11 px-3 rounded-xl border border-late-soft bg-late-soft hover:bg-late-soft text-[12px] font-bold text-late flex items-center justify-center gap-1.5 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97]"
             >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>تسجيل الخروج</span>
+              <LogOut className="w-3.5 h-3.5 shrink-0" strokeWidth={1.5} />
+              <span className="truncate">تسجيل الخروج</span>
             </button>
           </div>
 
-          {/* Footer Save */}
-          <div className="pt-3 flex items-center justify-end gap-2">
+          {/* Footer Save — sticky on mobile */}
+          <div className="sticky bottom-0 -mx-4 sm:-mx-5 -mb-4 sm:-mb-5 mt-2 border-t border-line/60 bg-white/95 backdrop-blur-sm px-4 sm:px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 sm:flex sm:justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-bold text-copy-muted hover:text-ink rounded-xl hover:bg-paper"
+              className="h-11 px-4 text-[13px] font-bold text-copy-muted hover:text-ink rounded-xl hover:bg-paper transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97]"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold text-white bg-brass hover:bg-brass rounded-xl shadow-xs transition-colors"
+              className="h-11 w-full sm:w-auto px-6 text-[13px] font-bold text-white bg-brass hover:bg-brass rounded-xl shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97]"
             >
               حفظ التعديلات
             </button>
           </div>
+
         </form>
       </div>
     </div>
