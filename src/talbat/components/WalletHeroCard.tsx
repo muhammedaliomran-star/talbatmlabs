@@ -57,23 +57,23 @@ export const WalletHeroCard: React.FC<WalletHeroCardProps> = ({
           <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(var(--brass-light)_1px,transparent_1px)] [background-size:16px_16px]" />
 
           {/* Top Row: Store Branding & Chip */}
-          <div className="relative z-10 flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-brass-light to-brass flex items-center justify-center font-extrabold text-on-ink font-cairo shadow-sm text-sm">
+          <div className="relative z-10 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 mb-4">
+            <div className="flex min-w-0 items-center gap-2">
+              <div className="w-8 h-8 shrink-0 rounded-xl bg-gradient-to-br from-brass-light to-brass flex items-center justify-center font-extrabold text-on-ink font-cairo shadow-sm text-sm">
                 د
               </div>
-              <div>
-                <span className="text-xs font-bold tracking-wide text-line-soft font-cairo block">
+              <div className="min-w-0">
+                <span className="truncate text-xs font-bold tracking-wide text-line-soft font-cairo block">
                   دفتر ملابس • الحسابات
                 </span>
-                <span className="text-xs font-medium text-ink-muted">
+                <span className="truncate block text-[11px] font-medium text-ink-muted">
                   المحفظة والسيولة النقدية
                 </span>
               </div>
             </div>
 
             {/* Simulated Gold EMV Chip & Contactless Waves */}
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
               <svg className="w-6 h-6 text-brass-light/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M8.5 16.5a5 5 0 0 1 0-9" strokeLinecap="round" />
                 <path d="M12 19a8.5 8.5 0 0 1 0-14" strokeLinecap="round" />
