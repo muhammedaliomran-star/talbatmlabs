@@ -50,10 +50,10 @@ export const WalletQuickActions: React.FC<WalletQuickActionsProps> = ({
               variant="ghost"
               key={act.id}
               onClick={act.onClick}
-              className={`group h-32 flex-col rounded-[1.4rem] p-3 ring-1 duration-700 motion-spring hover:-translate-y-1 sm:h-36 ${act.color} ${act.border}`}
+              className={`group h-24 flex-col rounded-[1.2rem] p-3 ring-1 duration-700 motion-spring hover:-translate-y-1 sm:h-36 sm:rounded-[1.4rem] ${act.color} ${act.border}`}
             >
               <div className="relative mb-1 sm:mb-1.5">
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105 ${
+                <div className={`w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform duration-500 motion-spring group-hover:-translate-y-px group-hover:translate-x-1 group-hover:scale-105 ${
                   act.highlight ? 'bg-canvas/10' : 'bg-current/10'
                 }`}>
                   <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${act.iconColor}`} />

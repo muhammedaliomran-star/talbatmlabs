@@ -596,7 +596,6 @@ export default function App() {
           currentUser={currentUser}
           onUpdateUser={handleUpdateUser}
           onLogout={handleLogout}
-          onLockScreen={handleLogout}
           onOpenBackup={() => setIsBackupModalOpen(true)}
         />
       )}

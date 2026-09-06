@@ -1,4 +1,4 @@
-import { Order, ReturnItem } from '../types';
+import { Order, ReturnItem, Supplier } from '../types';
 import { formatArabicDate } from './helpers';
 
 /**
@@ -109,4 +109,49 @@ export function exportReturnsToCSV(returns: ReturnItem[], filename = 'دفتر_�
 
   const csvContent = [headers.join(','), ...rows].join('\r\n');
   downloadCSV(csvContent, filename);
+}
+
+/**
+ * Exports the supplier directory with order/return totals.
+ */
+export function exportSuppliersToCSV(
+  suppliers: Supplier[],
+  orders: Order[],
+  returns: ReturnItem[],
+  filename = 'دليل_الموردين.csv'
+) {
+  const headers = [
+    'اسم المورد',
+    'العنوان',
+    'الهاتف',
+    'عدد الطلبات',
+    'طلبات معلّقة',
+    'قيمة الطلبات',
+    'عدد المرتجعات',
+    'قيمة المرتجعات',
+    'ملاحظات',
+  ];
+
+  const escapeCSV = (val: unknown) => {
+    if (val === undefined || val === null) return '""';
+    return `"${String(val).replace(/"/g, '""')}"`;
+  };
+
+  const rows = suppliers.map((s) => {
+    const sOrders = orders.filter((o) => o.supplierId === s.id);
+    const sReturns = returns.filter((r) => r.supplierId === s.id);
+    return [
+      escapeCSV(s.name),
+      escapeCSV(s.address || '-'),
+      escapeCSV(s.phone || '-'),
+      escapeCSV(sOrders.length),
+      escapeCSV(sOrders.filter((o) => o.status === 'pending').length),
+      escapeCSV(sOrders.reduce((sum, o) => sum + (o.price || 0), 0)),
+      escapeCSV(sReturns.length),
+      escapeCSV(sReturns.reduce((sum, r) => sum + (r.price || 0), 0)),
+      escapeCSV(s.notes || ''),
+    ].join(',');
+  });
+
+  downloadCSV([headers.join(','), ...rows].join('\r\n'), filename);
 }

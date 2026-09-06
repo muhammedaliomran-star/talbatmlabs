@@ -50,11 +50,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="grain-overlay relative bg-paper text-charcoal">
       {/* Editorial Head - Z-Axis Cascade Intro */}
-      <div data-reveal className="reveal-section mb-6">
-        <h1 className="font-palestine text-[32px] font-[400] leading-[0.9] tracking-[-0.03em] text-charcoal sm:text-[42px] lg:text-[52px]">
+      <div data-reveal className="reveal-section mb-5 sm:mb-6">
+        <h1 className="font-palestine text-[26px] font-[400] leading-[1.15] tracking-[-0.02em] text-charcoal sm:text-[42px] sm:leading-[0.95] lg:text-[52px]">
           نظرة <span className="font-palestine font-[400] not-italic text-brass">اليوم</span> على الدفتر
         </h1>
-        <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted">
+        <p className="mt-2.5 max-w-[560px] text-[12.5px] leading-5 text-copy-muted sm:mt-3 sm:text-[13px] sm:leading-6">
           محفظة حيّة، مؤشرات متراكبة، ونشاط لحظي — كل شيء مصمم كطبقات ورقية فوق بعضها.
         </p>
       </div>
@@ -68,7 +68,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         {/* Quick Actions - overlapping cascade, elevated */}
         <div data-reveal className="reveal-section lg:col-span-4 lg:rotate-[0.9deg] lg:-ml-3 lg:mt-6 lg:hover:rotate-[0deg] lg:hover:ml-0 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform" style={{ transitionDelay: '140ms' }}>
-          <div className="rounded-[2rem] bg-canvas p-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_16px_40px_-20px_rgba(26,18,7,0.12)] ring-1 ring-line/50">
+          <div className="rounded-[1.5rem] bg-canvas p-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_16px_40px_-20px_rgba(26,18,7,0.12)] ring-1 ring-line/50 sm:rounded-[2rem] sm:p-1.5">
               <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-brass">
                 <Sparkles className="size-3" strokeWidth={1.6} /> إجراءات سريعة
               </div>
