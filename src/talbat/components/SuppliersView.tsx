@@ -100,12 +100,11 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
               <button
                 type="button"
                 onClick={() => printSuppliers(filteredSuppliers, orders, returns)}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-charcoal ring-1 ring-line size-11 sm:size-auto sm:px-5 sm:py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-charcoal ring-1 ring-line size-11 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
                 title="طباعة"
                 aria-label="طباعة"
               >
                 <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
-                <span className="hidden sm:inline">طباعة</span>
               </button>
               <button
                 type="button"

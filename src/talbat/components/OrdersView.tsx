@@ -427,10 +427,10 @@ export const OrdersView: React.FC<OrdersViewProps> = ({
             <button type="button" onClick={() => exportOrdersToCSV(filteredOrders)} className="grid size-9 place-items-center rounded-full bg-paper ring-1 ring-line hover:bg-canvas text-done transition-colors" title="تصدير Excel">
               <FileSpreadsheet className="w-4 h-4" strokeWidth={1.4} />
             </button>
-            <button type="button" onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2.5 text-xs font-bold text-charcoal ring-1 ring-line transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-canvas">
+            <button type="button" onClick={() => printOrders(filteredOrders, { storeName, filterLabel })} className="grid size-9 place-items-center rounded-full bg-paper ring-1 ring-line hover:bg-canvas transition-colors" title="طباعة" aria-label="طباعة">
               <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
-              <span>طباعة</span>
             </button>
+
 
             <button type="button" onClick={onOpenNewOrder} className="group ml-1 inline-flex items-center gap-2 rounded-full bg-ink-deep py-2 pl-5 pr-2 text-xs font-bold text-white shadow-[0_12px_40px_-18px_rgba(26,18,7,0.45)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98]">
               <span>طلب جديد</span>
