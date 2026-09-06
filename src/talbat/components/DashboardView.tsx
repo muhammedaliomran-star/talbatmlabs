@@ -50,11 +50,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="grain-overlay relative bg-paper text-charcoal">
       {/* Editorial Head - Z-Axis Cascade Intro */}
-      <div data-reveal className="reveal-section mb-6">
-        <h1 className="font-palestine text-[32px] font-[400] leading-[0.9] tracking-[-0.03em] text-charcoal sm:text-[42px] lg:text-[52px]">
+      <div data-reveal className="reveal-section mb-5 sm:mb-6">
+        <h1 className="font-palestine text-[26px] font-[400] leading-[1.15] tracking-[-0.02em] text-charcoal sm:text-[42px] sm:leading-[0.95] lg:text-[52px]">
           نظرة <span className="font-palestine font-[400] not-italic text-brass">اليوم</span> على الدفتر
         </h1>
-        <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-copy-muted">
+        <p className="mt-2.5 max-w-[560px] text-[12.5px] leading-5 text-copy-muted sm:mt-3 sm:text-[13px] sm:leading-6">
           محفظة حيّة، مؤشرات متراكبة، ونشاط لحظي — كل شيء مصمم كطبقات ورقية فوق بعضها.
         </p>
       </div>
