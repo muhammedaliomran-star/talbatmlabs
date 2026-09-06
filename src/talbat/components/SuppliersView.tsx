@@ -2,10 +2,12 @@
 // Intentional patterns whitelisted: double-bezel p-2 > p-1.5 (L87,160,230), grain-overlay, Fraunces 28px numbers, brass ledger. Do not flag as nested.
 // See docs/impeccable-suppliers-allowlist.md
 import React, { useState } from 'react';
-import { Plus, Store, MapPin, Phone, Edit2, Trash2, ShoppingBag, RotateCcw, Search, ArrowUpLeft, Sparkles, Calendar } from 'lucide-react';
+import { Plus, Store, MapPin, Phone, Edit2, Trash2, ShoppingBag, RotateCcw, Search, ArrowUpLeft, Sparkles, Calendar, FileSpreadsheet, Printer } from 'lucide-react';
 import { Order, ReturnItem, Supplier } from '../types';
 import { formatArabicDate, formatCurrency } from '../utils/helpers';
 import { StatusBadge } from './StatusBadge';
+import { exportSuppliersToCSV } from '../utils/exportToCsv';
+import { printSuppliers } from '../utils/printSuppliers';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 interface SuppliersViewProps {
@@ -72,15 +74,39 @@ export const SuppliersView: React.FC<SuppliersViewProps> = ({
           </div>
 
           {/* Island CTA - Button-in-Button */}
-          <button type="button"
-            onClick={onOpenNewSupplier}
-            className="group inline-flex items-center gap-3 self-start rounded-full bg-ink-deep py-2 pl-6 pr-2 text-[13px] font-bold text-white shadow-[0_18px_60px_-28px_rgba(26,18,7,0.55)] ring-1 ring-line/10 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-ink active:scale-[0.98] lg:self-auto"
-          >
-            <span className="tracking-wide">إضافة مورد جديد</span>
-            <span className="grid size-8 place-items-center rounded-full bg-canvas text-charcoal transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-active:scale-[0.96]">
-              <Plus className="size-4" strokeWidth={1.75} />
-            </span>
-          </button>
+          <div className="rounded-[1.6rem] sm:rounded-[2rem] bg-ink/[0.06] p-1.5 sm:p-2 ring-1 ring-line/50 shrink-0 self-start lg:self-auto">
+            <div className="rounded-[calc(1.6rem-0.375rem)] sm:rounded-[calc(2rem-0.5rem)] bg-canvas p-1.5 flex items-center gap-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
+              <button
+                type="button"
+                onClick={() => exportSuppliersToCSV(filteredSuppliers, orders, returns)}
+                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-ink ring-1 ring-line size-11 sm:size-auto sm:px-5 sm:py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+                title="تصدير Excel"
+                aria-label="تصدير Excel"
+              >
+                <FileSpreadsheet className="w-4 h-4 text-done" strokeWidth={1.5} />
+                <span className="hidden sm:inline">تصدير Excel</span>
+                <span className="hidden sm:grid size-7 place-items-center rounded-full bg-ink-deep text-white transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><ArrowUpLeft className="size-3.5" strokeWidth={1.8} /></span>
+              </button>
+              <button
+                type="button"
+                onClick={() => printSuppliers(filteredSuppliers, orders, returns)}
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-paper hover:bg-paper-alt text-charcoal ring-1 ring-line size-11 sm:size-auto sm:px-5 sm:py-2.5 text-sm font-bold shadow-2xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+                title="طباعة"
+                aria-label="طباعة"
+              >
+                <Printer className="w-4 h-4 text-brass" strokeWidth={1.4} />
+                <span className="hidden sm:inline">طباعة</span>
+              </button>
+              <button
+                type="button"
+                onClick={onOpenNewSupplier}
+                className="group inline-flex min-w-0 flex-1 sm:flex-none items-center justify-center gap-2 rounded-full bg-ink-deep hover:bg-ink text-white h-11 pl-2 pr-4 text-[13.5px] sm:text-sm font-bold shadow-xs transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]"
+              >
+                <span className="truncate tracking-wide">إضافة مورد جديد</span>
+                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-white/15 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:scale-105"><Plus className="size-3.5" strokeWidth={1.8} /></span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Asymmetrical Bento Grid */}
