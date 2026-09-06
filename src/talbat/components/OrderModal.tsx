@@ -312,7 +312,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                 <button
                   type="button"
                   onClick={handleCreateSupplier}
-                  className="min-h-10 px-3 py-2 bg-brass text-white text-xs font-bold rounded-md hover:bg-brass"
+                  className="min-h-[44px] px-3 py-2 bg-brass text-white text-xs font-bold rounded-md hover:bg-brass"
                 >
                   إضافة
                 </button>
@@ -361,17 +361,17 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   <Layers className="w-3.5 h-3.5 text-brass" />
                   <span>المقاس (Size)</span>
                 </label>
-                <div className="flex flex-wrap gap-1.5 mb-1.5">
+<div className="flex flex-wrap gap-1.5 mb-1.5">
                   {(showAllSizes ? COMMON_SIZES : COMMON_SIZES.slice(0, 6)).map((s) => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setSize(s)}
-                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[44px] ${
                         size === s
                           ? 'bg-ink-deep text-white ring-ink-deep'
                           : 'bg-white text-ink ring-line hover:bg-pending-soft'
-                      }`}
+                        }`}
                     >
                       {s}
                     </button>
@@ -432,17 +432,17 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   <Palette className="w-3.5 h-3.5 text-brass" />
                   <span>اللون الأساسي المطلوب</span>
                 </label>
-                <div className="flex flex-wrap gap-1 mb-1.5">
+<div className="flex flex-wrap gap-1 mb-1.5">
                   {COMMON_COLORS.slice(0, 6).map((c) => (
                     <button
                       key={c}
                       type="button"
                       onClick={() => setColor(c)}
-                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[44px] ${
                         color === c
                           ? 'bg-ink-deep text-white ring-ink-deep'
                           : 'bg-white text-ink ring-line hover:bg-pending-soft'
-                      }`}
+                        }`}
                     >
                       {c}
                     </button>
@@ -467,17 +467,17 @@ export const OrderModal: React.FC<OrderModalProps> = ({
                   </label>
                   <span className="text-[10px] text-pending font-semibold">إذا لم يتوفر الأساسي</span>
                 </div>
-                <div className="flex flex-wrap gap-1 mb-1.5">
+<div className="flex flex-wrap gap-1 mb-1.5">
                   {COMMON_COLORS.slice(0, 6).map((c) => (
                     <button
                       key={c}
                       type="button"
                       onClick={() => setAlternativeColor(c)}
-                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[32px] ${
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-full border-0 ring-1 transition-colors min-h-[44px] ${
                         alternativeColor === c
                           ? 'bg-brass text-white ring-brass'
                           : 'bg-white text-ink ring-line hover:bg-pending-soft'
-                      }`}
+                        }`}
                     >
                       {c}
                     </button>
@@ -566,13 +566,13 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="min-h-10 px-4 py-2 text-xs font-bold text-copy-muted hover:bg-paper rounded-[8px]"
+              className="min-h-[44px] px-4 py-2 text-xs font-bold text-copy-muted hover:bg-paper rounded-[8px]"
             >
               إلغاء
             </button>
             <button
               type="submit"
-              className="min-h-11 px-5 py-2.5 bg-ink-deep hover:bg-ink text-white text-xs sm:px-6 sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
+              className="min-h-[44px] px-5 py-2.5 bg-ink-deep hover:bg-ink text-white text-xs sm:px-6 sm:text-sm font-bold rounded-[9px] shadow-sm transition-all flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-4 h-4 text-brass-light" />
               <span>{initialOrder ? 'حفظ التعديلات' : 'تسجيل الطلب'}</span>
