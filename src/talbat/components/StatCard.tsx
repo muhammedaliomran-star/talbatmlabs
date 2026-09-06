@@ -46,26 +46,26 @@ export const StatCard: React.FC<StatCardProps> = ({
   const colors = getColors();
 
   return (
-    <div className={`h-full rounded-[1.5rem] p-1.5 ring-1 ${colors.shell}`}>
+    <div className={`h-full rounded-[1.25rem] p-1 ring-1 sm:rounded-[1.5rem] sm:p-1.5 ${colors.shell}`}>
       <Button
         variant="ghost"
         onClick={onClick}
-        className={`h-full min-h-36 w-full items-stretch rounded-[calc(1.5rem-0.375rem)] bg-canvas p-4 text-right shadow-[inset_0_1px_0_var(--canvas)] hover:bg-canvas sm:p-5 ${onClick ? 'group hover:-translate-y-1' : 'cursor-default'}`}
+        className={`h-full min-h-28 w-full items-stretch rounded-[calc(1.25rem-0.25rem)] bg-canvas p-3.5 text-right shadow-[inset_0_1px_0_var(--canvas)] hover:bg-canvas sm:min-h-36 sm:rounded-[calc(1.5rem-0.375rem)] sm:p-5 ${onClick ? 'group hover:-translate-y-1' : 'cursor-default'}`}
       >
-      <div className="flex w-full flex-col">
-      <div className="flex items-center justify-between gap-3 mb-3">
-        <span className="text-[11px] font-bold tracking-wide text-copy-muted uppercase">{title}</span>
+      <div className="flex w-full min-w-0 flex-col">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 mb-2 sm:mb-3">
+        <span className="truncate text-[10.5px] font-bold tracking-wide text-copy-muted uppercase sm:text-[11px]">{title}</span>
         {icon && (
-          <div className={`grid size-9 place-items-center rounded-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105 will-change-transform ${colors.accent}`}>
+          <div className={`grid size-8 shrink-0 place-items-center rounded-full transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105 will-change-transform sm:size-9 ${colors.accent}`}>
             {icon}
           </div>
         )}
       </div>
-      <div className={`text-2xl sm:text-3xl font-extrabold font-cairo ${colors.numColor}`}>
+      <div className={`text-xl sm:text-3xl font-extrabold font-cairo ${colors.numColor}`}>
         {value}
       </div>
       {subtitle && (
-        <div className="mt-2 whitespace-normal text-xs font-medium text-copy-muted">{subtitle}</div>
+        <div className="mt-1.5 whitespace-normal text-[11px] font-medium leading-4 text-copy-muted sm:mt-2 sm:text-xs">{subtitle}</div>
       )}
       </div>
       </Button>
